@@ -4,9 +4,9 @@
 
 [中文](README.md) · [English template](en/) · [Chinese template](zh-CN/) · [Quick start](#quick-start)
 
-Harness-AI-Lite is a Markdown-based collaboration template for multiple agents. Copy the directories, fill in your project introduction, technology stack, and actual paths, then let the main agent coordinate analysis, implementation, review, rework, and delivery through a consistent protocol.
+Harness-AI-Lite is a lightweight harness engineering template inspired by GrillMe and Superpowers. Copy the directories, fill in your project introduction, technology stack, and actual paths, then let the main agent coordinate analysis, implementation, review, rework, and delivery through a consistent protocol.
 
-It is intended for individual developers and small teams that want to reuse their development conventions across projects, including workspaces where management documents, product code, and testing materials live on different disks. It is independent of any particular language, framework, or application type.
+It is intended for individual developers and small teams that want to reuse their development conventions across projects, including workspaces where management documents, product code, and testing materials live on different disks. It is independent of any particular language, framework, or application type. So far, it has only been tested with Codex; other tools have not yet been tested.
 
 ## The key idea: three independently located areas
 
@@ -30,6 +30,8 @@ Each archive includes its language edition, usage guide, and MIT license. Extrac
 ## Why this project exists
 
 Writing code is only one part of agent-assisted development. Requirements interpretation, task assignment, independent checks, recovery after failure, and the location of verification evidence also need explicit agreements.
+
+AI-assisted development can also leave all kinds of files in the working directory, making projects difficult for beginners to navigate. This template separates those materials into distinct areas.
 
 This project keeps those agreements in project files. Users can review the plan, executors receive clear boundaries, and new sessions can resume from existing records. It provides an inspectable collaboration protocol, rather than a background scheduling service or a guarantee that every model will follow every rule.
 
