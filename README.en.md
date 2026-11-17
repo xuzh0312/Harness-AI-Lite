@@ -1,0 +1,181 @@
+# Harness Engineering Template
+
+**Reusable engineering conventions for AI coding agents, from requirements discovery to independent acceptance.**
+
+[中文](README.md) · [English template](en/) · [Chinese template](zh-CN/) · [Quick start](#quick-start)
+
+Harness Engineering Template is a Markdown-based collaboration template for multiple agents. Copy the directories, fill in your project introduction, technology stack, and actual paths, then let the main agent coordinate analysis, implementation, review, rework, and delivery through a consistent protocol.
+
+It is intended for individual developers and small teams that want to reuse their development conventions across projects, including workspaces where management documents, product code, and testing materials live on different disks. It is independent of any particular language, framework, or application type.
+
+## Why this project exists
+
+Writing code is only one part of agent-assisted development. Requirements interpretation, task assignment, independent checks, recovery after failure, and the location of verification evidence also need explicit agreements.
+
+This project keeps those agreements in project files. Users can review the plan, executors receive clear boundaries, and new sessions can resume from existing records. It provides an inspectable collaboration protocol, rather than a background scheduling service or a guarantee that every model will follow every rule.
+
+## Core design
+
+| Design | How it works |
+| --- | --- |
+| Three separate work areas | harness stores management documents, project stores product implementation and explicitly authorized installers, and test stores testing and all non-product development materials |
+| Approval before implementation | The main agent clarifies requirements in rounds, maintains a specification and numbered plan, and presents both for approval of their current version pair |
+| Four subagent role types | architect analyzes, implementer implements, infra handles infrastructure, and reviewer reviews independently |
+| Two parallel review instances | reviewer-spec checks specification compliance; reviewer-quality checks implementation quality at per-item and final whole-feature review |
+| Evidence-based acceptance | Record actual checks, covered versions, and limitations; failed or unperformed mandatory checks cannot count as passing |
+| Resumable task records | Each feature retains one active plan containing approval, assignments, delivery summaries, rework, and next steps |
+| Reusable defect knowledge | Confirmed defects are deduplicated by root cause, with solutions, applicability, and verification evidence |
+| Central model configuration | Subagent models and reasoning effort come only from the selected copy's MODELS.md |
+
+## Workflow
+
+```mermaid
+flowchart TD
+    A[User describes a requirement] --> B[Fact-finding and requirements interview]
+    B --> C[Specification and numbered implementation plan]
+    C --> D{User approves current version pair}
+    D -->|Revise| B
+    D -->|Approve and authorize implementation| E[Implement current item and self-review]
+    E --> F[Two independent parallel reviewers]
+    F --> G{Main agent checks evidence}
+    G -->|Rework needed| E
+    G -->|Item accepted| H{More implementation items}
+    H -->|Yes| E
+    H -->|No| I[Two fresh reviewers assess the whole feature]
+    I --> J{Overall result}
+    J -->|Rework needed| E
+    J -->|Approved| K[Main agent accepts and archives]
+```
+
+The main agent owns conversation, dispatch, shared records, and final acceptance. Subagents do not spawn nested agents or directly edit shared progress and defect records.
+
+Both reviewers must return separate conclusions for the same final version. If concurrency is limited, run two independent instances sequentially instead of combining them. A missing report, required rework, or insufficient evidence prevents acceptance.
+
+## Repository structure
+
+```text
+.
+├── README.md
+├── README.en.md
+├── zh-CN/                    # Chinese edition
+│   ├── harness/              # Rules, skills, and project management documents
+│   ├── project/              # Product implementation and final installers
+│   └── test/                 # Tests, helper code, and development materials
+└── en/                       # English edition; same internal structure
+    ├── harness/
+    ├── project/
+    └── test/
+```
+
+Both editions use the same structure, skill names, role identifiers, model settings, and numbering conventions. Select one edition for a project instead of loading both as competing rule sources.
+
+| Area | Contents |
+| --- | --- |
+| harness | Project introduction, stack, rules, role and skill instructions, specifications, plans, decisions, defect knowledge, and concise log documents |
+| project/code | Delivered product implementation, runtime resources, and necessary project metadata, dependency manifests, and build configuration |
+| project/installpark | Final installers generated after an explicit packaging request or approval of a packaging plan item |
+| test | All non-product code, including tests, verification and packaging helpers, plus data, raw logs, screenshots, caches, intermediate artifacts, and non-installer output |
+
+Product source may be compiled into the application; source files need not ship unchanged in an installer. Tests and tools do not become product implementation merely because they participate in a build. Fixed tool directories conflicting with these boundaries must be reported for an explicit user decision.
+
+## Quick start
+
+### 1. Get the template and choose a language
+
+Download this repository, or fork it and obtain your own copy. Copy `harness`, `project`, and `test` from either `en/` or `zh-CN/` to the locations required by your project.
+
+The directories can live on different disks without a common parent. Give each project its own copy instead of sharing plans or defect records.
+
+### 2. Fill in three files
+
+Replace `@@` in the deployed copy, without writing real project details back into the clean template.
+
+| File | Information to provide |
+| --- | --- |
+| harness/README.md | Purpose, target users, feature scope, and constraints |
+| harness/ARCHITECTURE.md | Stack, target platform, delivery format, and architecture constraints |
+| harness/docs/paths.md | Actual absolute paths of harness, project, and test |
+
+Mark unresolved technology choices as pending and resolve them during planning. The main agent maintains specifications, plans, decisions, and defect records from actual tasks; users do not need to fill in every document beforehand.
+
+### 3. Configure the runtime
+
+The runtime needs Markdown reading, access to the three actual directories, independent subagent creation, and explicit model and reasoning-effort selection at creation time.
+
+Check that `harness/agents/MODELS.md` in your selected copy is supported by your runtime. Both reviewers use the reviewer configuration, with actual parameters recorded separately for each instance. The runtime controls the main agent's model.
+
+Roles and skills are explicitly read by the main agent rather than installed as native runtime configuration. Opening directories does not automatically load rules or grant access. Missing capabilities must be reported as blockers rather than treated as completed execution or review.
+
+### 4. Submit your first task
+
+Send this in conversation:
+
+```text
+Read <actual absolute harness path>/AGENTS.md
+and follow its protocol for this project task:
+
+<Describe the feature or problem in plain language>
+
+Existing plan: <None, or provide its identifier/path>
+```
+
+For example, ask for CSV export from an existing list. The agent investigates the implementation and clarifies export scope, format, and boundary behavior. Review the resulting specification, plan versions, and complete numbered checklist before explicitly confirming whether implementation should begin.
+
+Supply the entry and existing plan again in a new session. Planning-only requests do not start implementation automatically. Material changes need revised approval; typos and still-valid approvals do not require repeated confirmation. You can specify your preferred conversation language while using the English rules.
+
+## Bundled skills and roles
+
+| Skill | Purpose |
+| --- | --- |
+| [feature-plan](en/harness/.agents/skills/feature-plan/SKILL.md) | Requirements interviews, specifications, automatic plan numbering, user approval, and revisions |
+| [subagent-driven-execution](en/harness/.agents/skills/subagent-driven-execution/SKILL.md) | Item-by-item dispatch of approved plans, two reviewers, rework, resumption, and final acceptance |
+| [bug-detect](en/harness/.agents/skills/bug-detect/SKILL.md) | Searching defect history, deduplication by root cause, and solution verification |
+
+Skills live in `harness/.agents/skills/`. Global installation is unnecessary, and automatic runtime discovery is not guaranteed. Pure Q&A, minor wording changes, and fixes under existing contracts do not require a new feature specification and plan.
+
+| Role | Main responsibility |
+| --- | --- |
+| architect | Read-only investigation, options, boundaries, dependencies, and acceptance recommendations |
+| implementer | Assigned implementation, tests, self-review, and focused validation |
+| infra | Environment, dependency tools, builds, CI, and explicitly authorized packaging |
+| reviewer | Two independent read-only instances assessing specification compliance and implementation quality |
+
+See the [role protocol](en/harness/agents/README.md) for responsibilities, access boundaries, and handoff format. Agents are not created merely to include every role when no corresponding work is needed.
+
+## Documentation
+
+| Document | English | 中文 |
+| --- | --- | --- |
+| Runtime entry | [AGENTS.md](en/harness/AGENTS.md) | [AGENTS.md](zh-CN/harness/AGENTS.md) |
+| Architecture and file boundaries | [ARCHITECTURE.md](en/harness/ARCHITECTURE.md) | [ARCHITECTURE.md](zh-CN/harness/ARCHITECTURE.md) |
+| Model configuration | [MODELS.md](en/harness/agents/MODELS.md) | [MODELS.md](zh-CN/harness/agents/MODELS.md) |
+| Main-agent handbook | [Execution handbook](en/harness/docs/runbooks/main-agent.md) | [执行手册](zh-CN/harness/docs/runbooks/main-agent.md) |
+| Detailed task starter | [Task starter](en/harness/docs/runbooks/start-task-template.md) | [启动模板](zh-CN/harness/docs/runbooks/start-task-template.md) |
+| Requirements specification | [Specification template](en/harness/docs/specs/TEMPLATE.md) | [规格模板](zh-CN/harness/docs/specs/TEMPLATE.md) |
+| Execution plan | [Plan template](en/harness/docs/plans/TEMPLATE.md) | [计划模板](zh-CN/harness/docs/plans/TEMPLATE.md) |
+| Defect knowledge base | [bugs.md](en/harness/docs/bugs.md) | [bugs.md](zh-CN/harness/docs/bugs.md) |
+| Skills directory | [Skills](en/harness/.agents/skills/README.md) | [技能说明](zh-CN/harness/.agents/skills/README.md) |
+
+A feature's specification and plan share a PLAN identifier, while implementation items and acceptance scenarios have stable identifiers of their own. Active plans live in `docs/plans/active/`; completed or cancelled plans move to `completed/`. Specifications remain in place with updated links. Design decisions and actual technical debt belong in `docs/decisions/` and `docs/tech-debt.md`.
+
+Either reviewer invokes bug-detect when confirming a defect or rechecking a fix. The main agent deduplicates before writing `docs/bugs.md`. This is not an automatic exception collector: raw runtime logs and reproduction code belong in test, matching-root-cause recurrences update the original entry, and resolution requires verification.
+
+## Git and delivery conventions
+
+- The deployed harness and project/code use independent Git repositories; the three areas need no shared root repository.
+- Keep test and installers separate. Areas without Git can use pre-change snapshots and content comparisons as review evidence.
+- Initialization, commits, pushes, merges, and publication follow actual task authorization; acceptance does not automatically authorize them.
+- Normal builds, passing tests, and feature completion do not trigger packaging. Only an explicit request or approved packaging item produces a final installer.
+- Local checks do not replace target-environment acceptance. Delivery must state actual validation and remaining limitations.
+
+## Design references and contributions
+
+The interview approach draws on GrillMe, while item-by-item execution and review draw on Superpowers. The necessary protocols are included; neither plugin needs separate installation. This is an independently assembled template, not an official distribution of either project.
+
+Issues describing rule conflicts, deployment problems, or omissions are welcome, as are pull requests improving the template. Synchronize changes in rule meaning across both languages, keeping structure, model settings, and identifiers aligned. Do not contribute real project details, task history, or runtime artifacts.
+
+The template has undergone static checks, but not end-to-end validation of every runtime or stack. Check tool availability, permissions, and model-parameter support before use.
+
+## License
+
+This project uses the [MIT License](https://github.com/xuzh0312/harness-engineering-template/blob/main/LICENSE). Use, modification, distribution, and commercial use are permitted. Retain the copyright and license notices when copying or distributing the template or substantial portions of it; the LICENSE file governs the specific terms.
