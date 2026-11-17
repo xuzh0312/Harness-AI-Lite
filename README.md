@@ -1,12 +1,31 @@
-# Harness Engineering Template
+# Harness-AI-Lite
 
-**为 AI 编码 Agent 提供从需求澄清到独立验收的可复用工程规范。**
+**将 harness 管理区、project 软件区与 test 测试区独立开，让 AI 开发更方便，让项目保持干净整洁。**
 
 [English](README.en.md) · [中文模板](zh-CN/) · [英文模板](en/) · [快速开始](#快速开始)
 
-Harness Engineering Template 是一套以 Markdown 为核心的多 Agent 协作模板。你只需复制目录、填写项目介绍、技术栈和实际路径，就可以让主 Agent 按统一流程组织需求分析、实现、审查、返工和交付。
+Harness-AI-Lite 是一套以 Markdown 为核心的多 Agent 协作模板。你只需复制目录、填写项目介绍、技术栈和实际路径，就可以让主 Agent 按统一流程组织需求分析、实现、审查、返工和交付。
 
 它适合希望为不同项目复用开发规范的个人开发者和小型团队，尤其适合管理文档、软件代码及测试材料需要分盘存放的工作区。模板不绑定具体编程语言、框架或软件类型。
+
+## 最关键的设计：三个区域独立放置
+
+Harness-AI-Lite 的核心是将 **harness、project、test 三个区域独立开**。它们可以放在不同目录、不同磁盘，无需共同父目录；在 `harness/docs/paths.md` 中填写实际路径即可建立关联。
+
+- **harness 管理区**：集中保存规则、需求、计划、决策和简要日志，便于查看与恢复任务。
+- **project 软件区**：保存软件本体及明确授权生成的最终安装包，让产品目录保持清晰。
+- **test 测试区**：集中收纳测试代码、辅助工具、数据、原始日志、缓存和中间产物，避免开发杂物堆入产品目录。
+
+这种分离既方便用户按磁盘空间、备份和工作习惯安排目录，也让文档、软件与验证材料各有归处。仓库中的语言目录只是分发容器，部署后无需保留这一共同目录结构。
+
+## 下载
+
+| 版本 | ZIP 下载 |
+| --- | --- |
+| 中文版 | [Harness-AI-Lite-zh-CN.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN.zip) |
+| English | [Harness-AI-Lite-en.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en.zip) |
+
+每个压缩包包含对应语言模板、使用说明和 MIT 许可证。解压后，将其中的 `harness`、`project`、`test` 分别复制到所需位置，再填写项目介绍、技术栈和路径即可开始配置。压缩包发布在仓库的 `downloads/` 目录。
 
 ## 为什么做这个项目
 
@@ -82,7 +101,7 @@ flowchart TD
 
 ### 1. 获取模板并选择语言
 
-下载本仓库，或 Fork 后获取自己的副本。从 `zh-CN/` 或 `en/` 复制 `harness`、`project`、`test` 到实际项目所需位置。
+下载上方对应语言的 ZIP 并解压，或克隆 / Fork 本仓库。从 `zh-CN/` 或 `en/` 复制 `harness`、`project`、`test` 到实际项目所需位置。
 
 三个目录可以位于不同磁盘，无需共同父目录。每个项目使用自己的副本，不共用计划和错误记录。
 
@@ -178,4 +197,4 @@ Reviewer 确认缺陷或复验时调用 bug-detect，由主 Agent 去重后统�
 
 ## 许可证
 
-本项目采用 [MIT License](https://github.com/xuzh0312/harness-engineering-template/blob/main/LICENSE)。允许使用、修改、分发及商用，复制或分发本模板及其重要部分时须保留版权与许可证声明；具体条款以 LICENSE 为准。
+本项目采用 [MIT License](LICENSE)。允许使用、修改、分发及商用，复制或分发本模板及其重要部分时须保留版权与许可证声明；具体条款以 LICENSE 为准。

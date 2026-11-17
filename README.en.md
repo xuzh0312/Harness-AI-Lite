@@ -1,12 +1,31 @@
-# Harness Engineering Template
+# Harness-AI-Lite
 
-**Reusable engineering conventions for AI coding agents, from requirements discovery to independent acceptance.**
+**Keep harness management, product implementation, and testing in separate locations for convenient AI development and a clean project.**
 
 [中文](README.md) · [English template](en/) · [Chinese template](zh-CN/) · [Quick start](#quick-start)
 
-Harness Engineering Template is a Markdown-based collaboration template for multiple agents. Copy the directories, fill in your project introduction, technology stack, and actual paths, then let the main agent coordinate analysis, implementation, review, rework, and delivery through a consistent protocol.
+Harness-AI-Lite is a Markdown-based collaboration template for multiple agents. Copy the directories, fill in your project introduction, technology stack, and actual paths, then let the main agent coordinate analysis, implementation, review, rework, and delivery through a consistent protocol.
 
 It is intended for individual developers and small teams that want to reuse their development conventions across projects, including workspaces where management documents, product code, and testing materials live on different disks. It is independent of any particular language, framework, or application type.
+
+## The key idea: three independently located areas
+
+Harness-AI-Lite centers on **separating harness, project, and test**. Place them in different directories or on different disks, without a shared parent. Connect them by recording their actual paths in `harness/docs/paths.md`.
+
+- **harness management area**: Rules, requirements, plans, decisions, and concise logs stay together for easy inspection and task recovery.
+- **project product area**: Product implementation and explicitly authorized final installers keep the product directory focused.
+- **test testing area**: Tests, helper tools, data, raw logs, caches, and intermediate artifacts have their own home.
+
+This makes directory placement convenient for users' storage, backup, and working preferences while keeping management documents, product files, and verification materials organized. Language directories in this repository are distribution containers; deployed projects do not need to retain a shared directory structure.
+
+## Downloads
+
+| Edition | ZIP download |
+| --- | --- |
+| English | [Harness-AI-Lite-en.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en.zip) |
+| Chinese | [Harness-AI-Lite-zh-CN.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN.zip) |
+
+Each archive includes its language edition, usage guide, and MIT license. Extract it, copy the included `harness`, `project`, and `test` directories to your chosen locations, then fill in the project introduction, stack, and paths to configure your project. Archives are published in the repository's `downloads/` directory.
 
 ## Why this project exists
 
@@ -82,7 +101,7 @@ Product source may be compiled into the application; source files need not ship 
 
 ### 1. Get the template and choose a language
 
-Download this repository, or fork it and obtain your own copy. Copy `harness`, `project`, and `test` from either `en/` or `zh-CN/` to the locations required by your project.
+Download and extract the ZIP for your preferred language above, or clone / fork this repository. Copy `harness`, `project`, and `test` from either `en/` or `zh-CN/` to the locations required by your project.
 
 The directories can live on different disks without a common parent. Give each project its own copy instead of sharing plans or defect records.
 
@@ -178,4 +197,4 @@ The template has undergone static checks, but not end-to-end validation of every
 
 ## License
 
-This project uses the [MIT License](https://github.com/xuzh0312/harness-engineering-template/blob/main/LICENSE). Use, modification, distribution, and commercial use are permitted. Retain the copyright and license notices when copying or distributing the template or substantial portions of it; the LICENSE file governs the specific terms.
+This project uses the [MIT License](LICENSE). Use, modification, distribution, and commercial use are permitted. Retain the copyright and license notices when copying or distributing the template or substantial portions of it; the LICENSE file governs the specific terms.
