@@ -2,11 +2,11 @@
 
 **将 harness 管理区、project 软件区与 test 测试区独立开，让 AI 开发更方便，让项目保持干净整洁。**
 
-[English](README.en.md) · [中文模板](zh-CN/) · [英文模板](en/) · [快速开始](#快速开始)
+[English](README.en.md) · [Codex 中文](zh-CN-codex/) · [Codex English](en-codex/) · [DeepSeek Harness 中文](zh-CN-deepseekharness/) · [DeepSeek Harness English](en-deepseekharness/) · [快速开始](#快速开始)
 
 Harness-AI-Lite 是一套轻量化的Harness工程模板，开发时借鉴了Grill-Me和supperpowers的思路。你只需复制目录、填写项目介绍、技术栈和实际路径，就可以让主 Agent 按统一流程组织需求分析、实现、审查、返工和交付。
 
-它适合希望为不同项目复用开发规范的个人开发者和小型团队，尤其适合管理文档、软件代码及测试材料需要分盘存放的工作区。模板不绑定具体编程语言、框架或软件类型。但测试目前均在codex上进行，其它工具暂未进行测试。
+它适合希望为不同项目复用开发规范的个人开发者和小型团队，尤其适合管理文档、软件代码及测试材料需要分盘存放的工作区。模板不绑定具体编程语言、框架或软件类型。目前提供 Codex 和 DeepSeek Harness 两个版本，各含中英文模板。二者采用相同的工作流程和三域边界，差异在于运行器工具、模型路由及参数配置。已有测试在 Codex 上进行；DeepSeek Harness 版的端到端运行尚未验证。
 
 ## 最关键的设计：三个区域独立放置
 
@@ -22,10 +22,12 @@ Harness-AI-Lite 的核心是将 **harness、project、test 三个区域独立开
 
 | 版本 | ZIP 下载 |
 | --- | --- |
-| 中文版 | [Harness-AI-Lite-zh-CN.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN.zip) |
-| English | [Harness-AI-Lite-en.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en.zip) |
+| Codex 中文 | [Harness-AI-Lite-zh-CN-codex.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-codex.zip) |
+| Codex English | [Harness-AI-Lite-en-codex.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-codex.zip) |
+| DeepSeek Harness 中文 | [Harness-AI-Lite-zh-CN-deepseekharness.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness.zip) |
+| DeepSeek Harness English | [Harness-AI-Lite-en-deepseekharness.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-deepseekharness.zip) |
 
-每个压缩包包含对应语言模板、使用说明和 MIT 许可证。解压后，将其中的 `harness`、`project`、`test` 分别复制到所需位置，再填写项目介绍、技术栈和路径即可开始配置。压缩包发布在仓库的 `downloads/` 目录。
+每个压缩包包含对应运行器和语言的模板、使用说明和 MIT 许可证。解压后，将其中的 `harness`、`project`、`test` 分别复制到所需位置，再填写项目介绍、技术栈和路径即可开始配置。压缩包发布在仓库的 `downloads/` 目录。
 
 ## 为什么做这个项目
 
@@ -78,17 +80,14 @@ flowchart TD
 .
 ├── README.md
 ├── README.en.md
-├── zh-CN/                    # 中文版
-│   ├── harness/              # 规则、技能与项目管理文档
-│   ├── project/              # 软件本体与最终安装包
-│   └── test/                 # 测试、辅助代码和开发材料
-└── en/                       # 英文版，内部结构相同
-    ├── harness/
-    ├── project/
-    └── test/
+├── zh-CN-codex/
+├── en-codex/
+├── zh-CN-deepseekharness/
+└── en-deepseekharness/
+    # 每套均包含： harness/ + project/ + test/
 ```
 
-两版保留相同的文件结构、技能名、角色标识、模型参数和编号规则。选择其中一版用于项目，避免把两版同时作为规则来源。
+四套模板采用相同的文件结构、技能名、角色标识、编号规则和执行逻辑；同一运行器的中英文版保持模型配置一致。Codex 版使用 model 与 reasoning_effort；DeepSeek Harness 版另使用 provider 路由。每个项目只选择一套作为规则来源。
 
 | 区域 | 放什么 |
 | --- | --- |
@@ -101,9 +100,9 @@ flowchart TD
 
 ## 快速开始
 
-### 1. 获取模板并选择语言
+### 1. 获取模板并选择运行器和语言
 
-下载上方对应语言的 ZIP 并解压，或克隆 / Fork 本仓库。从 `zh-CN/` 或 `en/` 复制 `harness`、`project`、`test` 到实际项目所需位置。
+下载上方对应运行器和语言的 ZIP 并解压，或克隆 / Fork 本仓库。从 `zh-CN-codex/`、`en-codex/`、`zh-CN-deepseekharness/` 或 `en-deepseekharness/` 中选择一套，复制 `harness`、`project`、`test` 到实际项目所需位置。
 
 三个目录可以位于不同磁盘，无需共同父目录。每个项目使用自己的副本，不共用计划和错误记录。
 
@@ -123,7 +122,7 @@ flowchart TD
 
 运行器需要能够读取 Markdown、访问三个实际目录、创建独立子 Agent，并在创建时显式设置模型和推理深度。
 
-检查所选副本的 `harness/agents/MODELS.md` 是否适用于当前运行器。两个 Reviewer 共用 reviewer 配置，每个实例分别记录实际参数；主 Agent 的模型由运行器控制。
+检查所选副本的 `harness/agents/MODELS.md` 是否适用于当前运行器。DeepSeek Harness 版还需使用 `list_subagent_models` 核对路由，并显式传入 provider、model 和 reasoning_effort。两个 Reviewer 共用 reviewer 配置，每个实例分别记录实际参数；主 Agent 的模型由运行器控制。
 
 模板中的角色和技能通过主 Agent 显式读取，不是运行器的原生配置。打开多个工作区目录不等于自动加载规则或获得权限；缺少必要能力时应报告阻塞，不能假装执行或审查已经完成。
 
@@ -148,9 +147,9 @@ flowchart TD
 
 | 技能 | 作用 |
 | --- | --- |
-| [feature-plan](zh-CN/harness/.agents/skills/feature-plan/SKILL.md) | 逐轮需求访谈、规格书、自动编号计划、用户确认与修订 |
-| [subagent-driven-execution](zh-CN/harness/.agents/skills/subagent-driven-execution/SKILL.md) | 已批准计划的逐项派工、双 Reviewer、返工、恢复与最终验收 |
-| [bug-detect](zh-CN/harness/.agents/skills/bug-detect/SKILL.md) | 检索历史缺陷、按根因去重，以及复核修复方案 |
+| [feature-plan](zh-CN-codex/harness/.agents/skills/feature-plan/SKILL.md) | 逐轮需求访谈、规格书、自动编号计划、用户确认与修订 |
+| [subagent-driven-execution](zh-CN-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md) | 已批准计划的逐项派工、双 Reviewer、返工、恢复与最终验收 |
+| [bug-detect](zh-CN-codex/harness/.agents/skills/bug-detect/SKILL.md) | 检索历史缺陷、按根因去重，以及复核修复方案 |
 
 技能位于 `harness/.agents/skills/`，不需要全局安装，也不保证被运行器自动发现。纯问答、轻微文字调整及按既有契约修复缺陷，不强制新增功能规格和计划。
 
@@ -161,21 +160,23 @@ flowchart TD
 | infra | 环境、依赖工具、构建、CI 及明确授权的打包 |
 | reviewer | 两个独立只读实例分别审查规格符合性和实现质量 |
 
-详细职责、读写边界和交接格式见[角色协议](zh-CN/harness/agents/README.md)。不会为了凑齐角色而创建没有实际任务的子 Agent。
+详细职责、读写边界和交接格式见[角色协议](zh-CN-codex/harness/agents/README.md)。不会为了凑齐角色而创建没有实际任务的子 Agent。
+
+技能和下方文档链接默认指向 Codex 版；DeepSeek Harness 版请从 [中文目录](zh-CN-deepseekharness/) 或 [英文目录](en-deepseekharness/) 打开相同相对路径。
 
 ## 文档导航
 
 | 文档 | 中文 | English |
 | --- | --- | --- |
-| 运行入口 | [AGENTS.md](zh-CN/harness/AGENTS.md) | [AGENTS.md](en/harness/AGENTS.md) |
-| 架构与文件边界 | [ARCHITECTURE.md](zh-CN/harness/ARCHITECTURE.md) | [ARCHITECTURE.md](en/harness/ARCHITECTURE.md) |
-| 模型配置 | [MODELS.md](zh-CN/harness/agents/MODELS.md) | [MODELS.md](en/harness/agents/MODELS.md) |
-| 主 Agent 手册 | [执行手册](zh-CN/harness/docs/runbooks/main-agent.md) | [Execution handbook](en/harness/docs/runbooks/main-agent.md) |
-| 详细启动模板 | [启动模板](zh-CN/harness/docs/runbooks/start-task-template.md) | [Task starter](en/harness/docs/runbooks/start-task-template.md) |
-| 需求规格 | [规格模板](zh-CN/harness/docs/specs/TEMPLATE.md) | [Specification template](en/harness/docs/specs/TEMPLATE.md) |
-| 执行计划 | [计划模板](zh-CN/harness/docs/plans/TEMPLATE.md) | [Plan template](en/harness/docs/plans/TEMPLATE.md) |
-| 错误知识库 | [bugs.md](zh-CN/harness/docs/bugs.md) | [bugs.md](en/harness/docs/bugs.md) |
-| 技能目录 | [技能说明](zh-CN/harness/.agents/skills/README.md) | [Skills](en/harness/.agents/skills/README.md) |
+| 运行入口 | [AGENTS.md](zh-CN-codex/harness/AGENTS.md) | [AGENTS.md](en-codex/harness/AGENTS.md) |
+| 架构与文件边界 | [ARCHITECTURE.md](zh-CN-codex/harness/ARCHITECTURE.md) | [ARCHITECTURE.md](en-codex/harness/ARCHITECTURE.md) |
+| 模型配置 | [MODELS.md](zh-CN-codex/harness/agents/MODELS.md) | [MODELS.md](en-codex/harness/agents/MODELS.md) |
+| 主 Agent 手册 | [执行手册](zh-CN-codex/harness/docs/runbooks/main-agent.md) | [Execution handbook](en-codex/harness/docs/runbooks/main-agent.md) |
+| 详细启动模板 | [启动模板](zh-CN-codex/harness/docs/runbooks/start-task-template.md) | [Task starter](en-codex/harness/docs/runbooks/start-task-template.md) |
+| 需求规格 | [规格模板](zh-CN-codex/harness/docs/specs/TEMPLATE.md) | [Specification template](en-codex/harness/docs/specs/TEMPLATE.md) |
+| 执行计划 | [计划模板](zh-CN-codex/harness/docs/plans/TEMPLATE.md) | [Plan template](en-codex/harness/docs/plans/TEMPLATE.md) |
+| 错误知识库 | [bugs.md](zh-CN-codex/harness/docs/bugs.md) | [bugs.md](en-codex/harness/docs/bugs.md) |
+| 技能目录 | [技能说明](zh-CN-codex/harness/.agents/skills/README.md) | [Skills](en-codex/harness/.agents/skills/README.md) |
 
 同一功能的规格书与计划共用 PLAN 编号，实现项和验收场景分别使用稳定编号。活动计划放 `docs/plans/active/`，完成或取消后归档到 `completed/`；规格书保留原位并更新引用。设计决策和实际技术债分别放 `docs/decisions/`、`docs/tech-debt.md`。
 

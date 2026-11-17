@@ -1,0 +1,7 @@
+# Execution Plans
+
+active holds plans awaiting confirmation and in progress; completed holds archived plans that are completed or canceled. Complex tasks use the template; simple changes use a short plan.
+
+New features and enhancements must first invoke [feature-plan](../../.agents/skills/feature-plan/SKILL.md): the main agent interviews round by round, maintains the specification in specs, automatically assigns the shared PLAN-0001-style number, and then produces a detailed feature checklist. The specification and plan have separate versions and are presented for confirmation together; a partial answer is not overall approval. Plans awaiting confirmation also stay in active; after confirmation, track execution in the same file; after completion, move to completed. Mark canceled plans canceled before archiving; do not treat them as implemented. Keep the specification in specs and update cross-references when archiving.
+
+Each project numbers independently; revisions and resumptions keep the original plan, and affected documents increment their versions and reconfirm the pair for material changes. Implementation checklist items use stable PLAN-0001.01-style numbers and cite specification acceptance IDs. Approval basis, per-item briefs, report summaries, review, and recovery locations are kept in the original plan; do not create duplicate progress records. DSH native plan mode, goal, or team task does not replace these records.

@@ -2,11 +2,11 @@
 
 **Keep harness management, product implementation, and testing in separate locations for convenient AI development and a clean project.**
 
-[中文](README.md) · [English template](en/) · [Chinese template](zh-CN/) · [Quick start](#quick-start)
+[中文](README.md) · [Codex English](en-codex/) · [Codex 中文](zh-CN-codex/) · [DeepSeek Harness English](en-deepseekharness/) · [DeepSeek Harness 中文](zh-CN-deepseekharness/) · [Quick start](#quick-start)
 
 Harness-AI-Lite is a lightweight harness engineering template inspired by GrillMe and Superpowers. Copy the directories, fill in your project introduction, technology stack, and actual paths, then let the main agent coordinate analysis, implementation, review, rework, and delivery through a consistent protocol.
 
-It is intended for individual developers and small teams that want to reuse their development conventions across projects, including workspaces where management documents, product code, and testing materials live on different disks. It is independent of any particular language, framework, or application type. So far, it has only been tested with Codex; other tools have not yet been tested.
+It is intended for individual developers and small teams that want to reuse their development conventions across projects, including workspaces where management documents, product code, and testing materials live on different disks. It is independent of any particular language, framework, or application type. Codex and DeepSeek Harness editions are available in both languages. They share the same workflow and three-area boundaries, with runtime-specific tools, model routing, and parameters. Existing testing was performed with Codex; end-to-end operation of the DeepSeek Harness edition has not been verified.
 
 ## The key idea: three independently located areas
 
@@ -22,10 +22,12 @@ This makes directory placement convenient for users' storage, backup, and workin
 
 | Edition | ZIP download |
 | --- | --- |
-| English | [Harness-AI-Lite-en.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en.zip) |
-| Chinese | [Harness-AI-Lite-zh-CN.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN.zip) |
+| Codex English | [Harness-AI-Lite-en-codex.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-codex.zip) |
+| Codex Chinese | [Harness-AI-Lite-zh-CN-codex.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-codex.zip) |
+| DeepSeek Harness English | [Harness-AI-Lite-en-deepseekharness.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-deepseekharness.zip) |
+| DeepSeek Harness Chinese | [Harness-AI-Lite-zh-CN-deepseekharness.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness.zip) |
 
-Each archive includes its language edition, usage guide, and MIT license. Extract it, copy the included `harness`, `project`, and `test` directories to your chosen locations, then fill in the project introduction, stack, and paths to configure your project. Archives are published in the repository's `downloads/` directory.
+Each archive includes its runtime and language edition, usage guide, and MIT license. Extract it, copy the included `harness`, `project`, and `test` directories to your chosen locations, then fill in the project introduction, stack, and paths to configure your project. Archives are published in the repository's `downloads/` directory.
 
 ## Why this project exists
 
@@ -78,17 +80,14 @@ Both reviewers must return separate conclusions for the same final version. If c
 .
 ├── README.md
 ├── README.en.md
-├── zh-CN/                    # Chinese edition
-│   ├── harness/              # Rules, skills, and project management documents
-│   ├── project/              # Product implementation and final installers
-│   └── test/                 # Tests, helper code, and development materials
-└── en/                       # English edition; same internal structure
-    ├── harness/
-    ├── project/
-    └── test/
+├── zh-CN-codex/
+├── en-codex/
+├── zh-CN-deepseekharness/
+└── en-deepseekharness/
+    # Each edition contains: harness/ + project/ + test/
 ```
 
-Both editions use the same structure, skill names, role identifiers, model settings, and numbering conventions. Select one edition for a project instead of loading both as competing rule sources.
+All four templates share the same structure, skill names, role identifiers, numbering conventions, and execution logic. The two languages for each runtime share model settings. Codex uses model and reasoning_effort; DeepSeek Harness additionally uses provider routing. Select only one template as the rule source for each project.
 
 | Area | Contents |
 | --- | --- |
@@ -101,9 +100,9 @@ Product source may be compiled into the application; source files need not ship 
 
 ## Quick start
 
-### 1. Get the template and choose a language
+### 1. Choose a runtime and language
 
-Download and extract the ZIP for your preferred language above, or clone / fork this repository. Copy `harness`, `project`, and `test` from either `en/` or `zh-CN/` to the locations required by your project.
+Download and extract the ZIP for your runtime and language, or clone / fork this repository. Choose one of `en-codex/`, `zh-CN-codex/`, `en-deepseekharness/`, or `zh-CN-deepseekharness/`, then copy its `harness`, `project`, and `test` directories to your project locations.
 
 The directories can live on different disks without a common parent. Give each project its own copy instead of sharing plans or defect records.
 
@@ -123,7 +122,7 @@ Mark unresolved technology choices as pending and resolve them during planning. 
 
 The runtime needs Markdown reading, access to the three actual directories, independent subagent creation, and explicit model and reasoning-effort selection at creation time.
 
-Check that `harness/agents/MODELS.md` in your selected copy is supported by your runtime. Both reviewers use the reviewer configuration, with actual parameters recorded separately for each instance. The runtime controls the main agent's model.
+Check that `harness/agents/MODELS.md` in your selected copy is supported by your runtime. For DeepSeek Harness, also verify routes with `list_subagent_models` and explicitly pass provider, model, and reasoning_effort. Both reviewers use the reviewer configuration, with actual parameters recorded separately for each instance. The runtime controls the main agent's model.
 
 Roles and skills are explicitly read by the main agent rather than installed as native runtime configuration. Opening directories does not automatically load rules or grant access. Missing capabilities must be reported as blockers rather than treated as completed execution or review.
 
@@ -148,9 +147,9 @@ Supply the entry and existing plan again in a new session. Planning-only request
 
 | Skill | Purpose |
 | --- | --- |
-| [feature-plan](en/harness/.agents/skills/feature-plan/SKILL.md) | Requirements interviews, specifications, automatic plan numbering, user approval, and revisions |
-| [subagent-driven-execution](en/harness/.agents/skills/subagent-driven-execution/SKILL.md) | Item-by-item dispatch of approved plans, two reviewers, rework, resumption, and final acceptance |
-| [bug-detect](en/harness/.agents/skills/bug-detect/SKILL.md) | Searching defect history, deduplication by root cause, and solution verification |
+| [feature-plan](en-codex/harness/.agents/skills/feature-plan/SKILL.md) | Requirements interviews, specifications, automatic plan numbering, user approval, and revisions |
+| [subagent-driven-execution](en-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md) | Item-by-item dispatch of approved plans, two reviewers, rework, resumption, and final acceptance |
+| [bug-detect](en-codex/harness/.agents/skills/bug-detect/SKILL.md) | Searching defect history, deduplication by root cause, and solution verification |
 
 Skills live in `harness/.agents/skills/`. Global installation is unnecessary, and automatic runtime discovery is not guaranteed. Pure Q&A, minor wording changes, and fixes under existing contracts do not require a new feature specification and plan.
 
@@ -161,21 +160,23 @@ Skills live in `harness/.agents/skills/`. Global installation is unnecessary, an
 | infra | Environment, dependency tools, builds, CI, and explicitly authorized packaging |
 | reviewer | Two independent read-only instances assessing specification compliance and implementation quality |
 
-See the [role protocol](en/harness/agents/README.md) for responsibilities, access boundaries, and handoff format. Agents are not created merely to include every role when no corresponding work is needed.
+See the [role protocol](en-codex/harness/agents/README.md) for responsibilities, access boundaries, and handoff format. Agents are not created merely to include every role when no corresponding work is needed.
+
+Skill and documentation links default to the Codex edition. For DeepSeek Harness, open the same relative paths in its [English directory](en-deepseekharness/) or [Chinese directory](zh-CN-deepseekharness/).
 
 ## Documentation
 
 | Document | English | 中文 |
 | --- | --- | --- |
-| Runtime entry | [AGENTS.md](en/harness/AGENTS.md) | [AGENTS.md](zh-CN/harness/AGENTS.md) |
-| Architecture and file boundaries | [ARCHITECTURE.md](en/harness/ARCHITECTURE.md) | [ARCHITECTURE.md](zh-CN/harness/ARCHITECTURE.md) |
-| Model configuration | [MODELS.md](en/harness/agents/MODELS.md) | [MODELS.md](zh-CN/harness/agents/MODELS.md) |
-| Main-agent handbook | [Execution handbook](en/harness/docs/runbooks/main-agent.md) | [执行手册](zh-CN/harness/docs/runbooks/main-agent.md) |
-| Detailed task starter | [Task starter](en/harness/docs/runbooks/start-task-template.md) | [启动模板](zh-CN/harness/docs/runbooks/start-task-template.md) |
-| Requirements specification | [Specification template](en/harness/docs/specs/TEMPLATE.md) | [规格模板](zh-CN/harness/docs/specs/TEMPLATE.md) |
-| Execution plan | [Plan template](en/harness/docs/plans/TEMPLATE.md) | [计划模板](zh-CN/harness/docs/plans/TEMPLATE.md) |
-| Defect knowledge base | [bugs.md](en/harness/docs/bugs.md) | [bugs.md](zh-CN/harness/docs/bugs.md) |
-| Skills directory | [Skills](en/harness/.agents/skills/README.md) | [技能说明](zh-CN/harness/.agents/skills/README.md) |
+| Runtime entry | [AGENTS.md](en-codex/harness/AGENTS.md) | [AGENTS.md](zh-CN-codex/harness/AGENTS.md) |
+| Architecture and file boundaries | [ARCHITECTURE.md](en-codex/harness/ARCHITECTURE.md) | [ARCHITECTURE.md](zh-CN-codex/harness/ARCHITECTURE.md) |
+| Model configuration | [MODELS.md](en-codex/harness/agents/MODELS.md) | [MODELS.md](zh-CN-codex/harness/agents/MODELS.md) |
+| Main-agent handbook | [Execution handbook](en-codex/harness/docs/runbooks/main-agent.md) | [执行手册](zh-CN-codex/harness/docs/runbooks/main-agent.md) |
+| Detailed task starter | [Task starter](en-codex/harness/docs/runbooks/start-task-template.md) | [启动模板](zh-CN-codex/harness/docs/runbooks/start-task-template.md) |
+| Requirements specification | [Specification template](en-codex/harness/docs/specs/TEMPLATE.md) | [规格模板](zh-CN-codex/harness/docs/specs/TEMPLATE.md) |
+| Execution plan | [Plan template](en-codex/harness/docs/plans/TEMPLATE.md) | [计划模板](zh-CN-codex/harness/docs/plans/TEMPLATE.md) |
+| Defect knowledge base | [bugs.md](en-codex/harness/docs/bugs.md) | [bugs.md](zh-CN-codex/harness/docs/bugs.md) |
+| Skills directory | [Skills](en-codex/harness/.agents/skills/README.md) | [技能说明](zh-CN-codex/harness/.agents/skills/README.md) |
 
 A feature's specification and plan share a PLAN identifier, while implementation items and acceptance scenarios have stable identifiers of their own. Active plans live in `docs/plans/active/`; completed or cancelled plans move to `completed/`. Specifications remain in place with updated links. Design decisions and actual technical debt belong in `docs/decisions/` and `docs/tech-debt.md`.
 
