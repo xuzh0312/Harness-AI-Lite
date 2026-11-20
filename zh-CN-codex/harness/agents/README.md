@@ -1,15 +1,14 @@
-# 四角色协议
+# 三角色协议
 
-本目录是供主 agent 显式读取的通用角色说明，不是运行器原生配置。主 agent 每次走固定流程，按任务需要调用角色，不要求四个角色全部参与。
+本目录是供主 agent 显式读取的通用角色说明，不是运行器原生配置。主 agent 每次走固定流程，按任务需要调用角色。
 
 | 角色 | 说明 | 默认工作目录 |
 | --- | --- | --- |
-| architect | [需求与架构](architect/AGENT.md) | harness 实际目录 |
+| UIdesign | [交互式界面设计](UIdesign/AGENT.md) | harness 实际目录 |
 | implementer | [实现](implementer/AGENT.md) | project/code 实际目录 |
-| infra | [基础设施](infra/AGENT.md) | 分配的配置或工具所属目录 |
 | reviewer | [独立审查](reviewer/AGENT.md)，每次两个实例分别审查规格与质量 | 本次审查对象所在目录 |
 
-项目文档与规则变更在 harness 执行；软件本体代码改动在 project/code 执行；测试和所有非本体辅助代码写入 test。执行目录不改变文件归属，所有角色遵守 ARCHITECTURE.md 的区域与打包边界。
+项目文档与规则变更在 harness 执行；软件本体代码改动在 project/code 执行；项目测试和开发辅助代码写入 test。执行目录不改变文件归属，所有角色遵守 ARCHITECTURE.md 的区域与打包边界。
 
 ## 所有角色共享约定
 
@@ -21,11 +20,11 @@
 
 子 agent 只在分配范围内工作。不自行扩大范围，不嵌套创建其他 agent，不更新主任务状态或共享任务记录，不自行提交、推送、合并、发布或执行破坏性操作；当前任务明确授权的动作除外。范围外问题返回主 agent。收到用户修正后由主 agent 更新任务再分派。
 
-执行者与审查者必须是不同 agent。architect 和 reviewer 默认只读；需要持久化其结果时，由主 agent 整理到任务记录及适用设计文档。只读 reviewer 可运行不改写受审文件的检查；会写入原始日志、缓存或临时产物时，仅使用授权的 test 位置。
+执行者与审查者必须是不同 agent。UIdesign 和 reviewer 默认只读；需要持久化其结果时，由主 agent 整理到任务记录及适用设计文档。只读 reviewer 可运行不改写受审文件的检查；会写入原始日志、缓存或临时产物时，仅使用授权的 test 位置。
 
-所有强制独立审查均采用两个并行 reviewer：reviewer-spec 负责规格符合性，reviewer-quality 负责实现质量；它们是同一角色的两个独立实例，配置均来自 MODELS.md 的 reviewer 行。分工、同版本要求、容量不足、返工与两份报告的验收条件以 [reviewer 协议](reviewer/AGENT.md) 为准。不增加第五种角色，也不让一个 reviewer 嵌套派出另一个。
+所有强制独立审查均采用两个并行 reviewer：reviewer-spec 负责规格符合性，reviewer-quality 负责实现质量；它们是同一角色的两个独立实例，配置均来自 MODELS.md 的 reviewer 行。分工、同版本要求、容量不足、返工与两份报告的验收条件以 [reviewer 协议](reviewer/AGENT.md) 为准。不增加新的角色，也不让一个 reviewer 嵌套派出另一个。
 
-已批准功能计划按 [subagent-driven-execution](../.agents/skills/subagent-driven-execution/SKILL.md) 逐项执行：新项使用新的 implementer／infra 上下文，逐项两个 reviewer 审查与主 agent 验收通过后再开始下一项；返工优先恢复原执行者。纯审查项直接由这两个实例完成，不递归审查其报告。全部实现项通过后，另建两个上下文独立的 reviewer 做整体审查。非功能任务沿用主 agent 手册中的适用流程及同样的双实例审查规则。
+已批准功能计划按 [subagent-driven-execution](../.agents/skills/subagent-driven-execution/SKILL.md) 逐项执行：新项使用新的 implementer 上下文，逐项两个 reviewer 审查与主 agent 验收通过后再开始下一项；返工优先恢复原执行者。纯审查项直接由这两个实例完成，不递归审查其报告。全部实现项通过后，另建两个上下文独立的 reviewer 做整体审查。直接修改和非功能任务沿用主 agent 手册中的适用流程及同样的双实例审查规则。
 
 ## 创建与模型记录
 

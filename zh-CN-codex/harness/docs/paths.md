@@ -31,13 +31,24 @@ harness/
 │       │   └── SKILL.md
 │       ├── subagent-driven-execution/
 │       │   └── SKILL.md
+│       ├── tech-stack-plan/
+│       │   └── SKILL.md
+│       ├── UI-design/
+│       │   ├── .gitkeep
+│       │   └── interaction-motion-design/
+│       │       ├── SKILL.md
+│       │       └── references/
+│       │           ├── LICENSE
+│       │           ├── STANDARDS.md
+│       │           ├── animation-vocabulary.md
+│       │           ├── apple-design.md
+│       │           ├── emil-design-eng.md
+│       │           └── review-animations.md
 │       └── README.md
 ├── agents/
-│   ├── architect/
+│   ├── UIdesign/
 │   │   └── AGENT.md
 │   ├── implementer/
-│   │   └── AGENT.md
-│   ├── infra/
 │   │   └── AGENT.md
 │   ├── reviewer/
 │   │   └── AGENT.md

@@ -9,7 +9,7 @@
 
 ## 文件存放与打包
 
-严格遵守 [架构中的工作区域边界](ARCHITECTURE.md)：harness 仅保存管理文档、规则和技能说明；project/code 仅保存软件本体实现及必要配套文件；project/installpark 仅保存明确要求生成的安装包。所有非本体代码（含测试及辅助工具）、数据、原始日志、缓存和中间产物放 test。
+严格遵守 [架构中的工作区域边界](ARCHITECTURE.md)：harness 仅保存管理文档、规则和技能说明；project/code 仅保存软件本体实现及必要配套文件；project/installpark 仅保存明确要求生成的安装包。UI-design 可随技能保存其专用工具。项目的非本体开发代码（含测试及辅助工具）、数据、原始日志、缓存和中间产物放 test。
 
 目录结构以 [paths.md](docs/paths.md) 的实际目录树为索引。所有结构变更由子 agent 立即回报，主 agent 按其中的同步规则统一更新；开始或恢复任务及最终验收时核对实际目录。不得只写新增文件而遗漏目录索引。
 
@@ -24,9 +24,9 @@
 
 ## 调度与验收
 
-按需调用 [四类子 agent 角色](agents/README.md)：architect 负责方案，implementer 负责实现，infra 负责基础设施，reviewer 负责独立审查。凡需独立审查，固定由主 agent 创建 reviewer-spec 和 reviewer-quality 两个并行、只读且上下文独立的实例，分别审查规格符合性和实现质量；两者均使用 MODELS.md 的 reviewer 配置。
+按需调用 [三类子 agent 角色](agents/README.md)：UIdesign 与用户交互进行界面设计，implementer 负责实现与基础设施，reviewer 负责独立审查。凡需独立审查，固定由主 agent 创建 reviewer-spec 和 reviewer-quality 两个并行、只读且上下文独立的实例，分别审查规格符合性和实现质量；两者均使用 MODELS.md 的 reviewer 配置。
 
-用户提出新功能或功能增强时，主 agent 必须调用 [feature-plan](.agents/skills/feature-plan/SKILL.md)，用逐轮访谈同步整理 specs 中的规格书及 plans 中自动编号的实现清单。两份文档各自版本化，一起展示并取得用户对当前组合的确认后再实现。主 agent 或 architect 的内部认可、用户的局部回答不替代整体确认；已有未变更的有效批准直接续接。
+用户提出新功能或功能增强时，主 agent 先请用户在「功能设计规划」和「由主 agent 直接修改」之间选择，不推荐其中一项。选择直接修改时，主 agent 按授权执行并完成适用的审查与验证，无需创建功能规格书或实现计划。选择规划时，调用 [feature-plan](.agents/skills/feature-plan/SKILL.md)，逐题访谈并检查需求覆盖，整理 specs 中的规格书及 plans 中自动编号的实现清单。两份文档各自版本化，一起展示并取得用户对当前组合的确认后再实现。agent 的内部认可、用户的局部回答不替代整体确认；已有未变更的有效批准直接续接。
 
 批准且具备实施授权后调用 [subagent-driven-execution](.agents/skills/subagent-driven-execution/SKILL.md)：每个实现项创建新的执行者上下文，串行实现、两个 reviewer 并行审查和主 agent 验收，通过后再开始下一项；返工优先交回原执行者。全部项通过后新建两个 reviewer 做整体审查，不由逐项通过直接推断功能完成。只要求规划时不自动实现。
 

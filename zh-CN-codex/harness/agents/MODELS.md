@@ -1,14 +1,13 @@
 # 子 Agent 模型统一配置
 
-本文件是四类子 agent 角色的模型选择、推理深度及禁用策略的唯一配置来源。其他说明和模板引用本文件，不重复保存固定值。修改需要遵守项目授权；本文件不改变主 agent 自身的模型。
+本文件是三类子 agent 角色的模型选择、推理深度及禁用策略的唯一配置来源。其他说明和模板引用本文件，不重复保存固定值。修改需要遵守项目授权；本文件不改变主 agent 自身的模型。
 
 ## 角色配置
 
 | 角色 | model | reasoning_effort |
 | --- | --- | --- |
-| architect | gpt-6.1-sol | high |
+| UIdesign | gpt-6.1-sol | high |
 | implementer | gpt-6.1-sol | medium |
-| infra | gpt-6.1-sol | medium |
 | reviewer | gpt-6.1-sol | high |
 
 reviewer-spec 与 reviewer-quality 是 reviewer 的两个审查实例，均读取上方 reviewer 行，不另设模型配置；每个实例实际创建参数分别记录。
