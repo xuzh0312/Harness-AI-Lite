@@ -16,14 +16,14 @@ Use Harness as the management basis and choose working directories by role.
 
 Task: <goal, scope, constraints, and acceptance requirements>
 Existing task record: <absolute path; state if a new task>
-Required requirements or design reading: <paths or none>
+Requirements or designs to read: <existing specification, selected draft, or none. When design is needed, read harness/.agents/skills/UIUX-design/README.md>
 Allowed modifications: <scope>
 Existing verification and data: <versions, results, evidence, or none>
 Additional delivery authorization: <act only on explicit authorization here; for example, whether commits or release are authorized>
 
 The main agent chooses roles under the fixed process and performs final acceptance.
-Before creating each sub-agent, read agents/MODELS.md in Harness,
-explicitly use the model and reasoning settings for the corresponding role, and follow its prohibition policy and actual configuration recording rules.
+Before creating each sub-agent, the main agent reads agents/MODELS.md in Harness,
+explicitly sets the model and reasoning settings for that role, and follows the prohibition policy and actual configuration recording rules.
 If creation capability or mandatory independent review is unavailable, explicitly report the blocker rather than silently substituting.
 ```
 

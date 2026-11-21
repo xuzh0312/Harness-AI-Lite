@@ -31,13 +31,23 @@ harness/
 │       │   └── SKILL.md
 │       ├── subagent-driven-execution/
 │       │   └── SKILL.md
+│       ├── tech-stack-plan/
+│       │   └── SKILL.md
+│       ├── UIUX-design/
+│       │   ├── README.md
+│       │   ├── assets/
+│       │   │   └── index.md
+│       │   └── references/
+│       │       ├── interaction-motion.md
+│       │       ├── tasks-navigation.md
+│       │       ├── creative-direction.md
+│       │       ├── copy-and-states.md
+│       │       └── visual-hierarchy.md
 │       └── README.md
 ├── agents/
-│   ├── architect/
+│   ├── UIdesign/
 │   │   └── AGENT.md
 │   ├── implementer/
-│   │   └── AGENT.md
-│   ├── infra/
 │   │   └── AGENT.md
 │   ├── reviewer/
 │   │   └── AGENT.md

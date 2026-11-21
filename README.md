@@ -1,203 +1,185 @@
-# Harness-AI-Lite
+# Harness-AI-Lite · Codex
 
-**将 harness 管理区、project 软件区与 test 测试区独立开，让 AI 开发更方便，让项目保持干净整洁。**
+[Codex 中文](README.codex.zh-CN.md) · [DeepSeek Harness English](README.dsh.en.md) · [DeepSeek Harness 中文](README.dsh.zh-CN.md)
 
-[English](README.en.md) · [Codex 中文](zh-CN-codex/) · [Codex English](en-codex/) · [DeepSeek Harness 中文](zh-CN-deepseekharness/) · [DeepSeek Harness English](en-deepseekharness/) · [快速开始](#快速开始)
+Harness-AI-Lite is a reusable project template for Codex. It keeps project management, product code, and development evidence in three independently located directories. The template works with your project's existing language and stack, and its conventions apply even when the three directories are on different disks.
 
-Harness-AI-Lite 是一套轻量化的Harness工程模板，开发时借鉴了Grill-Me和supperpowers的思路。你只需复制目录、填写项目介绍、技术栈和实际路径，就可以让主 Agent 按统一流程组织需求分析、实现、审查、返工和交付。
+## Download
 
-它适合希望为不同项目复用开发规范的个人开发者和小型团队，尤其适合管理文档、软件代码及测试材料需要分盘存放的工作区。模板不绑定具体编程语言、框架或软件类型。目前提供 Codex 和 DeepSeek Harness 两个版本，各含中英文模板。二者采用相同的工作流程和三域边界，差异在于运行器工具、模型路由及参数配置。已有测试在 Codex 上进行；DeepSeek Harness 版的端到端运行尚未验证。
+| Language | Template directory | ZIP |
+| --- | --- | --- |
+| English | [en-codex](en-codex/) | [Download English ZIP](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-codex.zip) |
+| 简体中文 | [zh-CN-codex](zh-CN-codex/) | [下载中文版 ZIP](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-codex.zip) |
 
-## 最关键的设计：三个区域独立放置
+Each ZIP contains the selected template, a guide in the same language, and the MIT license. For the earlier DeepSeek Harness workflow and its downloads, see the [DeepSeek Harness guide](README.dsh.en.md).
 
-Harness-AI-Lite 的核心是将 **harness、project、test 三个区域独立开**。它们可以放在不同目录、不同磁盘，无需共同父目录；在 `harness/docs/paths.md` 中填写实际路径即可建立关联。
+## Why this project exists
 
-- **harness 管理区**：集中保存规则、需求、计划、决策和简要日志，便于查看与恢复任务。
-- **project 软件区**：保存软件本体及明确授权生成的最终安装包，让产品目录保持清晰。
-- **test 测试区**：集中收纳测试代码、辅助工具、数据、原始日志、缓存和中间产物，避免开发杂物堆入产品目录。
+Agent-assisted development includes decisions about requirements, delegation, review, recovery, and where to retain verification evidence. Keeping those decisions in project files lets users review the proposed scope, gives implementers a record of their assignment, and lets a new session resume from the current plan and files.
 
-这种分离既方便用户按磁盘空间、备份和工作习惯安排目录，也让文档、软件与验证材料各有归处。仓库中的语言目录只是分发容器，部署后无需保留这一共同目录结构。
+The three areas can be arranged separately for storage, backups, and permissions. A project can keep the Harness rules in one location, the product repository in another, and large test data on a separate disk. The path table links those locations. The directories that group the templates in this repository serve as distribution containers.
 
-## 下载
+## Core design
 
-| 版本 | ZIP 下载 |
+| Convention | How it works |
 | --- | --- |
-| Codex 中文 | [Harness-AI-Lite-zh-CN-codex.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-codex.zip) |
-| Codex English | [Harness-AI-Lite-en-codex.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-codex.zip) |
-| DeepSeek Harness 中文 | [Harness-AI-Lite-zh-CN-deepseekharness.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness.zip) |
-| DeepSeek Harness English | [Harness-AI-Lite-en-deepseekharness.zip](https://github.com/xuzh0312/Harness-AI-Lite/raw/refs/heads/main/downloads/Harness-AI-Lite-en-deepseekharness.zip) |
+| Three independent work areas | Separate project management, the delivered software, and development evidence. Record their actual locations in `harness/docs/paths.md`. |
+| Two routes for new features | Choose a direct change by the main agent or feature design and planning. The planning route uses a versioned specification and a numbered implementation plan. |
+| Separate design and implementation authorization | The approved specification and plan record the agreed scope. Starting implementation also requires user authorization. Interface work follows the user's design instructions. |
+| Three subagent roles | UIdesign works with the user on interface design, implementer handles code and infrastructure, and reviewer checks conformance and implementation quality. |
+| Two independent review instances | Reviewers report separately on the same version. The main agent checks both conclusions and the verification evidence before accepting the work. |
+| One record per tracked task | The active plan keeps the approved document versions, assignments, selected designs, checks, rework, and next step together. |
+| Reusable defect records | Reviewers propose entries keyed by root cause, and the main agent keeps the centralized record current. |
+| Central model configuration | Every subagent uses the matching role in the selected copy's `agents/MODELS.md`. |
 
-每个压缩包包含对应运行器和语言的模板、使用说明和 MIT 许可证。解压后，将其中的 `harness`、`project`、`test` 分别复制到所需位置，再填写项目介绍、技术栈和路径即可开始配置。压缩包发布在仓库的 `downloads/` 目录。
-
-## 为什么做这个项目
-
-在 Agent 辅助开发中，写出代码只是其中一步。需求是否被正确理解、任务如何分派、谁来检查实现、失败后如何继续，以及验证依据存在哪里，同样需要明确。
-
-同时AI开发时总是把所有数据都堆在工作目录，新手经常理不清项目文件因此这个项目特意将其进行了区分。
-
-本项目把这些约定保存在项目文件中，让用户可以审阅方案，让执行者获得明确边界，也让新会话能够根据已有记录恢复工作。它提供的是可检查的协作协议，不是后台调度服务，也不保证任意模型自动遵循全部规则。
-
-## 核心设计
-
-| 设计 | 如何工作 |
-| --- | --- |
-| 三个独立工作区域 | harness 保存管理资料，project 保存软件本体及明确授权的安装包，test 保存测试与所有非本体开发材料 |
-| 先确认再实现 | 主 Agent 逐轮澄清需求，同步整理规格书和编号计划，一起展示并取得当前版本组合的批准 |
-| 四类子 Agent 角色 | architect 分析方案，implementer 实现，infra 处理基础设施，reviewer 独立审查 |
-| 两个并行审查实例 | reviewer-spec 检查规格符合性，reviewer-quality 检查实现质量；逐项及最终整体审查都使用两实例 |
-| 按证据验收 | 记录实际检查、覆盖版本与限制；失败或未运行的必需检查不能标为通过 |
-| 可恢复的任务记录 | 一个功能保留一份活动计划，集中保存批准、派工、交付摘要、返工和下一步 |
-| 可复用的错误知识库 | 确认缺陷按根因去重，记录解决方案、适用范围及验证证据 |
-| 集中的模型设置 | 子 Agent 的模型与推理深度只从所选副本的 MODELS.md 读取 |
-
-## 工作流程
-
-```mermaid
-flowchart TD
-    A[用户提出需求] --> B[调查事实与逐轮澄清]
-    B --> C[规格书与编号实现计划]
-    C --> D{用户确认当前版本组合}
-    D -->|修改| B
-    D -->|确认并授权实施| E[实现当前清单项并自审]
-    E --> F[两个 Reviewer 独立并行审查]
-    F --> G{主 Agent 核对证据}
-    G -->|需要返工| E
-    G -->|本项通过| H{还有实现项}
-    H -->|有| E
-    H -->|无| I[两个新的 Reviewer 做整体审查]
-    I --> J{整体结果}
-    J -->|需要返工| E
-    J -->|通过| K[主 Agent 最终验收与归档]
-```
-
-主 Agent 统一组织对话、分派任务、维护共享记录和最终验收。子 Agent 不嵌套创建其他 Agent，也不直接修改共享进度或错误知识库。
-
-两个 Reviewer 必须分别给出结论，并覆盖同一最终版本。并发容量不足时可以顺序运行两个独立实例，但不能合并成一个；任一报告缺失、需返工或证据不足时，不能验收通过。
-
-## 目录结构
+## Repository structure
 
 ```text
 .
-├── README.md
-├── README.en.md
-├── zh-CN-codex/
+├── README.md                   # Codex English
+├── README.codex.zh-CN.md        # Codex Chinese
+├── README.dsh.en.md             # DeepSeek Harness English
+├── README.dsh.zh-CN.md          # DeepSeek Harness Chinese
 ├── en-codex/
+├── zh-CN-codex/
+├── en-deepseekharness/
 ├── zh-CN-deepseekharness/
-└── en-deepseekharness/
-    # 每套均包含： harness/ + project/ + test/
+└── downloads/
 ```
 
-四套模板采用相同的文件结构、技能名、角色标识、编号规则和执行逻辑；同一运行器的中英文版保持模型配置一致。Codex 版使用 model 与 reasoning_effort；DeepSeek Harness 版另使用 provider 路由。每个项目只选择一套作为规则来源。
+Each template edition contains `harness/`, `project/`, and `test/`. The two Codex languages share the same structure, role identifiers, and model settings. Use one edition as the rule source for a deployed project.
 
-| 区域 | 放什么 |
+## Quick start
+
+1. Download and extract a ZIP or use the matching directory in this repository. Copy only `harness`, `project`, and `test` to the locations you want to use. They can have different parent directories.
+2. Fill in the following files in your project copy. Keep the distribution template clean.
+
+   | File | What to record |
+   | --- | --- |
+   | `harness/README.md` | Project purpose, intended users, scope, and confirmed project details |
+   | `harness/ARCHITECTURE.md` | Technology stack and architecture constraints |
+   | `harness/docs/paths.md` | Actual absolute paths and directory layout for all three areas |
+
+   If the stack is already selected, record it. If you want to select it during feature planning, choose to discuss it with the main agent. It uses [tech-stack-plan](en-codex/harness/.agents/skills/tech-stack-plan/SKILL.md) to record confirmed project details and stack choices, then resumes feature planning.
+
+3. Verify that Codex can read the entry file, access the required directories, and create independent subagents with explicit `model` and `reasoning_effort` values from [MODELS.md](en-codex/harness/agents/MODELS.md). The main agent explicitly reads the bundled roles and skills. Opening directories in a workspace does not load those rules or grant additional permissions.
+4. Give Codex the path to the **copied** Harness entry and your first task.
+
+   ```text
+   Read <absolute path to my harness>/AGENTS.md and follow it for this task.
+   Task: Add CSV export for the currently filtered list.
+   Existing plan: none (or provide the plan ID or path).
+   ```
+
+   In a new session, provide the same entry and any active plan. The main agent checks the current files and evidence before resuming.
+
+### Starting from an existing project
+
+Point `project` at the location that contains your existing `code/` directory and set `test` to a location that can hold the project's test data and tooling. The Harness and product repositories can have different roots. Record the real paths and tree in the project copy before making changes.
+
+For the CSV example, the planning route can clarify which rows and columns to export, how to handle an empty result, and how the user opens the output. In the direct-change route, the main agent uses the scope you authorize and verifies the affected behavior. For a task that is already in progress, give the plan ID or path and the current state of the relevant files.
+
+## Choose how to handle a feature
+
+For a new feature or enhancement, the main agent asks you to choose one of these paths.
+
+| Path | What happens |
 | --- | --- |
-| harness | 项目介绍、技术栈、规则、角色与技能说明、规格、计划、决策、错误知识库和简要日志文档 |
-| project/code | 交付软件本体的实现、运行资源，以及必要项目描述、依赖清单和构建配置 |
-| project/installpark | 用户明确要求或明确批准计划中的打包项后生成的最终安装包 |
-| test | 所有非本体代码，包括测试、验证及打包辅助脚本，以及数据、原始日志、截图、缓存、中间产物和非安装包输出 |
+| Direct change | The main agent makes the authorized change and completes the applicable reviews and checks. This path skips a new feature specification and implementation plan. |
+| Feature design and planning | The main agent uses [feature-plan](en-codex/harness/.agents/skills/feature-plan/SKILL.md) to clarify requirements one question at a time, then presents the versioned specification and numbered implementation plan together for approval. Implementation starts once the document pair is approved and you authorize implementation. |
 
-软件本体代码可以编译后进入产品；不要求源文件原样进入安装包。测试或工具代码不会因为参与构建而成为软件本体。工具固定目录与上述边界冲突时，需要明确报告并由用户决定。
+For interface work, [UIUX-design](en-codex/harness/.agents/skills/UIUX-design/README.md) helps clarify user tasks, essential features, and recovery paths during planning. After approval, if you ask for interface design, UIdesign works with you on a representative screen and refines the key pages in the chosen direction. It can ask you directly where Codex supports it or relay questions through the main agent. Project mockups, prototypes, and design-review evidence belong in `test`.
 
-## 快速开始
+### Execution and acceptance
 
-### 1. 获取模板并选择运行器和语言
-
-下载上方对应运行器和语言的 ZIP 并解压，或克隆 / Fork 本仓库。从 `zh-CN-codex/`、`en-codex/`、`zh-CN-deepseekharness/` 或 `en-deepseekharness/` 中选择一套，复制 `harness`、`project`、`test` 到实际项目所需位置。
-
-三个目录可以位于不同磁盘，无需共同父目录。每个项目使用自己的副本，不共用计划和错误记录。
-
-### 2. 填写三份文件
-
-在项目副本中替换 `@@`，不要把真实项目资料写回干净模板。
-
-| 文件 | 填写内容 |
-| --- | --- |
-| harness/README.md | 项目用途、目标用户、功能范围及约束 |
-| harness/ARCHITECTURE.md | 技术栈、目标平台、交付形式和架构约束 |
-| harness/docs/paths.md | harness、project、test 的实际绝对路径 |
-
-未知技术选择可以注明待定，再通过需求讨论明确。规格书、实现计划、决策和错误记录由主 Agent 根据实际任务维护，无需用户预先填完整套文档。
-
-### 3. 配置运行环境
-
-运行器需要能够读取 Markdown、访问三个实际目录、创建独立子 Agent，并在创建时显式设置模型和推理深度。
-
-检查所选副本的 `harness/agents/MODELS.md` 是否适用于当前运行器。DeepSeek Harness 版还需使用 `list_subagent_models` 核对路由，并显式传入 provider、model 和 reasoning_effort。两个 Reviewer 共用 reviewer 配置，每个实例分别记录实际参数；主 Agent 的模型由运行器控制。
-
-模板中的角色和技能通过主 Agent 显式读取，不是运行器的原生配置。打开多个工作区目录不等于自动加载规则或获得权限；缺少必要能力时应报告阻塞，不能假装执行或审查已经完成。
-
-### 4. 提交第一个任务
-
-在对话中发送：
-
-```text
-请读取 <harness 实际绝对路径>/AGENTS.md，
-按其中规则执行本项目任务：
-
-<用简单语言描述功能或问题>
-
-已有计划：<无，或提供计划编号/路径>
+```mermaid
+flowchart TD
+    A[New feature or enhancement] --> B{User chooses a route}
+    B -->|Direct change| C[Main agent makes the authorized change]
+    C --> D[Applicable review and verification]
+    D --> Z[Main agent accepts the result]
+    B -->|Feature design and planning| E[Clarify requirements and draft the documents]
+    E --> F{Current specification and plan approved}
+    F -->|Revision requested| E
+    F -->|Approved| G[Refine and hand off interface design if requested]
+    G --> H{Implementation authorized}
+    H -->|Planning or design only| I[Deliver the agreed documents or designs]
+    H -->|Authorized| J[Fresh implementer completes the current item]
+    J --> K[Two independent reviewers check the item]
+    K --> L{Main agent checks reviews and evidence}
+    L -->|Rework| R[Return fixes to the original implementer when possible]
+    R --> K
+    L -->|Next item| J
+    L -->|All items accepted| M[Two fresh reviewers check the whole feature]
+    M --> N{Overall review passes}
+    N -->|Rework| O[Fix and revalidate affected items using the original teams when possible]
+    O --> P[Overall reviewers recheck the corrected version]
+    P --> N
+    N -->|Pass| Z
 ```
 
-例如，你可以提出“为现有列表增加 CSV 导出功能”，由 Agent 调查已有实现并澄清导出范围、格式和边界行为。随后审阅它生成的规格书、计划版本及完整编号清单，再明确确认是否开始实施。
+An approved and authorized plan proceeds [one item at a time](en-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md). Prefer returning rework to the original implementer and review instances. When the runner has limited concurrency, run both reviewers sequentially in independent contexts and record that they were sequential. Mandatory acceptance needs both conclusions covering the same final version and the required evidence. Code, infrastructure, and rule changes that affect later decisions also require two independent reviews when using the direct route.
 
-新会话重新提供入口和已有计划。仅要求规划时不会自动实施；实质变更需要修订确认，错字修改和仍有效的批准无需重复确认。使用英文规则时也可以指定对话语言。
+### Changes and resumption
 
-## 内置技能与角色
+The specification and plan share a `PLAN` ID and have independent versions. Material changes to scope, user behavior, key technical decisions, or acceptance criteria require revising and approving the current pair. During execution, pause affected implementation until that approval is in place. An unchanged approval remains valid when correcting wording, recording progress, or moving a finished plan.
 
-| 技能 | 作用 |
+Work tracked in a plan stays in `harness/docs/plans/active/` while open. After finishing or cancelling, archive the plan in `completed/` and keep the specification in `docs/specs/` with current links. Record the relevant versions, results, and next step. Keep raw evidence in `test` and references in the plan.
+
+## Bundled roles and skills
+
+| Role | Responsibility |
 | --- | --- |
-| [feature-plan](zh-CN-codex/harness/.agents/skills/feature-plan/SKILL.md) | 逐轮需求访谈、规格书、自动编号计划、用户确认与修订 |
-| [subagent-driven-execution](zh-CN-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md) | 已批准计划的逐项派工、双 Reviewer、返工、恢复与最终验收 |
-| [bug-detect](zh-CN-codex/harness/.agents/skills/bug-detect/SKILL.md) | 检索历史缺陷、按根因去重，以及复核修复方案 |
+| [UIdesign](en-codex/harness/agents/UIdesign/AGENT.md) | Discusses interface decisions with the user and hands off designs and open states. |
+| [implementer](en-codex/harness/agents/implementer/AGENT.md) | Implements and verifies changes, including infrastructure, builds, and authorized packaging. |
+| [reviewer](en-codex/harness/agents/reviewer/AGENT.md) | Runs as two read-only instances, `reviewer-spec` and `reviewer-quality`, covering the same final version. |
 
-技能位于 `harness/.agents/skills/`，不需要全局安装，也不保证被运行器自动发现。纯问答、轻微文字调整及按既有契约修复缺陷，不强制新增功能规格和计划。
-
-| 角色 | 主要职责 |
+| Skill | When to use it |
 | --- | --- |
-| architect | 只读调查、方案分析、边界、依赖及验收建议 |
-| implementer | 当前分配项的实现、测试、自审和针对性验证 |
-| infra | 环境、依赖工具、构建、CI 及明确授权的打包 |
-| reviewer | 两个独立只读实例分别审查规格符合性和实现质量 |
+| [feature-plan](en-codex/harness/.agents/skills/feature-plan/SKILL.md) | Run the feature interview, check requirements coverage, and present a specification and implementation plan together. |
+| [tech-stack-plan](en-codex/harness/.agents/skills/tech-stack-plan/SKILL.md) | Work through an undecided stack if the user chooses joint planning, then update the project overview and architecture. |
+| [UIUX-design](en-codex/harness/.agents/skills/UIUX-design/README.md) | Clarify user tasks and shape representative pages, key states, and recovery paths. Add a minimal interactive prototype when a static design cannot answer the interaction question. |
+| [subagent-driven-execution](en-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md) | Execute authorized plans item by item, including dual review, rework, and overall review. |
+| [bug-detect](en-codex/harness/.agents/skills/bug-detect/SKILL.md) | Look up related defects when confirming an issue or checking a fix. Reviewers propose an entry or update and the main agent writes the deduplicated record. |
 
-详细职责、读写边界和交接格式见[角色协议](zh-CN-codex/harness/agents/README.md)。不会为了凑齐角色而创建没有实际任务的子 Agent。
+The main agent loads skills from `harness/.agents/skills/` and creates roles as the task requires. A design interview is read-only by default. The main agent assigns a writable location under `test` for drafts or prototypes and links the selected design to applicable acceptance criteria.
 
-技能和下方文档链接默认指向 Codex 版；DeepSeek Harness 版请从 [中文目录](zh-CN-deepseekharness/) 或 [英文目录](en-deepseekharness/) 打开相同相对路径。
+## Where files go
 
-## 文档导航
+| Area | Contents |
+| --- | --- |
+| `harness` | Project rules, documentation, skills, specifications, plans, decisions, and the defect knowledge base. Reusable UIUX-design references ship here. |
+| `project/code` | Product source, required runtime and build files, and launch files that are part of the delivered software. |
+| `project/installpark` | Final ZIP installers when explicitly requested or included in a user-approved packaging task. |
+| `test` | Tests, helper tools, data, logs, cache, ordinary build output, project design files, prototypes, and verification evidence. |
 
-| 文档 | 中文 | English |
-| --- | --- | --- |
-| 运行入口 | [AGENTS.md](zh-CN-codex/harness/AGENTS.md) | [AGENTS.md](en-codex/harness/AGENTS.md) |
-| 架构与文件边界 | [ARCHITECTURE.md](zh-CN-codex/harness/ARCHITECTURE.md) | [ARCHITECTURE.md](en-codex/harness/ARCHITECTURE.md) |
-| 模型配置 | [MODELS.md](zh-CN-codex/harness/agents/MODELS.md) | [MODELS.md](en-codex/harness/agents/MODELS.md) |
-| 主 Agent 手册 | [执行手册](zh-CN-codex/harness/docs/runbooks/main-agent.md) | [Execution handbook](en-codex/harness/docs/runbooks/main-agent.md) |
-| 详细启动模板 | [启动模板](zh-CN-codex/harness/docs/runbooks/start-task-template.md) | [Task starter](en-codex/harness/docs/runbooks/start-task-template.md) |
-| 需求规格 | [规格模板](zh-CN-codex/harness/docs/specs/TEMPLATE.md) | [Specification template](en-codex/harness/docs/specs/TEMPLATE.md) |
-| 执行计划 | [计划模板](zh-CN-codex/harness/docs/plans/TEMPLATE.md) | [Plan template](en-codex/harness/docs/plans/TEMPLATE.md) |
-| 错误知识库 | [bugs.md](zh-CN-codex/harness/docs/bugs.md) | [bugs.md](en-codex/harness/docs/bugs.md) |
-| 技能目录 | [技能说明](zh-CN-codex/harness/.agents/skills/README.md) | [Skills](en-codex/harness/.agents/skills/README.md) |
+Source files can be compiled into the deliverable. Keep build and packaging helper scripts in `test`, along with intermediate artifacts and archive extraction used for verification. If a tool requires a fixed directory that conflicts with these boundaries, report the conflict and ask the user to decide.
 
-同一功能的规格书与计划共用 PLAN 编号，实现项和验收场景分别使用稳定编号。活动计划放 `docs/plans/active/`，完成或取消后归档到 `completed/`；规格书保留原位并更新引用。设计决策和实际技术债分别放 `docs/decisions/`、`docs/tech-debt.md`。
+## Template reference
 
-Reviewer 确认缺陷或复验时调用 bug-detect，由主 Agent 去重后统一写入 `docs/bugs.md`。知识库不是自动异常采集器；原始运行日志和复现代码放 test，同根因复发更新原条目，验证后才记录已解决。
+| Document | Use |
+| --- | --- |
+| [AGENTS.md](en-codex/harness/AGENTS.md) | Entry point and project working rules |
+| [ARCHITECTURE.md](en-codex/harness/ARCHITECTURE.md) and [paths.md](en-codex/harness/docs/paths.md) | Stack, file placement, and directory index |
+| [Main agent handbook](en-codex/harness/docs/runbooks/main-agent.md) and [task starter](en-codex/harness/docs/runbooks/start-task-template.md) | Dispatch, evidence, and session setup |
+| [Role protocol](en-codex/harness/agents/README.md) and [handoff template](en-codex/harness/agents/TASK_TEMPLATE.md) | Work boundaries and inputs for delegation |
+| [MODELS.md](en-codex/harness/agents/MODELS.md) and [skill index](en-codex/harness/.agents/skills/README.md) | Model parameters and reading order |
+| [Specification template](en-codex/harness/docs/specs/TEMPLATE.md) and [plan template](en-codex/harness/docs/plans/TEMPLATE.md) | Versioned requirements and trackable implementation |
+| [Defect knowledge base](en-codex/harness/docs/bugs.md), [decisions](en-codex/harness/docs/decisions/README.md), and [technical debt](en-codex/harness/docs/tech-debt.md) | Persistent records for later tasks |
 
-## Git 与交付约定
+## Git and delivery
 
-- 目标项目的 harness 与 project/code 分别使用独立 Git 仓库，不要求三个区域共有根仓库。
-- test 与安装包独立保存；没有 Git 的区域可以通过前置快照与内容比对提供审查依据。
-- 初始化、提交、推送、合并和发布按实际任务授权执行，验收通过不会自动授权这些操作。
-- 普通构建、测试通过或功能完成不自动触发打包；只有明确要求或批准的打包项才生成最终安装包。
-- 本地检查不能替代目标环境验收，交付时需要说明实际验证及未验证限制。
+- In deployed projects, `harness` and `project/code` use independent Git repositories. Relate their changes by task ID and version. For areas without Git, record a baseline snapshot and compare content.
+- Repository initialization, commits, pushes, merges, and publishing require authorization. Keep evidence of the work actually performed and identify unrun checks during delivery.
+- Store only explicitly authorized final ZIP installers in `project/installpark`. Ordinary builds and passing tests do not trigger packaging. Verify the archive layout and contents and reuse valid functional checks for the same version.
+- Verify runtime capabilities and permissions for your environment. The template checks and package inspection cover the distribution files, while deployed behavior depends on the actual project, runner, and model.
 
-## 设计参考与参与改进
+## Design references and contributions
 
-需求访谈方式参考 GrillMe，逐项执行与审查流程参考 Superpowers。所需协议已包含在模板内，无需另外安装这两个插件；本项目是独立整理的模板，不是它们的官方发行版。
+The interview approach draws on GrillMe. Item-by-item execution and independent review draw on Superpowers. The template includes its own protocols. Both plugins are optional.
 
-欢迎通过 Issue 反馈规则冲突、部署问题或遗漏，通过 Pull Request 改进模板。修改规则含义时请同步中英文版本，保持结构、模型参数和编号约定一致，不提交真实项目资料、任务历史或运行产物。
+Use Issues for rule conflicts, deployment problems, or gaps. When proposing a template change, synchronize rule meaning across both language variants for the affected runner and preserve role settings, identifiers, and boundaries. Keep real project data, task history, and runtime artifacts out of changes to the distribution template.
 
-模板已完成静态检查，但尚不代表每一种运行器和技术栈都已完成端到端验证。使用前请核对工具能力、权限和模型参数支持。
+## License
 
-## 许可证
-
-本项目采用 [MIT License](LICENSE)。允许使用、修改、分发及商用，复制或分发本模板及其重要部分时须保留版权与许可证声明；具体条款以 LICENSE 为准。
+The project uses the [MIT License](LICENSE). Keep the copyright and license notices when distributing the template or substantial portions of it.

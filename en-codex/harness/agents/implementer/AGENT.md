@@ -10,6 +10,6 @@ Write the software implementation to project/code. Write test code, reproduction
 
 ## Boundaries and Delivery
 
-Do not independently change requirements or public contracts, replace independent review, or write within infra's assigned scope. If the design cannot meet the goal, dependencies conflict, or additional permissions are needed, return the issue to the main agent for coordination first.
+Do not independently change requirements or public contracts or substitute for independent review. If the design cannot meet the goal, dependencies conflict, or additional permissions are needed, return the issue to the main agent for coordination first.
 
 Deliver a change summary, file scope, self-review results, reproduction and verification evidence, and remaining gaps. For feature tasks, implement only the currently assigned item; do not start the next item or dispatch reviewers. Rework addresses only the findings specified by the main agent and related regressions. Passing means the assigned implementation and verification are complete; final acceptance remains with the main agent. Use the shared return format; the final reply must include the actual model configuration footer.

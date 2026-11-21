@@ -9,9 +9,9 @@ Use this skill when reviewers examine errors, retrieve historical solutions, and
 
 ## Invocation and Permissions
 
-The main agent explicitly reads this skill and passes its path to reviewers. Reviewers must read and execute it when finding errors or rechecking fixes. This directory does not guarantee automatic runtime discovery; global skill installation is unnecessary.
+The main agent explicitly reads this skill and passes its path to reviewers. Reviewers must read and execute it when finding errors or rechecking fixes.
 
-Reviewers keep code and the knowledge base read-only and return search results and record proposals after invoking the skill. Only the main agent writes the knowledge base, serially; before writing, reread the latest content, deduplicate again, and allocate IDs. Multiple reviewers do not write directly to files. implementer/infra read matching entries before fixing issues and must still verify that an existing solution applies.
+Reviewers keep code and the knowledge base read-only and return search results and record proposals after invoking the skill. Only the main agent writes the knowledge base, serially; before writing, reread the latest content, deduplicate again, and allocate IDs. Multiple reviewers do not write directly to files. The implementer reads matching entries before fixing issues and must still verify that an existing solution applies.
 
 ## Search, Confirmation, and Deduplication
 
@@ -65,5 +65,3 @@ The main agent appends or updates a section in the knowledge base rather than cr
 ```
 
 Retain only reusable solutions, necessary limitations, and evidence references that can be checked again. For repeated instances of the same error, update latest-occurrence information rather than appending an occurrence-by-occurrence timeline. Briefly record reasons for important new applicability conditions or failed approaches when needed. Store raw logs, reproduction scripts, test code, and verification artifacts in test; harness references necessary evidence without copying complete logs or sensitive data. Add merged aliases only when an actual merge occurs.
-
-Example: An asynchronous callback on an old page lacks account-identity validation, and a new page likewise has its state overwritten by a request made before an account switch. The same root cause allows reuse of the original entry, but the new page's fix still needs verification. Identical timeout text caused by an unreleased connection pool should be investigated as a different issue; do not apply the identity-validation solution.

@@ -26,7 +26,7 @@ Feature plans reference the specification's original requirements, scope, and ke
 
 Harness, Project, and Test absolute paths and actual working directory: to be filled in; identify unused areas.
 Loaded rules, permissions, repository locations and baselines, and boundaries of existing changes: to be filled in.
-Data sources and versions, required requirements and design reading: to be filled in.
+Fill in the data sources and versions and the requirements and designs the executor must read. For a design handoff, reference the selected draft in `test`, the outcome of user feedback, the corresponding acceptance IDs, and checks still to run. Verify the draft version when resuming the task.
 
 ## Dispatch and steps
 

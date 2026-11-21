@@ -33,17 +33,16 @@ harness/
 │       │   └── SKILL.md
 │       ├── tech-stack-plan/
 │       │   └── SKILL.md
-│       ├── UI-design/
-│       │   ├── .gitkeep
-│       │   └── interaction-motion-design/
-│       │       ├── SKILL.md
-│       │       └── references/
-│       │           ├── LICENSE
-│       │           ├── STANDARDS.md
-│       │           ├── animation-vocabulary.md
-│       │           ├── apple-design.md
-│       │           ├── emil-design-eng.md
-│       │           └── review-animations.md
+│       ├── UIUX-design/
+│       │   ├── README.md
+│       │   ├── assets/
+│       │   │   └── index.md
+│       │   └── references/
+│       │       ├── interaction-motion.md
+│       │       ├── tasks-navigation.md
+│       │       ├── creative-direction.md
+│       │       ├── copy-and-states.md
+│       │       └── visual-hierarchy.md
 │       └── README.md
 ├── agents/
 │   ├── UIdesign/

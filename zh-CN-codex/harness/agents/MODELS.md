@@ -6,16 +6,16 @@
 
 | 角色 | model | reasoning_effort |
 | --- | --- | --- |
-| UIdesign | gpt-6.1-sol | high |
-| implementer | gpt-6.1-sol | medium |
-| reviewer | gpt-6.1-sol | high |
+| UIdesign | gpt-6.2-sol | high |
+| implementer | gpt-6.2-sol | medium |
+| reviewer | gpt-6.2-sol | high |
 
 reviewer-spec 与 reviewer-quality 是 reviewer 的两个审查实例，均读取上方 reviewer 行，不另设模型配置；每个实例实际创建参数分别记录。
 
 ## 创建与记录规则
 
 - 每次创建前，主 agent 重新读取本文件对应角色，显式传入 model 和 reasoning_effort，不依赖继承，不使用其他文件中的旧值。
-- 禁止使用 gpt-6-astra，包括其别名和变体，适用于所有子 agent；配置与此限制冲突时不创建，报告冲突。
+- 禁止使用 gpt-6.2-astra，包括其别名和变体，适用于所有子 agent；配置与此限制冲突时不创建，报告冲突。
 - 工具不支持显式选择配置、配置缺失或目标参数不受支持时，不创建该子 agent，报告具体限制；不静默换模型、降级或忽略推理设置。
 - 当前深度值使用 high 与 medium。更换平台时核对其实际支持的参数和取值，再按用户授权更新本文件，不从其他角色说明推断映射。
 - 子任务提示必须带本次实际创建参数，并要求最终回复（含受阻、失败）最后一行重复：模型选择：<实际模型 ID>；推理深度：<实际 reasoning_effort>。

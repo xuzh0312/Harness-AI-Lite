@@ -21,7 +21,7 @@ Alternatives with material impact, choice, and reasons: to be filled in; explain
 
 ## Feature behavior and constraints
 
-Entry triggers, inputs and outputs, user actions or interfaces, data effects, necessary exceptions, and boundary behavior: to be filled in.
+Fill in entry triggers, inputs and outputs, user actions or interfaces, data effects, necessary exceptions, and boundary behavior. For an interface, describe the main task flow and how users recover from failures. Reference the corresponding acceptance IDs.
 Technical, compatibility, and delivery constraints: to be filled in. Without explicit packaging approval, do not treat a delivery format as packaging authorization.
 
 ## Acceptance scenarios

@@ -17,14 +17,14 @@ If an older approved plan lacks a separate specification, first derive a linked 
 
 ## 2. Prepare a Brief for One Implementation Item
 
-Choose one unfinished item whose dependencies are satisfied, following plan order. Execute implementation items serially; start the next only after independent review and main agent acceptance of the previous item. Do not start implementer and infra implementation work in parallel. Necessary read-only investigation may run in parallel but cannot replace unmet implementation prerequisites.
+Choose one unfinished item whose dependencies are satisfied, following plan order. Execute implementation items serially; start the next only after independent review and main agent acceptance of the previous item. Necessary read-only investigation may run in parallel but cannot replace unmet implementation prerequisites.
 
-Create a fresh implementer or infra context for every new implementation item. architect participates in early analysis, important design deviations, and fact-finding, rather than being repeatedly invoked to include every role. Subagents do not create nested agents; the main agent dispatches reviewers, and executor self-review does not replace independent review.
+Create a fresh implementer context for every new implementation item. Subagents do not create nested agents; the main agent dispatches reviewers, and executor self-review does not replace independent review.
 
 Save the brief in the corresponding item of the original plan. Use the [handoff template](../../../agents/TASK_TEMPLATE.md) to provide:
 
 - The current checklist item, approved document pair, relevant specification acceptance IDs and original constraints, goal, and non-goals.
-- Actual paths for the three areas, working directory, applicable rules, necessary interfaces, and accepted prerequisite results.
+- Actual paths for the three areas, working directory, applicable rules, necessary interfaces, and accepted prerequisite results. For interface items, include the selected design path, key states, interaction constraints, and scenarios requiring hands-on verification. Prototypes serve as design references only.
 - Specific allowed read/write scope, existing user changes, verification methods and evidence locations, and necessary dependencies.
 - The baseline before this item starts, output requirements, and the location of this item's brief in the original plan.
 
@@ -61,7 +61,7 @@ When finding defects or rechecking fixes, reviewers invoke [bug-detect](../bug-d
 
 The main agent verifies every finding and records the rationale for accepting a fix or rejecting a finding with evidence. When repair is needed, prefer restoring the original executor and supply specific findings, acceptance requirements, and allowed scope. If the original agent is unavailable or current role configuration has changed, reread configuration, create a new agent, and hand over existing results and unresolved matters.
 
-After fixes, rerun affected checks. The main agent gives both reviewers in the group the same final version and new diff. Each rechecks original findings and related regressions. Valid evidence may be reused for an unaffected dimension, but the current version must still be checked and confirmed. Prefer restoring both original instances; if they cannot be restored or role configuration has changed, create replacements under the new configuration and hand over the work. After both conclusions meet passing conditions, the main agent checks the evidence. If the same issue persists for two consecutive rounds without new evidence, revisit root cause, approach, and delegation; involve architect if necessary, and ask only specific questions when user decisions are needed. Do not retry mechanically forever or mark unmet requirements, mandatory verification, or blocking defects as “deferred and complete” after reaching a round count.
+After fixes, rerun affected checks. The main agent gives both reviewers in the group the same final version and new diff. Each rechecks original findings and related regressions. Valid evidence may be reused for an unaffected dimension, but the current version must still be checked and confirmed. Prefer restoring both original instances; if they cannot be restored or role configuration has changed, create replacements under the new configuration and hand over the work. After both conclusions meet passing conditions, the main agent checks the evidence. If the same issue persists for two consecutive rounds without new evidence, revisit the root cause, approach, and delegation. Ask only specific questions when user decisions are needed. Do not retry mechanically forever or mark unmet requirements, mandatory verification, or blocking defects as “deferred and complete” after reaching a round count.
 
 The main agent marks an item as passed only when it meets the specification, quality requirements, and necessary checks, recording the baseline-to-final diff scope, reviewer conclusions, and evidence. Record completion and the next step before assigning the next item; raw reports do not become a separate progress source.
 

@@ -4,7 +4,7 @@ The main agent fills this file and sends it as a prompt; it is not automatic con
 
 ```text
 Task ID: <main task ID / subtask ID>
-Role: <architect / implementer / infra / reviewer>
+Role: <UIdesign / implementer / reviewer>
 Review instance and dimension: <reviewer-spec / specification compliance, or reviewer-quality / implementation quality; mark not applicable for other roles>
 Review group and round: <task item or overall review identifier, round, and the other instance in this group; mark not applicable for non-review tasks>
 Goal and non-goals: <specific description>
@@ -13,9 +13,9 @@ Project absolute path: <path; explain if unused>
 Test absolute path: <path; explain if unused>
 Working directory: <actual absolute path>
 Required reading: <Harness AGENTS.md, agents/MODELS.md, shared role protocol, role instructions, target-directory rules, requirements, and plan>
-Approved document pair for feature task: <specification path and version, plan path and version, relevant acceptance IDs; mark not applicable for non-feature tasks>
-Execution phase and brief: <initial implementation / rework / item review / overall review; location of this item's brief in the original plan>
-Inputs and baseline: <code commit and existing working-tree changes, or reviewed file scope; data version>
+Approved document pair for feature task: <specification path and version, plan path and version, applicable acceptance IDs. During planning interviews, identify drafts and open decisions. Mark not applicable for standalone design or direct changes>
+Execution phase and brief: <user-task discovery / interface refinement / initial implementation / rework / item review / overall review. Give the brief location when a plan exists>
+Inputs and baseline: <code commit and existing working-tree changes or reviewed file scope, plus data version. Include approved drafts and key states for interface items>
 Allowed read/modification scope: <specific paths; explicitly state read-only where applicable>
 Existing changes and other executors: <content to preserve, conflict boundaries>
 Prerequisites: <satisfied inputs or outstanding conditions>
@@ -29,7 +29,7 @@ Creation parameters: model=<value read from this role's configuration>; reasonin
 Follow the shared protocol and return in its shared format; do not update main-task status or create nested agents.
 The final reply must end with the configuration line below, including blocked or failed replies.
 If the runtime explicitly reports different actual settings, record the reported values; if they violate the prohibited-model rule, stop and report.
-Model selection: <actual model ID>; Reasoning effort: <actual reasoning_effort>
+模型选择：<actual model ID>；推理深度：<actual reasoning_effort>
 ```
 
 Before sending, the main agent must reread MODELS.md and replace configuration placeholders with the actual values for the role, ensuring that the prompt's last line is the configuration footer.
