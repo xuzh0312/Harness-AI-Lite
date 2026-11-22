@@ -1,7 +1,7 @@
-# Requirements and Acceptance
+# Requirements and acceptance
 
-The main agent interviews for new features and enhancements per [feature-plan](../../.agents/skills/feature-plan/SKILL.md) and maintains the specification with the [template](TEMPLATE.md). Each feature is saved as `PLAN-0001.md` and shares its feature number with the plan; small features use a short specification, and pure Q&A or defect fixes under existing contracts do not require a new specification.
+When the user chooses feature planning, the main agent conducts interviews and maintains specifications using [feature-plan](../../.agents/skills/feature-plan/SKILL.md) and the [template](TEMPLATE.md). Save each specification as `PLAN-0001.md`, sharing the feature ID with its plan. Use short specifications for small features. Ordinary Q&A and bug fixes under existing contracts do not require a new specification.
 
-The specification records what to build, behavioral boundaries, and AC-01 acceptance scenarios; implementation steps, dispatch, and progress live only in the related plan. The two documents are versioned separately and presented together for user confirmation, with the approval basis stored in the plan. Answering one interview question does not approve the whole approach.
+A specification records what to do, behavioral boundaries, and acceptance scenarios in the form AC-01; implementation steps, dispatch, and progress belong only in the linked plan. The two documents are versioned separately and presented together for user confirmation; the plan centrally stores approval evidence. Answering an interview question does not approve the entire proposal.
 
-After the plan completes or is canceled, move it to plans/completed; keep the specification in place and synchronize status and links. Do not copy the specification for each discussion round or archive. The specification and plan together are the only record of approval and acceptance; DSH native plan mode, goal, or team task does not replace this record.
+After a plan is completed or cancelled, move it to plans/completed; keep the specification in its original location and update its status and links. Do not copy specifications for each discussion round or archive operation.

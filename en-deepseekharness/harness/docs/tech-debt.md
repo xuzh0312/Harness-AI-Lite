@@ -1,3 +1,3 @@
-# Technical Debt
+# Technical debt
 
-Record issues, impact, handling status, and acceptance method after actual discovery. There are currently no entries.
+After an issue is actually found, record the problem, impact, handling status, and acceptance method. There are currently no entries.

@@ -1,6 +1,6 @@
 ---
 name: bug-detect
-description: Use when a reviewer finds a project defect, encounters a similar historical error, or rechecks a claimed fix during project development.
+description: 在项目开发中，reviewer 发现缺陷、遇到相似历史错误或复验声称已完成的修复时使用。
 ---
 
 # Bug Detect：项目错误知识库
@@ -9,9 +9,9 @@ description: Use when a reviewer finds a project defect, encounters a similar hi
 
 ## 调用与权限
 
-主 agent 通过 `skill` 工具加载本技能，或直接读取本文件绝对路径，并把路径传给 reviewer；reviewer 发现错误或复验修复时必须读取并执行。技能是否出现在 DSH 技能目录中取决于会话工作目录与项目根；不依赖全局安装。
+主 agent 显式读取本技能并将路径传给 reviewer；reviewer 发现错误或复验修复时必须读取并执行。
 
-reviewer 对代码和知识库保持只读，调用技能后返回查询结果及记录提议。只有主 agent 串行写入知识库；写前重读最新内容、重新去重并分配编号。多个 reviewer 不直接写文件。implementer/infra 修复前读取匹配条目，已有方案仍须验证是否适用。
+reviewer 对代码和知识库保持只读，调用技能后返回查询结果及记录提议。只有主 agent 串行写入知识库；写前重读最新内容、重新去重并分配编号。多个 reviewer 不直接写文件。implementer 修复前读取匹配条目，已有方案仍须验证是否适用。
 
 ## 查询、确认与去重
 
@@ -65,5 +65,3 @@ reviewer 不预先占用新 ID，不将记录提议视为已落盘。主 agent �
 ```
 
 仅保留可复用的方案、必要限制及能复查的证据引用。多次相同错误更新最近发生信息，不追加逐次时间线；重要的新适用条件或失败方案可简记其原因。原始日志、复现脚本、测试代码及验证产物均存放 test，harness 只引用必要证据，不复制完整日志或敏感数据。合并别名仅在实际合并时添加。
-
-示例：旧页面的异步回调缺少账号身份校验，新页面同样被切换账号前的请求覆盖状态，根因相同可复用原条目；仍需验证新页面的修复。相同 timeout 文本若来自未释放的连接池，应作为不同问题调查，不能套用身份校验方案。

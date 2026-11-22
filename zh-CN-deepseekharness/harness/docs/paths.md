@@ -6,16 +6,16 @@
 | project | @@ | code 与 installpark |
 | test | @@ | 测试及辅助代码、数据、日志、缓存与验证产物 |
 
-主 agent 从这里获取实际位置，不假定三个目录同盘或相邻。执行命令须明确工作目录；DSH 会话的 workspace 与文件沙盒决定可写范围。子 agent 的 cwd 必须在创建时显式传入；省略时会继承调用方当前工作目录，不能假定它与主会话隔离。实际目录需在会话中可读；跨区域写入超出 workspace 时，先取得用户批准的权限配置。移动目录后更新本表与会话 workspace 设置。
+主 agent 从此表获取实际位置；不假定三个目录同盘或相邻。执行命令时必须指定工作目录；运行器须为实际目录提供相应的访问权限。移动目录后更新本表。
 
 ## 目录结构同步规则
 
-- 以下目录树对应实际存在的内容，包含隐藏文件与空目录；不列出 Git 内部元数据。三个区域分别展示，不表示它们必须相邻。绝对路径仍以表格为准。
-- 新增、删除、移动或重命名文件及目录后，必须同步此文档；普通文件内容更新但结构未变时无需重写目录树。计划中的拟建文件不提前列为已存在。
-- 主 agent 是此文档的唯一写入者。子 agent 每批结构变更后立即回报路径清单；主 agent 接收后更新，最迟在下一轮分派或交给 reviewer 前完成，不等到整个项目结束。
-- 主 agent 开始或恢复任务时核对实际结构；发现用户或外部工具改变结构时同步差异，不依赖旧聊天。移动区域根目录时同时更新上方路径表。
-- reviewer 核对目录树与实际文件，主 agent 最终验收前再次核对；无法访问区域时明确标注未核对，不宣称同步完成。
-- 只维护一份当前结构，不追加逐次变更流水。此规则由执行 agent 落实，没有后台监听程序。模板中不得为了更新目录树创建示例文件或填写真实项目路径。
+- 以下目录树反映实际存在的内容，包括隐藏文件和空目录；省略 Git 内部元数据。三个区域分开展示，不要求相邻。绝对路径以表格为准。
+- 新增、删除、移动或重命名文件或目录后同步本文档；仅改内容且结构不变时不必重写目录树。不把计划中的文件列为已存在。
+- 主 agent 是本文档的唯一写入者。子 agent 每批结构变更后立即报告路径清单；主 agent 收到后即更新，最迟在下次分派或交接给 reviewer 前完成，不等到项目结束。
+- 主 agent 在启动或续接任务时核对实际结构，发现用户或外部工具造成的差异就同步，不依赖旧对话。区域根目录移动时也更新上方路径表。
+- reviewer 核对目录树与实际文件，主 agent 在最终验收前再次核对。无法访问的区域明确标为未核查，不声称同步完成。
+- 只维护一份当前结构，不追加按时间排列的变更日志。执行任务的 agent 负责落实；没有后台监听程序。不要仅为更新模板的目录树而创建示例文件或填入真实项目路径。
 
 ## 三个区域的实际文件结构
 
@@ -24,22 +24,32 @@
 ```text
 harness/
 ├── .agents/
-│   ├── skills/
-│   │   ├── bug-detect/
-│   │   │   └── SKILL.md
-│   │   ├── feature-plan/
-│   │   │   └── SKILL.md
-│   │   └── subagent-driven-execution/
-│   │       └── SKILL.md
-│   └── README.md
+│   └── skills/
+│       ├── bug-detect/
+│       │   └── SKILL.md
+│       ├── feature-plan/
+│       │   └── SKILL.md
+│       ├── subagent-driven-execution/
+│       │   └── SKILL.md
+│       ├── tech-stack-plan/
+│       │   └── SKILL.md
+│       ├── UIUX-design/
+│       │   ├── assets/
+│       │   │   └── index.md
+│       │   ├── references/
+│       │   │   ├── copy-and-states.md
+│       │   │   ├── creative-direction.md
+│       │   │   ├── interaction-motion.md
+│       │   │   ├── tasks-navigation.md
+│       │   │   └── visual-hierarchy.md
+│       │   └── README.md
+│       └── README.md
 ├── agents/
-│   ├── architect/
-│   │   └── AGENT.md
 │   ├── implementer/
 │   │   └── AGENT.md
-│   ├── infra/
-│   │   └── AGENT.md
 │   ├── reviewer/
+│   │   └── AGENT.md
+│   ├── UIdesign/
 │   │   └── AGENT.md
 │   ├── MODELS.md
 │   ├── README.md
@@ -55,6 +65,7 @@ harness/
 │   │   ├── README.md
 │   │   └── TEMPLATE.md
 │   ├── runbooks/
+│   │   ├── dsh-migration.md
 │   │   ├── main-agent.md
 │   │   ├── README.md
 │   │   └── start-task-template.md

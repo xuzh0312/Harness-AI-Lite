@@ -1,41 +1,14 @@
-# Subagent Model Configuration
+# Subagent Model Inheritance
 
-This file is the only source for the four subagent roles' model routes, reasoning effort, and disable policy. Other documents and templates reference this file and do not duplicate fixed values. Changes require project authorization; this file does not change the main agent's own model.
+UIdesign, implementer, reviewer-spec, and reviewer-quality all follow the main agent's effective provider, model, and reasoning effort at dispatch. There are no per-role overrides. This policy does not change the main agent's own settings.
 
-## Role Configuration
+## Dispatch
 
-| Role | provider | model | reasoning_effort |
-| --- | --- | --- | --- |
-| architect | deepseek-account | deepseek-flash | high |
-| implementer | deepseek-account | deepseek-flash | high |
-| infra | deepseek-account | deepseek-flash | high |
-| reviewer | deepseek-account | deepseek-flash | high |
+- Use local DSH `subagent` (Spawn) and omit **all three** fields: `provider`, `model`, and `reasoning_effort`. Do not send empty values. Passing a provider/model pair without an effort is not equivalent: DSH resolves the model's default effort instead of preserving the inherited effort.
+- Omission follows the parent on the standard local Spawn configuration without child route or effort overrides. Custom profiles may configure child defaults that take precedence. If the tool or profile cannot follow this policy, or a known override would select different settings, report the blocker; do not choose another model or change profile settings.
+- `gpt-6.2-astra`, including its aliases and variants, remains prohibited for all subagents. If the effective inherited route is prohibited, do not dispatch; report the conflict. If the runtime reports an unexpected or prohibited route or a different effort, do not accept the affected result as compliant; stop using that instance and report the mismatch.
 
-reviewer-spec and reviewer-quality are the reviewer's two review instances; both use the reviewer row above and define no separate model configuration; each instance's actual creation parameters are recorded separately.
+## Recording and Resuming
 
-DSH selects a subagent model through the `subagent` tool's `provider`, `model`, and `reasoning_effort` parameters, so this table records both route and reasoning effort:
-
-- Explicit model selection depends on the DSH preset enabling `subagent` model discovery and route parameters (enabled by default in Web/Desktop; may be disabled in headless, SDK, ACP, etc.). If a field is unavailable or the request is rejected, report a blocker; do not silently omit reasoning_effort, switch models, or inherit defaults.
-- Current values come from this machine's profile route `deepseek-account/deepseek-flash`; available reasoning efforts are `off`, `low`, `high`, `max`, default `high`.
-- After changing the profile or route, first query the actually authorized provider, model, and available values with `list_subagent_models`, then update this table under user authorization; never enter unsupported values.
-- Different roles may use different routes or efforts; keep the table's defaults absent new evidence. Use `max` only for quality-first reviews and `off` only for mechanical tasks that need no reasoning.
-
-## Creation and Recording Rules
-
-- Before each creation, the main agent re-reads this file's corresponding role and verifies route availability with `list_subagent_models`, then passes `provider`, `model`, and `reasoning_effort` explicitly; do not rely on inherited defaults when parameters are omitted.
-- Use only routes registered in this table and authorized in the current profile. Unregistered routes, guessed model IDs, and deprecated aliases are forbidden; routes the user explicitly disables are listed under "Disabled Routes" below.
-- When a route is unauthorized, a value unsupported, the tool refuses creation (such as `ACTIVATION_LIMIT_REACHED`), or configuration is missing, do not create the subagent; report the specific limitation. Do not silently switch models, downgrade, ignore reasoning settings, or reduce the required independent-review instances. When capacity is insufficient, collect or wait for existing subagents to settle before retrying.
-- The subtask prompt must include this run's actual creation parameters and require the final reply (including blocked or failed replies) to end with: `provider/model: <provider/model>; reasoning effort: <actual reasoning_effort>`.
-- DSH records the provider, model, and reasoning_effort used when a local subagent is created and reuses them on cold resume; the main agent still uses this dispatch's parameters and the subagent's reply footer as the record for the run, and does not treat the descriptor as an editable configuration source.
-- When DSH reports no difference, record the parameters actually passed and do not claim to have verified unexposed runtime parameters. If DSH explicitly reports different settings, record the reported values and explain the difference; stop the affected subtask and report when the disable policy is violated.
-- After this file changes, existing subagents do not switch automatically; to switch, create a new one per the new configuration and hand off, or send a new instruction to an idle original instance and require it to state that it remains on the old configuration.
-
-## Disabled Routes
-
-No disabled routes are currently registered. When the user explicitly disables a route, list the provider/model or alias here and replace it with an authorized route in the corresponding role configuration; do not create and report when the disabled policy conflicts.
-
-## Switching Configuration
-
-Later changes should modify only the role table above and necessary policy, not role responsibilities, task templates, or historical reports. Each new subagent uses the configuration read at that time; existing sessions do not switch models because this file changed. When a switch is needed, the main agent explicitly recreates and hands off.
-
-Model fields in historical tasks record the actual settings at that time and are not rewritten by the current configuration. The main agent provides this file's absolute path and the parameters used in the dispatch, so subagents do not guess from old chats.
+- Record `inherited` for the creation mode. Where the runtime exposes provider/model or reasoning effort, record the reported value and its source. For values not exposed, report `inherited (not independently verified)` without guessing. Use these same rules in the handoff and the final reply footer: `模型选择：<reported provider/model or inherited (not independently verified)>；推理深度：<reported effort or inherited (not independently verified)>`.
+- Existing children may retain their creation settings. If the main agent's effective model or effort has changed, or the existing child is not known to have been created under the current inheritance policy, use a new child and hand over verified context rather than assuming continuation applies the new settings. Keep historical task records unchanged.

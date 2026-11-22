@@ -1,9 +1,9 @@
-# Project Bug Knowledge Base
+# Project bug knowledge base
 
-Stores defects confirmed by this project's reviewers and reusable solutions. There are currently no entries; do not copy records from other projects when using the template.
+Store defects confirmed by this project's reviewers and reusable solutions. There are currently no bug entries; do not copy records from other projects when using the template.
 
-Reviewers invoke [bug-detect](../.agents/skills/bug-detect/SKILL.md) when finding errors and re-verifying; the main agent deduplicates and writes all entries. Merge by root cause and trigger mechanism; update the original entry for recurrence instead of appending a per-occurrence log; mark resolved only after sufficient evidence and independent recheck.
+Reviewers invoke [bug-detect](../.agents/skills/bug-detect/SKILL.md) when finding bugs and verifying fixes; the main agent deduplicates and writes entries centrally. Group entries by root cause and trigger mechanism; update the original entry for recurrence of the same kind rather than appending a log for every occurrence. Mark an entry Resolved only after sufficient evidence and independent verification.
 
-When searching, use keywords and BUG IDs, then read the applicable scope of matching entries; unverified proposals must not be used as verified solutions.
+Search by keywords and BUG ID, then read the applicable scope of matching entries; do not use unverified suggestions as verified solutions.
 
-<!-- Add entries below after actual defects occur; see the skill for the format. Do not prefill examples or process records. -->
+<!-- Add entries below after actual defects occur; see the skill for the format. Do not prefill examples or records of template setup. -->

@@ -1,38 +1,38 @@
-# <Feature ID>: <Feature Name> Specification
+# <Feature ID>: <Feature name> specification
 
-Status: template, fill in. For actual features use Awaiting confirmation / Confirmed / In progress / Completed / Canceled.
-Specification version: fill in; confirmation status: unconfirmed.
-Related plan: fill in the actual relative link after creation; the approval basis is stored in the plan's "Version and User Confirmation" section.
+Status: Template, to be filled in. For an actual feature, use Awaiting confirmation / Confirmed / In progress / Completed / Cancelled.
+Specification version: to be filled in; confirmation status: unconfirmed.
+Linked plan: fill in the actual relative link after creation; approval evidence is maintained centrally in the plan's “Versions and user confirmation” section.
 
-## Original Request and Goals
+## Original requirements and goal
 
-The user's original request, target users, problem to solve, and success criteria: fill in.
+The user's original requirements, target users, problem to solve, and success criteria: to be filled in.
 
-## Scope and Non-Goals
+## Scope and non-goals
 
-Included functionality and explicitly excluded content: fill in.
+Included functionality and explicitly excluded content: to be filled in.
 
-## Current Facts, Proposals, and Tradeoffs
+## Current facts, recommendations, and tradeoffs
 
-Verified implementation and basis: fill in.
-Decisions the user has confirmed: fill in.
-Agent proposals or delegated default choices and rationale: fill in; never present them as the user's own words.
-Alternatives with real impact, the choice, and rationale: fill in; state when not applicable.
+Verified implementation and supporting evidence: to be filled in.
+Decisions confirmed by the user: to be filled in.
+Agent recommendations or defaults chosen under delegated authority and their reasons: to be filled in; do not present them as the user's own words.
+Alternatives with material impact, choice, and reasons: to be filled in; explain if not applicable.
 
-## Behavior and Constraints
+## Feature behavior and constraints
 
-Trigger entry points, inputs and outputs, user operations or interfaces, data impact, necessary error and boundary behavior: fill in.
-Technical, compatibility, and delivery constraints: fill in. Without explicit packaging approval, do not write a delivery form as packaging authorization.
+Fill in entry triggers, inputs and outputs, user actions or interfaces, data effects, necessary exceptions, and boundary behavior. For an interface, describe the main task flow and how users recover from failures. Reference the corresponding acceptance IDs.
+Technical, compatibility, and delivery constraints: to be filled in. Without explicit packaging approval, do not treat a delivery format as packaging authorization.
 
-## Acceptance Scenarios
+## Acceptance scenarios
 
-IDs are stable within this specification; the plan and reviewers cite the same IDs and do not renumber when order changes.
+IDs remain stable within this specification. The plan and reviewers reference the same IDs; do not renumber after reordering.
 
 | Acceptance ID | Preconditions and trigger | Observable expected result | Check method |
 | --- | --- | --- | --- |
-| AC-<number> | Fill in | Fill in | Fill in |
+| AC-number | To be filled in | To be filled in | To be filled in |
 
-## Open Questions and Revisions
+## Open questions and revisions
 
-Open questions, impact, recommended approach, and rationale: fill in; explicitly state when there are none.
-Substantive changes in this version and their impact: fill in; keep draft status until confirmation.
+Unresolved questions, impact, recommended approach, and reasons: to be filled in; explicitly state if none.
+Substantive changes and impact in this version: to be filled in; retain draft status until confirmation.

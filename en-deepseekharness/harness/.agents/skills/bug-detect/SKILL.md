@@ -3,67 +3,65 @@ name: bug-detect
 description: Use when a reviewer finds a project defect, encounters a similar historical error, or rechecks a claimed fix during project development.
 ---
 
-# Bug Detect: Project Bug Knowledge Base
+# Bug Detect: Project Error Knowledge Base
 
-Used by reviewers to check errors, search historical solutions, and re-verify fixes. The knowledge base is the current Harness's [docs/bugs.md](../../../docs/bugs.md); do not mix projects. It stores reusable problems and verified solutions, not per-round review logs.
+Use this skill when reviewers examine errors, retrieve historical solutions, and recheck fixes. The knowledge base is [docs/bugs.md](../../../docs/bugs.md) in the current Harness; do not mix projects. It stores reusable issues and verified solutions, rather than a running log of review rounds.
 
 ## Invocation and Permissions
 
-The main agent loads this skill with the `skill` tool or reads this file's absolute path and passes the path to the reviewer; the reviewer must read and follow it when finding an error or re-verifying a fix. Whether the skill appears in DSH's skill catalog depends on the session working directory and project root; it does not depend on global installation.
+The main agent explicitly reads this skill and passes its path to reviewers. Reviewers must read and execute it when finding errors or rechecking fixes.
 
-The reviewer stays read-only for code and the knowledge base; after invoking the skill it returns query results and record proposals. Only the main agent writes the knowledge base serially; before writing it re-reads the latest content, deduplicates again, and assigns IDs. Multiple reviewers never write the file directly. implementer/infra read matching entries before fixing, and must still verify whether an existing solution applies.
+Reviewers keep code and the knowledge base read-only and return search results and record proposals after invoking the skill. Only the main agent writes the knowledge base, serially; before writing, reread the latest content, deduplicate again, and allocate IDs. Multiple reviewers do not write directly to files. The implementer reads matching entries before fixing issues and must still verify that an existing solution applies.
 
-## Query, Confirm, and Deduplicate
+## Search, Confirmation, and Deduplication
 
-1. Verify the concrete trigger conditions and observable consequences. Static reasoning may serve as evidence but must give the full path and be marked as not run; aesthetic preferences, speculative issues, and unrelated suggestions do not enter the knowledge base. Suspicions that cannot yet be confirmed stay in the review report.
-2. Search the current project's knowledge base with symptoms, modules, error codes, and root-cause keywords, then read candidate entries. Return "no match" when the first invocation finds no record; do not import errors from other projects. When a defect is known but the root cause is not, create an entry pending localization and mark "root cause unconfirmed."
-3. Reuse the original ID when the root cause, trigger mechanism, and fix principle match and no known different applicable constraint exists; different files, pages, or error text alone do not justify a new entry. Do not force a merge when only the error looks similar but the root cause differs or same-class membership cannot be confirmed; add a new entry when clearly different, and localize first or keep a pending-localization record when uncertain.
-4. Do not add entries, counts, or repeated evidence for same-round feedback, repeated scans, or repeated evidence of the same problem. When a solved problem recurs in a newly confirmed scenario, update the original entry, recurrence count, and latest occurrence; do not write the file when there is no information gain.
-5. If two entries turn out to be the same class after root-cause confirmation, the main agent merges them into the earlier ID, consolidates still-valid information, corrects in-project references, and keeps the old ID as an alias that is never reused. Do not merge different root causes merely to compress the log.
+1. Verify specific trigger conditions and observable consequences. Static reasoning may serve as evidence, but provide the complete causal path and mark it as not run. Aesthetic preferences, speculative issues, and unrelated suggestions do not enter the knowledge base. Keep concerns that cannot yet be confirmed as defects in the review report first.
+2. Search the current project's knowledge base using symptom, module, error-code, and root-cause keywords, then read candidate entries. If no records exist on first invocation, return no match rather than importing errors from other projects. For a known defect with an unknown root cause, a new Awaiting diagnosis entry may be created with “root cause unconfirmed” explicitly stated.
+3. Reuse the original ID when root cause, trigger mechanism, and repair principle match and no different applicability constraints are known. Different files, pages, or error text do not justify separate records. Do not force a merge when only error text is similar but root causes differ, or when common classification is uncertain. Add a record for a confirmed different issue; when uncertain, diagnose first or retain an Awaiting diagnosis record.
+4. Repeated feedback, scans, and evidence for the same issue in the same round create no new record and do not increase counts. When a resolved issue recurs in a newly confirmed occurrence, update the original entry, recurrence count, and latest-occurrence information. Do not write files without new information.
+5. If root-cause confirmation shows that two entries describe the same class of issue, the main agent merges them into the earlier ID, consolidates still-valid information, corrects references within the project, and retains the old ID as an alias that is never reused. Do not merge different root causes merely to compress logs.
 
 ## Status and Solution Evidence
 
 | Status | Conditions and actions |
 | --- | --- |
-| Pending localization | Defect and impact confirmed, root cause not yet confirmed; do not write it as a known root cause |
-| Pending fix | Root cause and fix direction clear, implementation not complete |
-| Pending verification | Implementation exists, but behavioral verification of the original problem or reviewer recheck is missing |
-| Resolved | Fix for the relevant scope verified, reviewer recheck passed, main agent verified evidence and closed |
-| Withdrawn | Recorded finding proven a false positive by evidence; briefly note the reason and remove the wrong solution to prevent reuse |
+| Awaiting diagnosis | The defect and impact are confirmed, but the root cause remains unconfirmed; do not present it as known |
+| Awaiting fix | Root cause and repair direction are clear, but implementation is unfinished |
+| Awaiting verification | An implementation exists, but behavioral verification of the original issue or reviewer rechecking is missing |
+| Resolved | Repair verification passes for the relevant issue scope, reviewer rechecking passes, and the main agent closes the record after checking evidence |
+| Withdrawn | Evidence shows the recorded finding was a false positive; briefly record why and remove the incorrect solution to prevent later misuse |
 
-When the same class recurs, move from resolved back to the appropriate unresolved state, keep the historical valid solution and applicable scope, and state that this recurrence is unresolved. The recurrence count increments once per new, confirmed occurrence scenario, not per review round.
+When the same error recurs, move from Resolved back to the appropriate unresolved status. Preserve historically valid solutions and their applicable scope, explicitly stating that this recurrence remains unresolved. Increment the recurrence count once for each new, confirmed occurrence, rather than for each review round.
 
-"Proposed fix" and "verified solution" must be separate. An executor claiming a fix, a successful compile, or unrelated tests passing cannot alone change the status to resolved. Rechecking must cover the original trigger behavior and related regressions; if verified statically, explain why that is sufficient to prove the problem is gone and what the coverage limits are. Gaps involving the current recurrence must not be masked by old successful verification.
+Keep “proposed solution” separate from “verified solution.” An executor's claim of repair, successful compilation, or unrelated passing tests cannot alone change status to Resolved. Rechecking must cover the original trigger behavior and related regressions. If static verification is used, explain why it sufficiently proves the issue has been eliminated and state coverage limitations. Old successful verification must not hide gaps in the current recurrence.
 
-## Record Proposal Returned to the Main Agent
+## Record Proposals Returned to the Main Agent
 
-Along with the normal review conclusion, each valid defect returns:
+In addition to the normal review conclusion, return the following for every valid defect:
 
-- Action: add / update / reopen / merge / no change; candidate ID or no match and the deduplication rationale.
-- Localization keywords, symptoms, trigger conditions and impact, root cause and confirmation basis; applicable differences between old and new scenarios.
-- Proposed status; proposed fix vs. verified solution stated separately.
-- Evidence: task or finding reference, code version or uncommitted scope, reproduction and verification method and results; unverified items.
+- Action: Add / Update / Reopen / Merge / No change; candidate ID or no match, and deduplication rationale.
+- Search keywords, symptom, trigger conditions and impact, root cause and confirmation grounds; applicability differences between old and new occurrences.
+- Proposed status; identify proposed and verified solutions separately.
+- Evidence: task or finding reference, code version or uncommitted scope, reproduction and verification methods and results; unverified items.
 
-The reviewer does not reserve a new ID in advance and does not treat a record proposal as persisted. After the main agent writes it, it returns the final ID to the reviewer or current task. Use the BUG-0001 form; scan existing IDs (including merge aliases) and take the maximum plus one; never reuse an old ID.
+Reviewers do not reserve new IDs or treat record proposals as saved. After writing, the main agent returns the final ID to the reviewer or current task. Use IDs such as BUG-0001, scan existing numbers (including merged aliases), and take the maximum plus one; do not reuse old IDs.
 
-## Single-Entry Format and Compression
+## Entry Format and Compression
 
-The main agent appends or updates one section per entry in the knowledge base, not one file per occurrence:
+The main agent appends or updates a section in the knowledge base rather than creating a file for each occurrence:
 
 ```markdown
-## BUG-0001: Short problem title
+## BUG-0001: Short issue title
 
-- Status: pending localization / pending fix / pending verification / resolved / withdrawn
-- Search keywords: module, symptom, root-cause keywords
-- Trigger conditions and impact: minimal necessary description
-- Root cause and basis: confirmed cause; note when unconfirmed
-- Proposed fix: unverified candidate handling; note when none
-- Verified solution and applicable scope: note when none; keep important constraints or counterexamples
-- Verification evidence: method, actual result, code version or worktree scope, reviewer recheck conclusion
-- First found / latest occurrence: date and task or finding reference
-- Recurrence count: 0 (the first finding is not a recurrence)
+- Status: Awaiting diagnosis / Awaiting fix / Awaiting verification / Resolved / Withdrawn
+- Search keywords: Module, symptom, root-cause keywords
+- Trigger conditions and impact: Minimum necessary description
+- Root cause and grounds: Confirmed cause; state if unconfirmed
+- Proposed solution: Unverified candidate approach; state if none
+- Verified solution and applicable scope: State if none; retain important constraints or counterexamples
+- Verification evidence: Methods, actual results, code version or working-tree scope, reviewer recheck conclusion
+- First found / Latest occurrence: Date and task or finding reference
+- Recurrence count: 0 (the first finding does not count as recurrence)
 ```
 
-Keep only reusable solutions, necessary constraints, and evidence references that can be rechecked. On repeated occurrences update the latest-occurrence information rather than appending a timeline; important new constraints or failed approaches may be briefly noted with their reasons. Raw logs, reproduction scripts, test code, and validation artifacts belong in test; harness cites only necessary evidence and does not copy full logs or sensitive data. Add a merge alias only when an actual merge occurs.
-
-Example: an old page's async callback lacked account-identity validation, and a new page is likewise overwritten by a request sent before switching accounts; the root cause matches, so reuse the original entry, but still verify the new page's fix. The same timeout text from an unreleased connection pool should be investigated as a different problem and must not reuse the identity-validation solution.
+Retain only reusable solutions, necessary limitations, and evidence references that can be checked again. For repeated instances of the same error, update latest-occurrence information rather than appending an occurrence-by-occurrence timeline. Briefly record reasons for important new applicability conditions or failed approaches when needed. Store raw logs, reproduction scripts, test code, and verification artifacts in test; harness references necessary evidence without copying complete logs or sensitive data. Add merged aliases only when an actual merge occurs.

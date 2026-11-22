@@ -1,3 +1,3 @@
-# Project Area
+# Project area
 
-code holds only the software product's source code, runtime resources, and necessary project configuration; installpark holds only final installer packages generated after an explicit packaging request. Test code, auxiliary tools, and all other non-product code and data go in the separate test area. See Harness's ARCHITECTURE.md for the boundaries.
+`code` stores only software implementation source, runtime resources, and necessary project configuration. `installpark` stores only final ZIP installers generated after the user explicitly requests packaging or approves the corresponding plan item. Test code, helper tools, and all other code and data outside the software implementation belong in the separate `test` area. See `ARCHITECTURE.md` in Harness for the boundaries.

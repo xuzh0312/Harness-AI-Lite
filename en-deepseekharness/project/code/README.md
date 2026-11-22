@@ -1,3 +1,3 @@
-# Product Code
+# Software implementation code
 
-Holds only the delivered software product's implementation, runtime resources, and necessary project description, dependency manifest, and build configuration. Source code may be compiled into the product and need not be packaged verbatim. Test code, validation scripts, build/packaging helper scripts, and other non-product code go in the separate test area.
+Store only the delivered software's implementation, runtime resources, and necessary project descriptions, dependency manifests, and build configuration. Source may be compiled into the software; it need not be packaged unchanged. Test code, verification scripts, build and packaging helper scripts, and similar materials are outside the software implementation and belong in the separate test area.

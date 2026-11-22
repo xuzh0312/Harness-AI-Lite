@@ -1,3 +1,3 @@
-# Design Decisions
+# Design decisions
 
-Record status, choice, rationale, alternatives, and impact. Distinguish proposals from accepted decisions.
+Record status, choice, reasons, alternatives, and impact. Clearly distinguish proposals from accepted decisions.

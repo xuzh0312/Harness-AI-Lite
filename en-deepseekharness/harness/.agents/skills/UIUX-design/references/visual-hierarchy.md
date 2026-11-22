@@ -1,0 +1,9 @@
+# Typography, Color, and Layout
+
+**Decide what users should see first.** Test one screen with real content. Make the object the user is working on visible first, then reveal the primary action and result. Use grouping, alignment, and spacing to show relationships. Add borders and cards where they mark a meaningful boundary. For frequently used tools, prioritize predictable positions and compact scanning. For long-form content, prioritize readable line lengths and comfortable pacing.
+
+**Choose type for each content role.** Test size, weight, line height, and family using the same headings, body copy, labels, and numbers. If two levels are hard to distinguish, adjust the differences that communicate hierarchy. Check wrapping and column alignment with long Chinese headings, mixed Chinese and English text, serial numbers, and amounts. Make sure the primary action stays discoverable with larger text, smaller windows, and fallback fonts. On narrow screens, keep actions close to the content they affect.
+
+**Give colors specific roles.** Assign colors for the background, surfaces, primary and secondary text, primary actions, focus, and states. Check readability with actual foreground and background combinations, including button labels and secondary hints that are still meant to be read. Use text, icons, or shapes to reinforce success, selection, and errors. Before extending an accent color to a larger area, check whether it makes two actions compete for attention.
+
+**Finish with a visible check.** Preview at the target sizes with long content, empty data, and exceptional values. Ask the reviewer what they notice first and what they should do first. If those differ, adjust the hierarchy before fine-tuning color values. Record one usability change and the observation that informed it.

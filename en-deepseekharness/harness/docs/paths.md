@@ -1,43 +1,53 @@
-# Work-Area Paths
+# Work area paths
 
 | Area | Actual absolute path | Purpose |
 | --- | --- | --- |
-| harness | @@ | project rules, overview, plans, and roles |
+| harness | @@ | Project rules, overview, plans, and roles |
 | project | @@ | code and installpark |
-| test | @@ | test and auxiliary code, data, logs, cache, and validation artifacts |
+| test | @@ | Test and helper code, data, logs, caches, and verification artifacts |
 
-The main agent obtains actual locations here and does not assume the three directories share a disk or are adjacent. Commands must state the working directory; DSH's session workspace and file sandbox determine write scope. A subagent's cwd must be passed explicitly at creation; when omitted it inherits the caller's current working directory—do not assume it is isolated from the main session. Actual directories must be readable in the session; for cross-area writes beyond the workspace, first obtain user-approved permission configuration. After moving a directory, update this table and the session workspace settings.
+The main agent obtains actual locations here; do not assume the three directories are on the same disk or adjacent. Commands must specify the working directory; the runner must provide corresponding access permissions for the actual directories. Update this table after moving directories.
 
-## Directory Structure Synchronization Rules
+## Directory structure synchronization rules
 
-- The tree below reflects actually existing content, including hidden files and empty directories; Git internal metadata is not listed. The three areas are shown separately; this does not mean they must be adjacent. The table remains authoritative for absolute paths.
-- After adding, deleting, moving, or renaming files or directories, update this document; ordinary content updates that do not change structure need no tree rewrite. Do not list planned files as existing.
-- The main agent is the only writer of this document. Subagents report path lists immediately after each batch of structural changes; the main agent updates after receiving them, no later than the next dispatch or handoff to reviewers, not at the end of the whole project.
-- The main agent checks the actual structure when starting or resuming a task; when users or external tools change structure, synchronize the difference instead of relying on old chats. When moving an area root, update the path table above as well.
-- Reviewers compare the tree with actual files, and the main agent checks again before final acceptance; when an area is inaccessible, state that it was not checked—do not claim synchronization.
-- Maintain one current structure only; do not append a change log. This rule is carried out by executing agents; there is no background watcher. Templates must not create sample files or fill real project paths merely to update the tree.
+- The trees below reflect content that actually exists, including hidden files and empty directories; Git internal metadata is omitted. The three areas are shown separately, which does not require adjacency. Absolute paths remain governed by the table.
+- Synchronize this document after adding, deleting, moving, or renaming files or directories; ordinary content changes with no structural changes do not require rewriting the trees. Do not list planned files as already existing.
+- The main agent is the sole writer of this document. Sub-agents immediately report path lists after each batch of structural changes; the main agent updates it upon receipt, no later than the next dispatch or reviewer handoff, rather than waiting until the entire project ends.
+- The main agent checks actual structure when starting or resuming a task; synchronize differences caused by the user or external tools rather than relying on old chats. Also update the path table above when moving an area root.
+- Reviewers check the trees against actual files, and the main agent checks again before final acceptance; explicitly mark inaccessible areas as unchecked and do not claim synchronization is complete.
+- Maintain only one current structure, without appending a chronological change log. Executing agents enforce this rule; there is no background watcher. Do not create example files or fill in real project paths merely to update the template's directory trees.
 
-## Actual File Structure of the Three Areas
+## Actual file structures of the three areas
 
 ### harness
 
 ```text
 harness/
 ├── .agents/
-│   ├── skills/
-│   │   ├── bug-detect/
-│   │   │   └── SKILL.md
-│   │   ├── feature-plan/
-│   │   │   └── SKILL.md
-│   │   └── subagent-driven-execution/
-│   │       └── SKILL.md
-│   └── README.md
+│   └── skills/
+│       ├── bug-detect/
+│       │   └── SKILL.md
+│       ├── feature-plan/
+│       │   └── SKILL.md
+│       ├── subagent-driven-execution/
+│       │   └── SKILL.md
+│       ├── tech-stack-plan/
+│       │   └── SKILL.md
+│       ├── UIUX-design/
+│       │   ├── README.md
+│       │   ├── assets/
+│       │   │   └── index.md
+│       │   └── references/
+│       │       ├── interaction-motion.md
+│       │       ├── tasks-navigation.md
+│       │       ├── creative-direction.md
+│       │       ├── copy-and-states.md
+│       │       └── visual-hierarchy.md
+│       └── README.md
 ├── agents/
-│   ├── architect/
+│   ├── UIdesign/
 │   │   └── AGENT.md
 │   ├── implementer/
-│   │   └── AGENT.md
-│   ├── infra/
 │   │   └── AGENT.md
 │   ├── reviewer/
 │   │   └── AGENT.md
@@ -55,6 +65,7 @@ harness/
 │   │   ├── README.md
 │   │   └── TEMPLATE.md
 │   ├── runbooks/
+│   │   ├── dsh-migration.md
 │   │   ├── main-agent.md
 │   │   ├── README.md
 │   │   └── start-task-template.md

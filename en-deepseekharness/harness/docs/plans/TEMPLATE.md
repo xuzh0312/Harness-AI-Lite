@@ -1,109 +1,106 @@
-# <Task ID>: <Task Name>
+# <Task ID>: <Task name>
 
-Status: template, not started. On creation change to Pending / Awaiting confirmation / In progress / In acceptance / Rework / Blocked / Completed / Canceled.
-The main agent maintains this single record; subagents return reports and do not modify it directly.
+Status: Template, not started. When creating a task, change to Pending / Awaiting confirmation / In progress / Under review / Rework / Blocked / Completed / Cancelled.
+The main agent maintains this single record; sub-agents return reports and do not edit it directly.
 
-## Version and User Confirmation (required for feature plans)
+## Versions and user confirmation (required for feature plans)
 
-Linked specification and current version: fill in the actual link and version; non-functional tasks note not applicable.
-Plan version: fill in; approved pair: none; confirmation status: unconfirmed.
-The approved pair records the specification path and version and the plan version; for partial approval, state which document it covers and what remains unconfirmed.
-Basis and date of user confirmation: fill in after confirmation, never prefill; when the current pair becomes invalid, keep the original basis and state why.
-Substantive changes in this version, open questions, and assumptions: fill in; explicitly state when there are none.
-Non-functional tasks note applicability and do not add a whole-plan confirmation requirement.
+Linked specification and current version: fill in the actual link and version; mark not applicable for non-feature tasks.
+Plan version: to be filled in; approved combination: none; confirmation status: unconfirmed.
+The approved combination records the specification path and version and the plan version; for partial approval, identify the document concerned and the remaining content awaiting confirmation.
+User confirmation evidence and date: fill in after confirmation, never in advance; if the current combination becomes invalid, retain the original evidence and state why.
+Implementation authorization (separate from document approval): pending / granted / not requested; record scope, date, and user evidence if granted. The same user reply can approve the pair and authorize implementation if it explicitly does both. On resume, verify that authorization still covers the current work.
+Substantive changes in this version, open questions, and assumptions: to be filled in; explicitly state when there are no questions.
+For non-feature tasks, indicate applicability without introducing an additional requirement to confirm the entire plan.
 
-## Goals, Scope, and Acceptance Criteria
+## Goal, scope, and acceptance criteria
 
-Goals, non-goals, allowed modification scope, user constraints: fill in.
+Goal, non-goals, allowed modification scope, and user constraints: to be filled in.
 
-A feature plan cites the specification's original requirements, scope, and key behavior, briefly states implementation goals, and does not copy the entire specification; acceptance items use the specification's AC IDs. Non-functional tasks record applicable requirements directly here.
+Feature plans reference the specification's original requirements, scope, and key behavior, briefly recording implementation goals without copying the entire specification; acceptance items use the specification's AC IDs. For non-feature tasks, record applicable requirements directly here.
 
-| Acceptance item | Expected behavior | Check method | Required or not-applicable reason |
+| Acceptance item | Expected behavior | Check method | Why required or not applicable |
 | --- | --- | --- | --- |
-| Fill in | Fill in | Fill in | Fill in |
+| To be filled in | To be filled in | To be filled in | To be filled in |
 
-## Environment and Input Versions
+## Environment and input versions
 
-Harness, Project, Test absolute paths and actual working directory: fill in; note unused areas.
-DSH session workspace, file sandbox, and each subagent's cwd boundaries: fill in.
-Loaded rules, permissions, code repository locations and baselines, existing-change boundaries: fill in.
-Data sources and versions, required requirements and approach: fill in.
+Harness, Project, and Test absolute paths and actual working directory: to be filled in; identify unused areas.
+Loaded rules, permissions, repository locations and baselines, and boundaries of existing changes: to be filled in.
+Fill in the data sources and versions and the requirements and designs the executor must read. For a design handoff, reference the selected draft in `test`, the outcome of user feedback, the corresponding acceptance IDs, and checks still to run. Verify the draft version when resuming the task.
 
-## Dispatch and Steps
+## Dispatch and steps
 
-Feature plans use the numbered checklist below, each item stating modules or paths, implementation content, and acceptance method; ordinary tasks may use the subsequent dispatch table directly without maintaining the same checklist twice.
+Feature plans use the numbered checklist below, specifying modules or paths, implementation content, and acceptance methods for each item. Ordinary tasks may use the subsequent dispatch table directly without maintaining a duplicate checklist.
 
-| Checklist item ID | Feature or work content, affected modules | Role and allowed write scope | Prerequisites | Specification acceptance IDs, observable acceptance, and check method | Progress |
+| Checklist item ID | Feature or work content and affected modules | Role and allowed write scope | Prerequisites | Specification acceptance IDs, observable acceptance, and check method | Progress |
 | --- | --- | --- | --- | --- | --- |
-| PLAN-<number>.<item> | Fill in | Fill in | Fill in | Fill in | Not started |
+| PLAN-number.item | To be filled in | To be filled in | To be filled in | To be filled in | Not started |
 
 | Subtask / role | Prerequisites | Allowed write scope | Working directory | Acceptance | Status |
 | --- | --- | --- | --- | --- | --- |
-| Fill in | Fill in | Fill in | Fill in | Fill in | Pending |
+| To be filled in | To be filled in | To be filled in | To be filled in | To be filled in | Pending |
 
-Roles not invoked and rationale: fill in. Feature implementation completes implementation, independent review, and main-agent acceptance serially per numbered item; necessary read-only investigation may run in parallel, and multiple implementers do not run in parallel.
+Roles not invoked and reasons: to be filled in. Implement feature checklist items serially through implementation, independent review, and main-agent acceptance; necessary read-only investigation may run in parallel, but multiple implementers must not run in parallel.
 
-| Subtask / round | Subagent name, role, and review dimension | Actual provider/model created | reasoning_effort | DSH-reported route difference or none | Returned report reference or summary |
+| Subtask / round | Agent identity, role, and review dimension | Creation mode | Runtime-reported provider/model and effort (or inherited, not independently verified) | Runtime source or reported mismatch | Returned report reference or summary |
 | --- | --- | --- | --- | --- | --- |
-| Fill in | Fill in | Fill in | Fill in | Fill in | Fill in |
+| To be filled in | To be filled in | To be filled in | To be filled in | To be filled in | To be filled in |
 
-Subagent names are unique under the same creator and are not reused; the two reviewers for one item use different names. Actual creation parameters are authoritative from the dispatch record and the subagent reply footer.
+## Per-item handoff and acceptance (required for feature execution)
 
-## Item Handoff and Acceptance (required for feature execution)
+Keep one current brief, delivery summary, and review summary for each item in this record; do not copy files for each conversation round. Save and reference long reports only when necessary; raw diffs, logs, and verification artifacts belong in test.
 
-Keep one current brief, delivery summary, and review summary per item in this record; do not copy files per conversation round. Save long reports only when truly needed and cite them; raw diffs, logs, and validation artifacts go in test.
+- Current item and brief: checklist item ID, approved combination, relevant specification acceptance IDs, necessary interfaces and prerequisite results, specific write scope, and check methods.
+- Dispatch baseline: relevant repositories, commits, and boundaries of existing uncommitted changes; without Git, record file snapshots or a content comparison baseline.
+- Delivery: actual file and structure changes, self-review results, check evidence, unfinished work, and executor identity.
+- Review materials: complete task change scope, brief, execution report, and evidence; test location of raw diffs or snapshots.
+- Independent conclusions: both reviewer-spec and reviewer-quality reports, each identity and assigned dimension, the same reviewed version, and whether reviews actually ran in parallel or sequentially; gaps, rulings, rework rounds, and verification results.
+- Main-agent per-item acceptance: pass / rework / blocked and supporting reasons; start the next implementation item only after passing.
+- Resume entry: current item, active agents, next step, current document approval and implementation authorization (where applicable), and evidence still valid; verify actual state before resuming.
 
-- Current item and brief: checklist item ID, approved pair, relevant specification acceptance IDs, necessary interfaces and prerequisite results, specific write scope, subagent cwd, and check method.
-- Dispatch baseline: relevant repositories, commits, and existing uncommitted change boundaries; without Git, record file snapshots or a content-comparison baseline.
-- Delivery: actual files and structural changes, self-review results, check evidence, unfinished items, and executor name.
-- Review material: complete task change scope, brief, execution report, and evidence; test locations of raw diffs or snapshots.
-- Independent conclusions: reviewer-spec and reviewer-quality reports, their names and dimensions, same reviewed version, actual parallel or sequential execution; gaps, adjudications, rework rounds, and recheck results.
-- Main-agent item acceptance: pass / rework / blocked and the basis; start the next implementation item only after pass.
-- Recovery entry: current item, in-flight agents, next step, still-valid approvals and evidence; verify actual state before continuing.
+## Progress, findings, and decisions
 
-## Progress, Findings, and Decisions
+- [ ] Fill in steps, actual progress, and remaining work.
 
-- [ ] Steps to fill in, actual progress, and remaining work.
+Record important facts, design choices, user corrections, and reasons; distinguish assumptions from verified facts.
 
-Record important facts, approach choices, user corrections, and rationale; distinguish assumptions from verified facts.
-
-## Verification Evidence
+## Verification evidence
 
 | Acceptance item | Working directory, command, or check method | Covered version / diff scope | Actual result | Evidence location |
 | --- | --- | --- | --- | --- |
-| Fill in | Fill in | Fill in | passed / failed / not run / not applicable | Fill in |
+| To be filled in | To be filled in | To be filled in | Pass / Fail / Not run / Not applicable | To be filled in |
 
-Explain failures, not-run items, and not-applicable items; mark evidence invalid and re-verify when later changes affect it.
+Explain failures, checks not run, and non-applicability; mark evidence invalid and verify again when later changes affect it.
 
-## Independent Review and Rework
+## Independent review and rework
 
-For each review scope, record two independent instance reports; both share the reviewer role configuration, and each actual parameter set is recorded separately. When no review is needed, state the reason; do not merge review instances just because the task is small.
+For each scope requiring review, always record reports from two independent instances; both follow the shared model inheritance policy, but each instance's runtime-reported settings or unverified inheritance are recorded separately. Explain when review is unnecessary; do not combine review instances because a task is small.
 
-| Review scope and round | Instance and dimension | Subagent name and configuration record reference | Baseline-to-final version covered | Conclusion, evidence, and report reference |
+| Review scope and round | Instance and assigned dimension | Agent identity and configuration record reference | Coverage from baseline to final version | Conclusion, evidence, and report reference |
 | --- | --- | --- | --- | --- |
-| Fill in | reviewer-spec / specification conformance | Fill in | Fill in | Fill in |
-| Fill in | reviewer-quality / implementation quality | Fill in | Fill in | Fill in |
+| To be filled in | reviewer-spec / specification compliance | To be filled in | To be filled in | To be filled in |
+| To be filled in | reviewer-quality / implementation quality | To be filled in | To be filled in | To be filled in |
 
-Actual parallel or sequential review due to capacity: fill in; when capacity is insufficient, record the actual DSH limitation (such as `ACTIVATION_LIMIT_REACHED`), subagents waited for or collected, and state that they were not parallel. Accept only after both reports recommend pass, cover the same final version, and necessary evidence is complete; missing, needs rework, or insufficient evidence cannot pass. Keep the basis for conflict adjudication; deduplicate repeated findings but keep sources. After a fix, both must verify the current version and must not carry over an old pass automatically.
+Whether actually parallel or sequential due to limited capacity: to be filled in. Accept only when both reports recommend approval, cover the same final version, and contain all required evidence; missing reports, required rework, or insufficient evidence prevent acceptance. Retain reasons for conflict rulings, deduplicate repeated findings while keeping their sources. After fixes, both reviewers must check the current version; do not automatically carry forward an old pass.
 
-After all checklist items pass, create two new reviewers and record one overall review: full-feature specification coverage, complete diff, cross-item integration, regression, and final evidence validity; do not merely summarize per-item "pass."
+After every feature checklist item passes, create two new reviewers and record an overall review covering the full feature specification, complete diff, cross-item integration, regression, and validity of final evidence; merely collecting per-item “pass” results is insufficient.
 
-Related bug knowledge base BUG IDs and record actions: fill in; state when none. Do not copy full defect entries; detailed root causes and final solutions live in docs/bugs.md (relative to Harness).
+Related bug knowledge base BUG IDs and record actions: to be filled in; state when there are no findings. Do not duplicate full bug entries; detailed root causes and final solutions are stored in docs/bugs.md (relative to Harness).
 
-| Finding | Trigger conditions and impact | Accepted or rejected and basis | Fix and recheck | Resolved |
+| Finding | Trigger conditions and impact | Accept or reject and grounds | Fix and verification | Resolved? |
 | --- | --- | --- | --- | --- |
-| Fill in | Fill in | Fill in | Fill in | Fill in |
+| To be filled in | To be filled in | To be filled in | To be filled in | To be filled in |
 
-When the same problem persists for two rounds without new evidence, record the main agent's root-cause review and adjustment; do not retry mechanically.
+If the same issue persists for two consecutive rounds without new evidence, record the main agent's cause reanalysis and adjustments rather than retrying mechanically.
 
-## Blockers and Recovery
+## Blockers and resumption
 
-Missing conditions, attempted actions, impact, work that can continue independently, recovery entry, and next step: fill in. Work can continue without relying on past chat.
+Missing conditions, attempted actions, impact, work that can continue independently, resume entry, and next step: to be filled in. It must be possible to continue without relying on past chats.
 
-## Main Agent Final Acceptance
+## Main-agent final acceptance
 
-Item conclusions, final diff check, unverified items, remaining issues: fill in.
-Final version: code commit; explicitly note when uncommitted, recording baseline and change summary. Record relevant Harness commits and necessary data versions; do not invent a SHA when there is no commit.
-Authorized and actually performed commit/push/release stages: fill in.
-Profile, plugin, preset, or host environment changes and authorization basis: fill in; state when none.
-Final status and rationale: fill in; archive to completed when all is done, keep active when blocked or in rework.
+Per-item conclusions, final diff check, unverified items, and remaining issues: to be filled in.
+Final version: code commit; explicitly state when uncommitted and record the baseline and change summary. Record relevant Harness commits and necessary data versions; never invent a SHA when no commit exists.
+Authorized and actually executed commit / push / release stages: to be filled in.
+Final status and reason: to be filled in; archive to completed once everything is complete, and retain blocked or rework tasks in active.
