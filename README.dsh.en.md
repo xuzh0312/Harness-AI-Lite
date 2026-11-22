@@ -199,3 +199,9 @@ The template has undergone static checks, but not end-to-end validation of every
 ## License
 
 This project uses the [MIT License](LICENSE). Use, modification, distribution, and commercial use are permitted. Retain the copyright and license notices when copying or distributing the template or substantial portions of it; the LICENSE file governs the specific terms.
+
+## Version history
+
+| Version | Date | Description |
+| --- | --- | --- |
+| 1.0.0 | 2026/11/17 | The first release introduces a lightweight Harness Engineering template with separate management, software, and test workspaces, plus a workflow for requirements approval, delegated implementation, dual review, and evidence-based acceptance. |

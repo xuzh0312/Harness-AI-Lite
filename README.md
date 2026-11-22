@@ -183,3 +183,10 @@ Use Issues for rule conflicts, deployment problems, or gaps. When proposing a te
 ## License
 
 The project uses the [MIT License](LICENSE). Keep the copyright and license notices when distributing the template or substantial portions of it.
+
+## Version history
+
+| Version | Date | Description |
+| --- | --- | --- |
+| 2.0.0 | 2026/11/21 | Revises subagent responsibilities and skills, and adds the UIdesign role and a UI design workflow. |
+| 1.0.0 | 2026/11/17 | The first release introduces a lightweight Harness Engineering template with separate management, software, and test workspaces, plus a workflow for requirements approval, delegated implementation, dual review, and evidence-based acceptance. |
