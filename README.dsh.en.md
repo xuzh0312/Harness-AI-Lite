@@ -10,8 +10,8 @@ Harness-AI-Lite is a reusable DeepSeek Harness (DSH) project template. It separa
 
 | Language | Template directory | ZIP |
 | --- | --- | --- |
-| English | [en-deepseekharness](en-deepseekharness/) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-deepseekharness-2.1.0.zip) |
-| 简体中文 | [zh-CN-deepseekharness](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-deepseekharness) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.1.0.zip) |
+| English | [en-deepseekharness](en-deepseekharness/) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-en-2.1.0.zip) |
+| 简体中文 | [zh-CN-deepseekharness](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-deepseekharness) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-zh-CN-2.1.0.zip) |
 
 Each ZIP contains the selected template, a same-language guide, and the MIT license. For earlier packages, see [Version history](#version-history).
 
@@ -205,6 +205,6 @@ The project uses the [MIT License](LICENSE). Retain the copyright and license no
 
 | Version | Date | Description | Downloads |
 | --- | --- | --- | --- |
-| 2.1.0 | 2026/11/22 | Enhances the UIUX-design skill with concrete reference materials to choose from. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-deepseekharness-2.1.0.zip) |
-| 2.0.0 | 2026/11/22 | Revises subagent responsibilities and skills, and adds the UIdesign role and a UI design workflow. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/c32c9370973a3f2558ca46f9e45fe23e93360f84/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/c32c9370973a3f2558ca46f9e45fe23e93360f84/downloads/Harness-AI-Lite-en-deepseekharness-2.0.0.zip) |
-| 1.0.0 | 2026/11/17 | The first release introduces a lightweight Harness Engineering template with separate management, software, and test workspaces, plus a workflow for requirements approval, delegated implementation, dual review, and evidence-based acceptance. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-zh-CN-deepseekharness.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-en-deepseekharness.zip) |
+| 2.1.0 | 2026/11/22 | Enhances the UIUX-design skill with concrete reference materials to choose from. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-zh-CN-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-en-2.1.0.zip) |
+| 2.0.0 | 2026/11/22 | Revises subagent responsibilities and skills, and adds the UIdesign role and a UI design workflow. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-zh-CN-2.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-en-2.0.0.zip) |
+| 1.0.0 | 2026/11/17 | The first release introduces a lightweight Harness Engineering template with separate management, software, and test workspaces, plus a workflow for requirements approval, delegated implementation, dual review, and evidence-based acceptance. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-zh-CN-1.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-dsh-en-1.0.0.zip) |

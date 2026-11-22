@@ -10,8 +10,8 @@ Harness-AI-Lite 是一套可复用的 Codex 项目模板，把项目管理、软
 
 | 语言 | 模板目录 | ZIP |
 | --- | --- | --- |
-| 简体中文 | [zh-CN-codex](zh-CN-codex/) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-codex-2.1.0.zip) |
-| English | [en-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-codex) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-codex-2.1.0.zip) |
+| 简体中文 | [zh-CN-codex](zh-CN-codex/) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip) |
+| English | [en-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-codex) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip) |
 
 每个 ZIP 包含对应模板、同语言使用指南和 MIT 许可证。DeepSeek Harness 的流程和下载入口见 [DeepSeek Harness 指南](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md)。
 
@@ -190,6 +190,6 @@ flowchart TD
 
 | 版本 | 日期 | 说明 | 下载 |
 | --- | --- | --- | --- |
-| 2.1.0 | 2026/11/22 | 强化 UIUX-design 技能，提供具体素材选择。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-codex-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-codex-2.1.0.zip) |
-| 2.0.0 | 2026/11/21 | 调整子 Agent 的角色分工与技能（Skill），新增 UIdesign 角色和 UI 设计流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-zh-CN-codex.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-en-codex.zip) |
-| 1.0.0 | 2026/11/17 | 初版采用轻量化 Harness 工程模板，将管理、软件与测试分置于三个独立工作区，提供需求确认、分工实现、双重审查和基于证据的验收流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/aa9a421813c33437ebfbf031015c695cd63a077c/downloads/Harness-AI-Lite-zh-CN-codex.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/aa9a421813c33437ebfbf031015c695cd63a077c/downloads/Harness-AI-Lite-en-codex.zip) |
+| 2.1.0 | 2026/11/22 | 强化 UIUX-design 技能，提供具体素材选择。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip) |
+| 2.0.0 | 2026/11/21 | 调整子 Agent 的角色分工与技能（Skill），新增 UIdesign 角色和 UI 设计流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.0.0.zip) |
+| 1.0.0 | 2026/11/17 | 初版采用轻量化 Harness 工程模板，将管理、软件与测试分置于三个独立工作区，提供需求确认、分工实现、双重审查和基于证据的验收流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-1.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-1.0.0.zip) |
