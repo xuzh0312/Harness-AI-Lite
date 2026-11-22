@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Nine side-by-side comparisons and a full catalog of 68 techniques, with source code from the live demos.">
+<title>Motion and Materials Atlas</title>
+<link rel="stylesheet" href="图鉴目录.css">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f6f4ed;
+    --ink: #202722;
+    --forest: #315941;
+    --quiet: #505d53;
+    --line: #c8cfc3;
+    --mist: #e7ede3;
+    --panel: #fcfaf4;
+    --mono: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--paper); color: var(--ink); }
+  body { margin: 0; font-size: .9375rem; line-height: 1.65; }
+  a { color: var(--forest); text-underline-offset: .24em; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid #805421; outline-offset: 3px; }
+  .frame { width: min(100% - 3rem, 75rem); margin-inline: auto; }
+  .topline, .indexline, .page-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .7rem 1.3rem; }
+  .topline { padding-block: 1rem .85rem; border-bottom: 1px solid var(--forest); }
+  .eyebrow, .meta, .chip, .axis, .stage-title { font: 700 .72rem/1.5 var(--mono); letter-spacing: .09em; }
+  .eyebrow, .meta, .stage-title, .axis { color: var(--forest); }
+  .topline a { font-size: .85rem; font-weight: 700; }
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, .48fr); min-height: 15rem; border-bottom: 1px solid var(--forest); }
+  .hero-copy { align-self: center; padding: clamp(1.45rem, 4vw, 3.7rem) 1rem clamp(1.5rem, 4vw, 3.4rem) 0; }
+  .hero h1 { margin: .36rem 0 .7rem; font-size: clamp(2.05rem, 5.3vw, 4.8rem); line-height: 1.08; letter-spacing: -.055em; }
+  .hero p { max-width: 32rem; margin: 0; color: var(--quiet); }
+  .hero-art { position: relative; isolation: isolate; min-height: 13.5rem; overflow: hidden; color: #e5ece0; background: #234332; display: grid; place-items: center; border-left: 1px solid var(--forest); }
+  .hero-art svg { width: 100%; height: 100%; position: absolute; inset: 0; display: block; }
+  .hero-art .axis { position: absolute; bottom: .75rem; display: flex; justify-content: space-between; gap: 1rem; width: calc(100% - 1.5rem); color: #e5ece0; }
+  .indexline { padding-block: .75rem; border-bottom: 1px solid var(--line); }
+  .indexline nav { display: flex; gap: .3rem 1rem; flex-wrap: wrap; }
+  .indexline a { font-size: .8rem; }
+  .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-left: 1px solid var(--line); }
+  .spec { min-width: 0; padding: clamp(.85rem, 2.15vw, 1.7rem); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); scroll-margin-top: 1rem; }
+  .spec-head { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem; }
+  .spec h2 { margin: .12rem 0 0; font-size: clamp(1.28rem, 2.25vw, 1.85rem); line-height: 1.25; letter-spacing: -.035em; }
+  .chip { color: var(--forest); background: var(--mist); border: 1px solid var(--line); padding: .24rem .48rem; flex: none; }
+  .spec > p { color: var(--quiet); margin: .6rem 0 .85rem; }
+  .sample { min-width: 0; border: 1px solid var(--line); background: var(--panel); }
+  .toolrow { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .55rem .8rem; padding: .62rem .75rem; border-bottom: 1px solid var(--line); }
+  .action { border: 1px solid var(--forest); background: var(--forest); color: #fff; padding: .38rem .7rem; font-size: .83rem; font-weight: 700; }
+  .action:hover { background: #244631; }
+  .action-light { background: #fffdf7; color: var(--forest); }
+  .action-light:hover { background: #ebf0e7; }
+  .cells { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cell { min-width: 0; margin: 0; }
+  .cell + .cell { border-left: 1px solid var(--line); }
+  .cell figcaption { padding: .42rem .28rem; text-align: center; border-top: 1px solid var(--line); font-size: .79rem; font-weight: 700; }
+  .centered { display: grid; place-items: center; min-height: 8.15rem; overflow: hidden; }
+  .ruled { background-color: #edf1e9; background-image: linear-gradient(#31594113 1px, transparent 1px), linear-gradient(90deg, #31594113 1px, transparent 1px); background-size: 15px 15px; }
+  .artifact-mark, .drawer-mark { display: grid; place-items: center; font: 700 .84rem/1 var(--mono); }
+  .artifact-mark { width: 2.6rem; height: 2.6rem; border: 1px solid #496953; background: #e7eddf; color: #244c35; }
+  .hint { margin: 0; padding: .5rem .75rem; color: var(--quiet); font-size: .78rem; border-top: 1px solid var(--line); }
+  .source { min-width: 0; margin-top: .85rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .source summary { cursor: pointer; padding: .48rem .1rem; font-size: .81rem; color: var(--forest); font-weight: 700; }
+  .source summary:hover { background: var(--mist); }
+  .source summary span { margin-left: .35rem; font: .72rem var(--mono); color: var(--quiet); }
+  .source-body { border-top: 1px solid var(--line); }
+  .source-body p { color: var(--quiet); font-size: .76rem; margin: .55rem 0; }
+  .source-body h3 { font: 700 .76rem var(--mono); margin: .8rem 0 .3rem; color: var(--forest); }
+  .source-body pre { margin: 0 0 .65rem; background: #e8ece3; color: #203e2c; padding: .75rem; font-size: .76rem; line-height: 1.55; overflow-x: auto; tab-size: 2; }
+  .source-body code { font-family: var(--mono); }
+  .page-foot { margin-block: 1rem 1.8rem; color: var(--quiet); font-size: .81rem; }
+  @media (max-width: 47rem) { .frame { width: min(100% - 1.5rem, 75rem); } .gallery { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 35rem) { .hero { grid-template-columns: minmax(0, 1fr); } .hero-art { border-left: 0; min-height: 9.25rem; } }
+</style>
+<style id="css-enter-motion">
+  #enter-motion.is-playing .fade-in { animation: sample-fade 640ms ease-out both; }
+  #enter-motion.is-playing .slide-in { animation: sample-slide 640ms ease-out both; }
+  @keyframes sample-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes sample-slide { from { transform: translateX(3.5rem); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    #enter-motion.is-playing .fade-in, #enter-motion.is-playing .slide-in { animation: none; }
+  }
+</style>
+<style id="css-spring-motion">
+  #spring-trigger { border: 1px solid #315941; background: #fcfaf4; padding: .48rem .75rem; display: flex; align-items: center; gap: .44rem; font-weight: 700; }
+  #spring-trigger .spring-icon { display: inline-block; color: #315941; font-size: 1.28rem; line-height: 1; }
+  #spring-trigger[aria-pressed="true"] { background: #315941; color: #fff; }
+  #spring-trigger[aria-pressed="true"] .spring-icon { color: inherit; }
+  #spring-trigger.is-bouncing .spring-icon { animation: sample-spring 480ms ease-out both; }
+  @keyframes sample-spring {
+    0%   { transform: scale(.78); }
+    42%  { transform: scale(1.30); }
+    66%  { transform: scale(.93); }
+    83%  { transform: scale(1.07); }
+    100% { transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #spring-trigger.is-bouncing .spring-icon { animation: none; }
+  }
+</style>
+<style id="css-detail-drawer">
+  .drawer-stage { min-height: 8.15rem; padding: .9rem; display: grid; place-items: center; }
+  .drawer-row { width: min(100%, 22rem); display: flex; align-items: center; gap: .65rem; border: 1px solid #c8cfc3; background: #fcfaf4; padding: .65rem; }
+  .drawer-mark { flex: none; width: 2.15rem; height: 2.15rem; background: #e2eadf; color: #315941; }
+  .drawer-row strong { font-size: .86rem; flex: 1; }
+  #detail-panel {
+    position: fixed; inset: 0 0 0 auto; margin: 0;
+    width: min(100%, 24rem); height: 100%; max-width: none; max-height: none;
+    overflow: auto; padding: 1.4rem; color: #202722; background: #fcfaf4; border: 0; border-left: 1px solid #315941;
+  }
+  #detail-panel[open] { animation: sample-drawer 280ms cubic-bezier(.2,.75,.3,1) both; }
+  #detail-panel::backdrop { background: rgb(21 41 30 / .48); }
+  .drawer-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #c8cfc3; padding-bottom: .75rem; }
+  .drawer-head h3 { margin: .26rem 0 0; font-size: 1.55rem; line-height: 1.2; }
+  @keyframes sample-drawer { from { transform: translateX(100%); } to { transform: translateX(0); } }
+  @media (prefers-reduced-motion: reduce) { #detail-panel[open] { animation: none; } }
+</style>
+<style id="css-scroll-reveal">
+  #reveal-viewport { height: 8.15rem; overflow-y: auto; overscroll-behavior: contain; padding: .55rem .78rem; }
+  #reveal-viewport:focus-visible { outline-offset: -3px; }
+  .reveal-intro { min-height: 8.2rem; display: grid; place-items: center; border: 1px dashed #789382; color: #315941; text-align: center; }
+  .reveal-slot { margin-top: .52rem; min-height: 3.45rem; border: 1px dashed #a4b3a5; }
+  .reveal-item { margin: 0; padding: .86rem; border-left: .2rem solid #315941; background: #dce8db; font-weight: 700; }
+  @media (prefers-reduced-motion: no-preference) {
+    #reveal-viewport[data-observing] .reveal-item.is-visible { animation: sample-reveal 420ms ease-out both; }
+    #reveal-viewport[data-observing] .reveal-item:not(.is-visible) { opacity: 0; }
+  }
+  @keyframes sample-reveal {
+    from { opacity: 0; transform: translateY(.75rem); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+<style id="css-glassmorphism">
+  .glass-ground {
+    background: repeating-linear-gradient(120deg, transparent 0 6px, #1f412f50 7px 8px, transparent 9px 14px),
+      linear-gradient(125deg, #88aa92 0 43%, #d2aa6b 44% 64%, #729580 65% 100%);
+  }
+  .glass-card {
+    display: grid; place-items: center; width: min(77%, 7rem); height: 4.5rem;
+    border: 1px solid #fbf9ef; border-radius: .55rem;
+    color: #18291f; font-weight: 800; background: #faf8ef;
+  }
+  .glass-card.translucent { background: rgb(250 248 239 / .58); }
+  .glass-card.frosted { background: #faf8ef; }
+  @supports ((backdrop-filter: blur(9px)) or (-webkit-backdrop-filter: blur(9px))) {
+    .glass-card.frosted { background: rgb(250 248 239 / .58); -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); }
+  }
+</style>
+<style id="css-neumorphism">
+  .soft-ground, .soft-control { background: #e4e9e0; }
+  .soft-control {
+    width: min(78%, 6.15rem); min-height: 2.85rem; border-radius: .63rem; border: 1px solid #647769;
+    color: #203628; font-weight: 800; font-size: .83rem;
+  }
+  .soft-control.raised { box-shadow: 5px 5px 10px #a6b1a2, -5px -5px 10px #fbfff7; }
+  .soft-control.sunken { box-shadow: inset 4px 4px 8px #a6b1a2, inset -4px -4px 8px #fbfff7; }
+  .soft-control:focus-visible { outline: 2px solid #805421; outline-offset: 3px; }
+</style>
+<style id="css-skeleton-screen">
+  #skeleton-screen .loading-cells { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .loading-preview { min-block-size: 8.15rem; padding: .55rem; text-align: center; }
+  .loading-preview > p { margin: 0; color: #505d53; font-size: .82rem; }
+  .loading-card {
+    display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); align-items: center; gap: .36rem .48rem;
+    width: min(100%, 13rem); min-block-size: 5.4rem; padding: .52rem;
+    border: 1px solid #a5b4a5; background: #fcfaf4; text-align: start; font-size: .82rem;
+  }
+  .loading-avatar { display: grid; place-items: center; inline-size: 1.9rem; block-size: 1.9rem; background: #dce8db; color: #315941; }
+  .loading-card p, .loading-line { grid-column: 1 / -1; margin: 0; }
+  .loading-card p { line-height: 1.4; color: #505d53; }
+  .loading-block { background-color: #ced8cb; }
+  .loading-line { block-size: .5rem; }
+  .loading-title-block { block-size: .65rem; inline-size: 75%; }
+  .loading-line:last-child { inline-size: 65%; }
+  #cancel-skeleton[aria-disabled="true"] { opacity: .72; cursor: default; }
+  @media (prefers-reduced-motion: no-preference) {
+    .loading-block {
+      background-image: linear-gradient(110deg, transparent 24%, #ebf0e8 49%, transparent 74%);
+      background-size: 240% 100%; animation: sample-shimmer 1.25s linear infinite;
+    }
+  }
+  @keyframes sample-shimmer { from { background-position: 120% 0; } to { background-position: -100% 0; } }
+</style>
+<style id="css-scroll-snap">
+  #snap-viewport { block-size: 8.15rem; overflow-y: auto; scroll-behavior: auto; }
+  #snap-viewport[data-snap] { scroll-snap-type: y mandatory; }
+  #snap-viewport:focus-visible { outline-offset: -3px; }
+  .snap-panel {
+    min-block-size: 100%; display: grid; place-content: center; text-align: center; gap: .15rem;
+    padding: .7rem; border-block-end: 1px solid #789382; scroll-snap-align: start;
+  }
+  .snap-panel:nth-child(2) { background: #dce8db; }
+  .snap-panel:nth-child(3) { background: #f0e4cf; }
+  .snap-panel p { margin: 0; color: #315941; }
+  /* No additional smooth scrolling. With reduced motion enabled, snapping is demonstrated only when the user turns it on. */
+</style>
+<style id="css-gradient-comparison">
+  .gradient-stage {
+    min-block-size: 8.15rem; position: relative; isolation: isolate; overflow: hidden;
+    display: grid; place-items: center; padding: .25rem; background: #385a53;
+  }
+  .gradient-label {
+    padding: .25rem .4rem; background: #142d2b; color: #fff; border: 1px solid #dfe9e1;
+    font-size: .82rem; font-weight: 700; text-align: center;
+  }
+  .gradient-aurora { background: #172841; }
+  .gradient-aurora::before {
+    content: ""; position: absolute; z-index: -1; inset: -12%;
+    background: radial-gradient(ellipse 70% 22% at 45% 45%, #a0f2b5, #44bb9ce6 52%, transparent 100%),
+      radial-gradient(ellipse 64% 23% at 55% 62%, #a99cff, #7e63d9b3 55%, transparent 100%);
+    transform: rotate(-23deg); filter: blur(7px);
+  }
+  .gradient-mesh svg { position: absolute; z-index: -1; inset: 0; inline-size: 100%; block-size: 100%; }
+</style>
+</head>
+<body>
+<header class="frame">
+  <div class="topline">
+    <div class="eyebrow">UI FIELD GUIDE / 02</div>
+    <a href="布局图鉴.html">← Layout Atlas</a>
+  </div>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="eyebrow">UI TECHNIQUE SPECIMENS · MOTION &amp; MATERIAL</div>
+      <h1>Motion and Materials Atlas</h1>
+      <p>Change one thing at a time. Try nine comparisons to see how motion communicates and how materials create depth. Open the source to see how each example works.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 360 208" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="hero-grid" width="16" height="16" patternUnits="userSpaceOnUse"><path d="M 16 0 H 0 V 16" fill="none" stroke="#7fa18b" stroke-opacity=".37" stroke-width=".7"/></pattern>
+          <pattern id="hero-hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M 0 0 V 5" stroke="#a9bfa6" stroke-width="1.2"/></pattern>
+        </defs>
+        <rect width="360" height="208" fill="url(#hero-grid)"/>
+        <g fill="none" stroke="#a4bfa7" stroke-width="1">
+          <path d="M32 129 H328 M32 73 H328 M81 25 V168 M274 25 V168" opacity=".62" stroke-dasharray="3 5"/>
+          <rect x="78" y="68" width="74" height="64" rx="4" fill="url(#hero-hatch)"/>
+          <rect x="103" y="55" width="74" height="64" rx="4" fill="#365b46"/>
+          <rect x="128" y="42" width="74" height="64" rx="4" fill="#527862"/>
+          <path d="M206 111 C225 111 227 66 242 66 C257 66 252 108 266 108 C276 108 274 94 288 94 H316" stroke="#f0d39e" stroke-width="1.75"/>
+          <path d="M43 39 H59 M51 31 V47 M303 150 H319 M311 142 V158"/>
+          <circle cx="242" cy="66" r="4" fill="#234332" stroke="#f0d39e"/>
+        </g>
+      </svg>
+      <div class="axis"><span>FIG. 02</span><span>OPAQUE → TRANSLUCENT</span></div>
+    </div>
+  </div>
+  <div class="indexline">
+    <span class="eyebrow">Specimen index / 09</span>
+    <nav aria-label="Specimen index"><a href="#techniques"><strong>Browse all 68 techniques ↓</strong></a>
+      <a href="#enter-motion">01 Entrance</a><a href="#spring-motion">02 Spring</a><a href="#detail-drawer">03 Drawer</a><a href="#scroll-reveal">04 Scroll Reveal</a><a href="#glassmorphism">05 Glass</a><a href="#neumorphism">06 Relief</a><a href="#skeleton-screen">07 Skeleton</a><a href="#scroll-snap">08 Scroll Snap</a><a href="#gradient-comparison">09 Gradients</a>
+    </nav>
+  </div>
+</header>
+<main class="frame gallery" aria-label="Nine UI technique comparisons">
+  <section class="spec" id="enter-motion" aria-labelledby="title-entrance">
+    <div class="spec-head"><div><div class="meta">01 / ENTRANCE</div><h2 id="title-entrance">Fade In vs. Slide In</h2></div><span class="chip" title="4.4 Page transitions (related)">Related: 4.4</span></div>
+    <p>The same mark appears instantly without motion. A fade changes only opacity; a slide changes only position. Use a slide when the direction of entry matters.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Comparison / 640 ms</span><button class="action" id="replay-entrance" type="button">Play entrance</button></div>
+      <div class="cells">
+        <figure class="cell"><div class="centered ruled"><span class="artifact-mark" aria-hidden="true">A</span></div><figcaption>No motion</figcaption></figure>
+        <figure class="cell"><div class="centered ruled"><span class="artifact-mark fade-in" aria-hidden="true">A</span></div><figcaption>Fade only</figcaption></figure>
+        <figure class="cell"><div class="centered ruled"><span class="artifact-mark slide-in" aria-hidden="true">A</span></div><figcaption>Slide only</figcaption></figure>
+      </div>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS / JS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="spring-motion" aria-labelledby="title-spring">
+    <div class="spec-head"><div><div class="meta">02 / RESPONSE</div><h2 id="title-spring">Microinteraction / Spring Bounce</h2></div><span class="chip" title="4.1 Microinteractions; 4.6 spring physics (approximation)">4.1 · ≈4.6</span></div>
+    <p>The button changes state immediately, then overshoots and settles to reinforce the feedback. CSS keyframes approximate the effect without simulating spring physics.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">State change / 480 ms</span></div>
+      <div class="centered ruled">
+        <button id="spring-trigger" type="button" aria-pressed="false"><span class="spring-icon" aria-hidden="true">☆</span><span>Star</span></button>
+      </div>
+      <p class="hint">Press again to remove the star. You can also focus the button with Tab and press Enter or Space.</p>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS / JS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="detail-drawer" aria-labelledby="title-drawer">
+    <div class="spec-head"><div><div class="meta">03 / LAYER</div><h2 id="title-drawer">Detail Drawer</h2></div><span class="chip" title="4.4 Page transitions: overlay entrance (related); drawers have no separate entry">Related: 4.4</span></div>
+    <p>A detail panel overlays the right side without hiding the underlying context. This demo uses a native modal dialog: it focuses Close on open, supports Esc, and returns focus to the opener on close.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Overlay transition / 280 ms</span></div>
+      <div class="drawer-stage ruled">
+        <div class="drawer-row"><span class="drawer-mark" aria-hidden="true">03</span><strong>Comparison specimen</strong><button class="action action-light" id="open-detail" type="button" aria-haspopup="dialog" aria-controls="detail-panel">Open details →</button></div>
+      </div>
+      <p class="hint">The drawer slides in on open and closes immediately so the animation never delays dismissal.</p>
+      <dialog id="detail-panel" aria-labelledby="detail-panel-title">
+        <div class="drawer-head">
+          <div><div class="eyebrow">FIG. 03 / DETAIL</div><h3 id="detail-panel-title">Specimen Details</h3></div>
+          <button type="button" id="close-detail" class="action action-light" autofocus>Close</button>
+        </div>
+        <p>This drawer is a native modal dialog. The field guide remains visible behind it, but you cannot interact with it while the drawer is open.</p>
+        <p>Press Esc or choose Close. Focus returns to Open details.</p>
+      </dialog>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS / JS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="scroll-reveal" aria-labelledby="title-scroll">
+    <div class="spec-head"><div><div class="meta">04 / VIEWPORT</div><h2 id="title-scroll">Scroll Reveal</h2></div><span class="chip" title="5.3 Scroll reveal animation">5.3</span></div>
+    <p>Only the demo viewport is observed. Each specimen fades in and rises when 34% of it is visible. It stays visible afterward. Reset to return to the top and replay the reveals.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Nested scroll area / 34% threshold</span><button class="action" id="reset-reveal" type="button">Reset scroll</button></div>
+      <div class="ruled" id="reveal-viewport" role="region" aria-label="Scroll reveal demo" tabindex="0">
+        <div class="reveal-intro">↓ Scroll down in this area</div>
+        <div class="reveal-slot"><p class="reveal-item">01 / Fade in</p></div>
+        <div class="reveal-slot"><p class="reveal-item">02 / Rise</p></div>
+        <div class="reveal-slot"><p class="reveal-item">03 / Settle</p></div>
+      </div>
+      <p class="hint">Use the mouse wheel or touch, or focus the demo and press ↓ or Page Down. All three specimens use the same animation.</p>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS / JS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="glassmorphism" aria-labelledby="title-glass">
+    <div class="spec-head"><div><div class="meta">05 / SURFACE</div><h2 id="title-glass">Glassmorphism</h2></div><span class="chip" title="1.4 Glassmorphism">1.4</span></div>
+    <p>The cards share the same striped backdrop. A translucent card shows the stripes clearly; the frosted card blurs the stripes without blurring the text.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Material swatches / backdrop filter</span></div>
+      <div class="cells">
+        <figure class="cell"><div class="centered glass-ground"><div class="glass-card">Sample</div></div><figcaption>Opaque</figcaption></figure>
+        <figure class="cell"><div class="centered glass-ground"><div class="glass-card translucent">Sample</div></div><figcaption>Translucent</figcaption></figure>
+        <figure class="cell"><div class="centered glass-ground"><div class="glass-card frosted">Sample</div></div><figcaption>Translucent + blur</figcaption></figure>
+      </div>
+      <p class="hint">Compare the sharpness of the diagonal stripes inside and outside the cards. If backdrop filters are unsupported, the third card falls back to a solid background.</p>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="neumorphism" aria-labelledby="title-soft">
+    <div class="spec-head"><div><div class="meta">06 / RELIEF</div><h2 id="title-soft">Neumorphism</h2></div><span class="chip" title="1.1 Flat design baseline; 1.3 neumorphism">1.1 · 1.3</span></div>
+    <p>The background and controls are identical; only the pair of shadows changes. Outer shadows make a control look raised; inset shadows make it look recessed. Do not rely on shadows alone to indicate state.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Shadow swatches / light from the upper left</span></div>
+      <div class="cells">
+        <figure class="cell"><div class="centered soft-ground"><button class="soft-control" type="button" aria-label="Control: flat sample">Control</button></div><figcaption>Flat</figcaption></figure>
+        <figure class="cell"><div class="centered soft-ground"><button class="soft-control raised" type="button" aria-label="Control: raised sample with outer shadows">Control</button></div><figcaption>Outer shadows · Raised</figcaption></figure>
+        <figure class="cell"><div class="centered soft-ground"><button class="soft-control sunken" type="button" aria-label="Control: recessed sample with inset shadows">Control</button></div><figcaption>Inset shadows · Recessed</figcaption></figure>
+      </div>
+      <p class="hint">These controls demonstrate appearance only. Keep dark text, a border, and a distinct focus ring: soft shadows alone do not provide enough contrast.</p>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="skeleton-screen" aria-labelledby="title-skeleton">
+    <div class="spec-head"><div><div class="meta">07 / LOADING</div><h2 id="title-skeleton">Text Indicator vs. Skeleton Screen</h2></div><span class="chip" title="4.2 Skeleton screen">4.2</span></div>
+    <p>The left side shows a loading message. The right side uses placeholders for the icon, title, and body. Both wait for the same result; a skeleton does not speed up the request.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Shared simulated delay / 1.8 s</span><div><button class="action" id="load-skeleton" type="button">Start loading</button> <button class="action action-light" id="cancel-skeleton" type="button" aria-disabled="true">Cancel</button></div></div>
+      <div class="cells loading-cells">
+        <figure class="cell"><div class="centered ruled loading-preview" id="plain-loading" aria-busy="false"><p>Ready to start</p></div><figcaption>Text-only indicator</figcaption></figure>
+        <figure class="cell"><div class="centered ruled loading-preview" id="layout-loading" aria-busy="false"><p>Ready to start</p></div><figcaption>Layout placeholders</figcaption></figure>
+      </div>
+      <p class="hint" id="skeleton-status" role="status">Ready to start · No network requests</p>
+      <template id="loading-placeholder">
+        <div class="loading-card" aria-hidden="true"><span class="loading-avatar loading-block"></span><span class="loading-title-block loading-block"></span><span class="loading-line loading-block"></span><span class="loading-line loading-block"></span></div>
+      </template>
+      <template id="loading-result">
+        <div class="loading-card"><span class="loading-avatar" aria-hidden="true">A</span><strong>Changelog</strong><p>The sample is ready to view.</p></div>
+      </template>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS / JS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="scroll-snap" aria-labelledby="title-snap">
+    <div class="spec-head"><div><div class="meta">08 / SNAP</div><h2 id="title-snap">Free Scrolling vs. Scroll Snap</h2></div><span class="chip" title="5.5 Scroll snap">5.5</span></div>
+    <p>Both modes use the same scroll area and three panels. With snapping off, you can stop between panels. With it on, the view settles on one panel when you release or stop scrolling.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title" id="snap-mode" aria-live="polite">Mode: Free scrolling</span><button class="action" id="toggle-snap" type="button" aria-pressed="false" aria-controls="snap-viewport">Scroll snap</button></div>
+      <div class="ruled" id="snap-viewport" role="region" aria-label="Three-panel scrolling demo" aria-describedby="snap-hint" tabindex="0">
+        <div class="snap-panel"><strong>01 / Moss</strong><p>Scroll down from here ↓</p></div>
+        <div class="snap-panel"><strong>02 / Pine</strong><p>Watch where the panel edges come to rest</p></div>
+        <div class="snap-panel"><strong>03 / Amber</strong><p>End of the demo</p></div>
+      </div>
+      <p class="hint" id="snap-hint">Use the mouse wheel or touch, or press Tab to focus the demo and use ↑, ↓, Page Up, or Page Down. Toggle scroll snap, then repeat the same movement.</p>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS / JS</span></summary><div class="source-body"></div></details>
+  </section>
+  <section class="spec" id="gradient-comparison" aria-labelledby="title-gradient">
+    <div class="spec-head"><div><div class="meta">09 / COLOR</div><h2 id="title-gradient">Aurora vs. Mesh Gradient</h2></div><span class="chip" title="2.1 Aurora gradient; 2.2 mesh gradient">2.1 · 2.2</span></div>
+    <p>The same label sits on each background. Aurora gradients often use soft diagonal bands of light, while mesh gradients smoothly blend several color points. The effects can overlap; this comparison shows visual conventions, not a strict mathematical distinction.</p>
+    <div class="sample" data-specimen>
+      <div class="toolrow"><span class="stage-title">Background swatches / all static</span></div>
+      <div class="cells">
+        <figure class="cell"><div class="gradient-stage"><span class="gradient-label">Sample</span></div><figcaption>Solid-color baseline</figcaption></figure>
+        <figure class="cell"><div class="gradient-stage gradient-aurora"><span class="gradient-label">Sample</span></div><figcaption>Aurora · Soft bands of light</figcaption></figure>
+        <figure class="cell">
+          <div class="gradient-stage gradient-mesh">
+            <svg viewBox="0 0 160 128" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="mesh-top-row"><stop stop-color="#6043a0"/><stop offset=".46" stop-color="#d391da"/><stop offset="1" stop-color="#2b81ac"/></linearGradient>
+                <linearGradient id="mesh-bottom-row"><stop stop-color="#f5aa76"/><stop offset=".52" stop-color="#5e47a1"/><stop offset="1" stop-color="#8ee9bc"/></linearGradient>
+                <linearGradient id="mesh-row-blend" x2="0%" y2="100%"><stop stop-color="white" stop-opacity="0"/><stop offset="1" stop-color="white"/></linearGradient>
+                <mask id="mesh-blend-mask"><rect width="160" height="128" fill="url(#mesh-row-blend)"/></mask>
+              </defs>
+              <rect width="160" height="128" fill="url(#mesh-top-row)"/>
+              <rect width="160" height="128" fill="url(#mesh-bottom-row)" mask="url(#mesh-blend-mask)"/>
+            </svg>
+            <span class="gradient-label">Sample</span>
+          </div>
+          <figcaption>Mesh · Blended color points</figcaption>
+        </figure>
+      </div>
+      <p class="hint">The aurora uses CSS to layer and blur two bands of light. The simplified SVG mesh interpolates two rows of color points horizontally, then blends the rows vertically.</p>
+    </div>
+    <details class="source"><summary>View source <span>HTML / CSS</span></summary><div class="source-body"></div></details>
+  </section>
+</main>
+<section class="guide" id="techniques" data-guide="motion" aria-labelledby="techniques-title">
+  <h2 id="techniques-title">Full Technique Catalog</h2>
+  <p>Entries follow the original reference numbering. Expand an entry to run its demo. Approximations reproduce key traits; illustrations show a workflow. Neither implies that native technology, hardware, or a model is integrated.</p>
+  <div class="guide-tools"><label for="technique-search">Find a technique</label><input type="search" id="technique-search" placeholder="Section number or term (English or Chinese)"><span class="guide-count" role="status">Loading catalog…</span></div>
+  <nav class="guide-chapters" aria-label="Motion and materials chapters"></nav><div class="guide-list"></div>
+</section>
+<footer class="frame page-foot">
+  <span>Numbering reference: <a href="动效界面设计风格全景分类参考.md">Motion and interface style reference</a> · All examples work offline. Nonessential animation is skipped when your system is set to reduce motion.</span>
+  <a href="布局图鉴.html">Browse the Layout Atlas →</a>
+</footer>
+<script>
+  function bindEntrance() {
+    const card = document.querySelector('#enter-motion');
+    document.querySelector('#replay-entrance').addEventListener('click', () => {
+      card.classList.remove('is-playing');
+      void card.offsetWidth; // Flush the animation-free state so the next click can replay it.
+      card.classList.add('is-playing');
+    });
+  }
+
+  function bindSpring() {
+    const button = document.querySelector('#spring-trigger');
+    const icon = button.querySelector('.spring-icon');
+    button.addEventListener('click', () => {
+      const pressed = button.getAttribute('aria-pressed') !== 'true';
+      button.setAttribute('aria-pressed', String(pressed));
+      icon.textContent = pressed ? '★' : '☆';
+      button.classList.remove('is-bouncing');
+      void button.offsetWidth;
+      button.classList.add('is-bouncing');
+    });
+  }
+
+  function bindDrawer() {
+    const detail = document.querySelector('#detail-panel');
+    const opener = document.querySelector('#open-detail');
+    opener.addEventListener('click', () => detail.showModal());
+    document.querySelector('#close-detail').addEventListener('click', () => detail.close());
+    // The native dialog handles Esc. Both Esc and the Close button use the same focus restoration logic.
+    detail.addEventListener('close', () => opener.focus());
+  }
+
+  function bindReveal() {
+    const root = document.querySelector('#reveal-viewport');
+    const items = [...root.querySelectorAll('.reveal-item')];
+    let observer;
+    function resetReveal() {
+      root.scrollTop = 0;
+      if (!('IntersectionObserver' in window)) return; // Keep content visible if the API is unsupported.
+      observer?.disconnect();
+      items.forEach(item => item.classList.remove('is-visible'));
+      root.setAttribute('data-observing', '');
+      observer = new IntersectionObserver((entries, current) => {
+        if (current !== observer) return;
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.34) {
+            entry.target.classList.add('is-visible');
+            current.unobserve(entry.target);
+          }
+        }
+      }, { root, threshold: 0.34 });
+      items.forEach(item => observer.observe(item));
+    }
+    document.querySelector('#reset-reveal').addEventListener('click', resetReveal);
+    resetReveal();
+  }
+
+  function bindSkeleton() {
+    const load = document.querySelector('#load-skeleton');
+    const cancel = document.querySelector('#cancel-skeleton');
+    const status = document.querySelector('#skeleton-status');
+    const plain = document.querySelector('#plain-loading');
+    const layout = document.querySelector('#layout-loading');
+    const placeholder = document.querySelector('#loading-placeholder');
+    const result = document.querySelector('#loading-result');
+    let timer = null;
+
+    function showText(panel, text) {
+      const message = document.createElement('p');
+      message.textContent = text;
+      panel.replaceChildren(message);
+    }
+
+    function setBusy(busy) {
+      for (const panel of [plain, layout]) panel.setAttribute('aria-busy', String(busy));
+      cancel.setAttribute('aria-disabled', String(!busy));
+    }
+
+    load.addEventListener('click', () => {
+      clearTimeout(timer); // Clear the previous timer before replay so stale results cannot overwrite either panel.
+      setBusy(true);
+      load.textContent = 'Restart loading';
+      showText(plain, 'Loading…');
+      layout.replaceChildren(placeholder.content.cloneNode(true));
+      status.textContent = 'Loading · Both panels are waiting for the same content…';
+      timer = setTimeout(() => {
+        timer = null;
+        for (const panel of [plain, layout]) panel.replaceChildren(result.content.cloneNode(true));
+        setBusy(false);
+        load.textContent = 'Replay loading';
+        status.textContent = 'Loaded · Both panels show the same content';
+      }, 1800);
+    });
+
+    cancel.addEventListener('click', () => {
+      if (timer === null) return;
+      clearTimeout(timer);
+      timer = null;
+      for (const panel of [plain, layout]) showText(panel, 'Ready to start');
+      setBusy(false);
+      load.textContent = 'Start loading';
+      status.textContent = 'Canceled · You can start again';
+    });
+  }
+
+  function bindSnap() {
+    const viewport = document.querySelector('#snap-viewport');
+    const toggle = document.querySelector('#toggle-snap');
+    const mode = document.querySelector('#snap-mode');
+    toggle.addEventListener('click', () => {
+      const enabled = viewport.toggleAttribute('data-snap');
+      toggle.setAttribute('aria-pressed', String(enabled));
+      mode.textContent = enabled ? 'Mode: Scroll snap' : 'Mode: Free scrolling';
+    });
+  }
+
+  // Extract the source from the demo markup, scoped styles, and bound functions so the snippets stay in sync.
+  const bindings = {
+    'enter-motion': bindEntrance,
+    'spring-motion': bindSpring,
+    'detail-drawer': bindDrawer,
+    'scroll-reveal': bindReveal,
+    'skeleton-screen': bindSkeleton,
+    'scroll-snap': bindSnap
+  };
+  function addSource(target, label, text) {
+    const heading = document.createElement('h3');
+    heading.textContent = label;
+    const pre = document.createElement('pre');
+    pre.tabIndex = 0;
+    pre.setAttribute('aria-label', `${label} source code`);
+    const code = document.createElement('code');
+    code.textContent = text;
+    pre.append(code);
+    target.append(heading, pre);
+  }
+  document.querySelectorAll('.spec').forEach(spec => {
+    const target = spec.querySelector('.source-body');
+    const note = document.createElement('p');
+    note.textContent = 'Taken from the live example. Shared page styles are omitted; the wrapper ID matches this section.';
+    target.append(note);
+    const specimen = spec.querySelector('[data-specimen]').outerHTML;
+    const pad = specimen.match(/\n( *)<\/div>$/)?.[1] || '';
+    const markup = specimen.replaceAll(`\n${pad}`, '\n  ');
+    addSource(target, 'HTML', `<section id="${spec.id}">\n  ${markup}\n</section>`);
+    const css = document.getElementById(`css-${spec.id}`).textContent.trimEnd().replace(/^  /gm, '').trimStart();
+    addSource(target, 'CSS', css);
+    const bind = bindings[spec.id];
+    if (bind) {
+      const script = bind.toString().replace(/\n  /g, '\n');
+      addSource(target, 'JavaScript', `${script}\n\n${bind.name}();`);
+      bind();
+    }
+  });
+</script>
+<script src="图鉴目录数据.js"></script>
+<script src="动效技法-材质风格.js"></script>
+<script src="动效技法-交互空间.js"></script>
+<script src="动效技法-结构数据.js"></script>
+<script src="图鉴目录.js"></script>
+</body>
+</html>

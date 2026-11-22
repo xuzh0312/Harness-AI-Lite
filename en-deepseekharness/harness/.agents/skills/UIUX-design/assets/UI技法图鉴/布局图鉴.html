@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout · UI Technique Atlas</title>
+<link rel="stylesheet" href="图鉴目录.css">
+<style>
+:root { color-scheme: light; --paper:#f6f4ed; --ink:#202722; --muted:#506057; --forest:#315941; --line:#ccd3c6; --tile:#e6ede1; --wash:#f9faf6; font:16px/1.6 system-ui,"Segoe UI",sans-serif; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); }
+header, main, footer { max-width:1050px; margin:auto; padding-inline:clamp(14px,4vw,42px); }
+header { padding-top:36px; }
+header p, h1, h2, h3, .board p, .board ul, .board ol { margin:0; }
+h1 { font-size:clamp(36px,8vw,66px); letter-spacing:-.055em; line-height:1.12; margin-block:12px; }
+h2 { font-size:clamp(19px,4vw,25px); line-height:1.35; }
+a { color:var(--forest); text-underline-offset:.2em; }
+.kicker, .index { font:700 12px/1.5 ui-monospace,Consolas,monospace; letter-spacing:.1em; color:var(--forest); }
+.lede, .explain, .note { color:var(--muted); }
+nav { display:flex; flex-wrap:wrap; gap:6px 16px; margin-block:22px; font-size:.9rem; }
+.controls { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px 16px; margin-top:20px; padding:10px 14px; border-block:1px solid var(--line); }
+.controls p { margin:0; }
+fieldset { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; min-width:0; border:0; padding:0; margin:0; }
+legend { padding:0; font-weight:650; }
+label { display:inline-flex; align-items:center; gap:4px; min-height:34px; cursor:pointer; }
+input { accent-color:var(--forest); }
+:focus-visible { outline:2px solid var(--forest); outline-offset:3px; }
+.card { padding-block:24px; border-bottom:1px solid var(--line); }
+.card-head { display:flex; align-items:baseline; gap:10px; }
+.ref { font-size:.8rem; margin:5px 0; color:var(--muted); }
+.explain { font-size:.92rem; margin:8px 0 13px; }
+.frame { padding:10px; background:#e1e5dc; border:1px solid var(--line); }
+.viewport { container-type:inline-size; width:100%; margin:auto; background:var(--wash); border:1px solid var(--line); }
+main:has(#narrow:checked) .viewport { width:min(100%,340px); }
+.board { padding:12px; font-size:.87rem; overflow-wrap:anywhere; }
+.board h3 { font-size:1.06rem; line-height:1.3; }
+.board small { color:var(--muted); }
+.block { display:grid; align-content:center; gap:4px; min-width:0; padding:10px; background:var(--tile); border:1px solid var(--line); }
+.block.is-main { background:#d2e2cd; }
+.block.is-paper { background:#fff; }
+.block ul, .block ol { padding-inline-start:1.25em; }
+.source { margin-top:9px; font-size:.84rem; }
+summary { cursor:pointer; width:fit-content; color:var(--forest); }
+pre { margin:6px 0 0; padding:12px; border:1px solid var(--line); background:#eef0e8; overflow:auto; }
+footer { padding-block:20px 40px; }
+</style>
+<style id="hero-css">
+.hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px; align-items:stretch; }
+.hero .image { min-height:140px; text-align:center; color:#fff; background:linear-gradient(145deg,#315941,#517455); }
+@container (max-width:480px) {
+  .hero { grid-template-columns:1fr; }
+  .hero .image { min-height:100px; }
+}
+</style>
+<style id="grid-css">
+.tile-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.tile-grid .block { min-height:70px; }
+#grid:has(#bento:checked) .feature { grid-column:span 2; grid-row:span 2; }
+@container (max-width:480px) {
+  .tile-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #grid:has(#bento:checked) .feature { grid-row:span 1; }
+}
+</style>
+<style id="sidebar-css">
+.sidebar-layout { display:grid; grid-template-columns:132px minmax(0,1fr); gap:8px; }
+.sidebar-layout .workspace { min-height:120px; }
+@container (max-width:480px) {
+  .sidebar-layout { grid-template-columns:1fr; }
+  .sidebar-layout ul { display:flex; flex-wrap:wrap; gap:4px 14px; list-style:none; padding:0; }
+}
+</style>
+<style id="split-css">
+.split-layout { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,3fr); gap:8px; }
+.split-layout .list { display:grid; gap:4px; }
+.split-layout .list button { border:1px solid var(--line); background:#fff; color:inherit; font:inherit; padding:5px; text-align:start; cursor:pointer; }
+.split-layout .list button[aria-pressed="true"] { background:#d2e2cd; border-color:var(--forest); }
+@container (max-width:480px) { .split-layout { grid-template-columns:1fr; } }
+</style>
+<style id="article-css">
+.article-layout { display:grid; grid-template-columns:minmax(0,1fr) 140px; gap:8px; align-items:start; }
+.article-layout .article-copy { max-inline-size:42em; grid-area:1 / 1; }
+.article-layout aside { grid-area:1 / 2; }
+@container (max-width:480px) {
+  .article-layout { grid-template-columns:1fr; }
+  .article-layout .article-copy, .article-layout aside { grid-area:auto; }
+}
+</style>
+<style id="masonry-css">
+.gallery-items { margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; align-items:start; }
+.gallery-items li { margin:0; }
+.gallery-swatch { height:var(--swatch); background:repeating-linear-gradient(140deg,#b9ccaf 0 7px,#d2dfcb 7px 14px); }
+#masonry:has(#masonry-flow:checked) .gallery-items { display:block; columns:3; column-gap:8px; }
+#masonry:has(#masonry-flow:checked) .gallery-items li { break-inside:avoid; margin-bottom:8px; }
+@container (max-width:480px) {
+  .gallery-items { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  #masonry:has(#masonry-flow:checked) .gallery-items { columns:2; }
+}
+</style>
+<style id="nav-position-css">
+.nav-board { display:grid; grid-template-rows:auto minmax(104px,1fr); }
+.placement-nav { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); background:#d2e2cd; border:1px solid var(--line); }
+.placement-nav span { padding:7px 4px; text-align:center; }
+.placement-nav span + span { border-left:1px solid var(--line); }
+.placement-nav .current { font-weight:700; text-decoration:underline; text-underline-offset:.2em; }
+#nav-position:has(#nav-bottom:checked) .nav-board { grid-template-rows:minmax(104px,1fr) auto; }
+#nav-position:has(#nav-bottom:checked) .placement-nav { grid-row:2; }
+@container (max-width:480px) { .placement-nav span { min-height:44px; align-content:center; } }
+</style>
+<style id="twelve-css">
+.twelve-grid { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); row-gap:8px; }
+.twelve-grid .track-count { grid-column:1/-1; display:grid; grid-template-columns:subgrid; text-align:center; font-size:.7rem; }
+.twelve-grid .track-count span { background:#e1e9dc; border-inline-start:1px solid #aebeb0; }
+.twelve-grid > .block { grid-column:span 4; margin-inline:2px; min-height:66px; }
+#twelve:has(#twelve-focus:checked) .twelve-grid > .overview { grid-column:span 8; grid-row:span 2; }
+@container (max-width:480px) {
+  .twelve-grid > .block, #twelve:has(#twelve-focus:checked) .twelve-grid > .overview { grid-column:1/-1; grid-row:auto; }
+}
+</style>
+</head>
+<body>
+<header>
+  <p class="kicker">UI FIELD GUIDE / 01</p>
+  <h1>Layout Atlas</h1>
+  <p class="lede">Strip each page down to a wireframe. See how the same mountain trail content is arranged, emphasized, and reordered across layouts.</p>
+  <nav aria-label="Atlas navigation"><a href="#techniques"><strong>Browse all 48 techniques ↓</strong></a><a href="#hero">Text and image</a><a href="#grid">Grid / bento</a><a href="#sidebar">Sidebar</a><a href="#split">List and detail</a><a href="#article">Article and contents</a><a href="#masonry">Masonry</a><a href="#nav-position">Top / bottom navigation</a><a href="#twelve">12-column grid</a><a href="动效与材质图鉴.html">Motion and Materials Atlas →</a></nav>
+</header>
+<main>
+  <div class="controls">
+    <fieldset><legend>Shared preview width</legend><label><input type="radio" name="width" checked> Wide container</label><label><input type="radio" name="width" id="narrow"> Narrow container (up to 340 px)</label></fieldset>
+    <p class="note">This setting changes the preview width for the comparisons and the full catalog without changing the sample content. Previews also shrink to fit phones.</p>
+  </div>
+
+  <section class="card" id="hero">
+    <div class="card-head"><span class="index">01</span><h2>Hero with Text on the Left and an Image on the Right</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §4.2</a></p>
+    <p class="explain">The headline and description set the scene, while the image on the right illustrates the point. On narrow screens, the image stacks below the text. The image block is a placeholder; no image file is required.</p>
+    <div class="frame"><div class="viewport"><div class="board hero" data-example>
+      <div class="block is-paper"><small>Weekend hikes / 01</small><h3>Mountain Trails</h3><p>Pick a half-day hike from three trails.</p></div>
+      <div class="block image" role="img" aria-label="Wireframe placeholder for a trail map">△ Trail map</div>
+    </div></div></div>
+    <details class="source" data-style="hero-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+
+  <section class="card" id="grid">
+    <div class="card-head"><span class="index">02</span><h2>Equal-Width Grid vs. Bento Layout</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §1.8 and §1.11</a></p>
+    <p class="explain">An equal-width grid gives items similar visual weight. A bento layout keeps the grid alignment but lets Trail Overview span columns and rows. On narrow screens, it still spans columns, but only occupies one row.</p>
+    <fieldset><legend>Grid structure</legend><label><input type="radio" name="grid" checked> Equal-width grid</label><label><input type="radio" name="grid" id="bento"> Bento layout</label></fieldset>
+    <div class="frame"><div class="viewport"><div class="board tile-grid" data-example>
+      <div class="block is-main feature"><b>Trail Overview</b><small>3 trails</small></div>
+      <div class="block">Pine Trail</div>
+      <div class="block">Creek Trail</div>
+      <div class="block">Scenic Loop</div>
+      <div class="block">Trail Tips</div>
+      <div class="block">Supply Stops</div>
+    </div></div></div>
+    <details class="source" data-style="grid-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+
+  <section class="card" id="sidebar">
+    <div class="card-head"><span class="index">03</span><h2>Sidebar Layout</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §3.4</a></p>
+    <p class="explain">The left column holds global navigation, not details for the selected record. In wide containers, the sidebar has a fixed width. In narrow containers, the few navigation links move to the top so the content has room.</p>
+    <div class="frame"><div class="viewport"><div class="board sidebar-layout" data-example>
+      <aside class="block" aria-label="Global navigation example"><ul><li><b>Trail Overview</b></li><li>Trail Tips</li><li>Supply Stops</li></ul></aside>
+      <div class="block is-paper workspace"><h3>Trail Overview</h3><p>Pine Trail, Creek Trail, and Scenic Loop</p></div>
+    </div></div></div>
+    <details class="source" data-style="sidebar-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+
+  <section class="card" id="split">
+    <div class="card-head"><span class="index">04</span><h2>List and Detail (Master–Detail)</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §1.5: Split Screen</a> is a related pattern. The list drives the detail pane, and the two panes need not be the same width.</p>
+    <p class="explain">Select a trail to update the detail pane on the right. In the narrow preview, details appear below the three list items. For longer lists, consider a separate view or drawer rather than stacking.</p>
+    <div class="frame"><div class="viewport"><div class="board split-layout" data-example>
+      <div class="block list" role="group" aria-label="Choose a trail">
+        <button type="button" aria-pressed="true" data-description="2.5 km · Gentle woodland trail">Pine Trail</button>
+        <button type="button" aria-pressed="false" data-description="4 km · Creekside walk">Creek Trail</button>
+        <button type="button" aria-pressed="false" data-description="6 km · Hills and sweeping views">Scenic Loop</button>
+      </div>
+      <div class="block is-paper" aria-live="polite" aria-atomic="true"><h3>Pine Trail</h3><p>2.5 km · Gentle woodland trail</p></div>
+    </div></div></div>
+    <details class="source" data-style="split-css" data-script="split-js"><summary>View demo HTML / CSS / JS</summary><pre><code></code></pre></details>
+  </section>
+
+  <section class="card" id="article">
+    <div class="card-head"><span class="index">05</span><h2>Two-Column Article with Table of Contents</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §5.2</a></p>
+    <p class="explain">The article is the focus; the table of contents links to sections on the same page. In wide containers it sits on the right. In narrow containers it moves above the article, leaving the text full width.</p>
+    <div class="frame"><div class="viewport"><div class="board article-layout" data-example>
+      <aside class="block" aria-label="On this page"><b>On this page</b><ol><li><a href="#route-overview">Trail Overview</a></li><li><a href="#route-notes">Trail Tips</a></li></ol></aside>
+      <article class="block is-paper article-copy">
+        <h3 id="route-overview" tabindex="-1">Trail Overview</h3><p>Try Pine Trail on your first visit. If you would rather stop by the water, take Creek Trail.</p>
+        <h3 id="route-notes" tabindex="-1">Trail Tips</h3><p>Avoid slippery stone steps after rain. Bring drinking water for longer hikes.</p>
+      </article>
+    </div></div></div>
+    <details class="source" data-style="article-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+  <section class="card" id="masonry">
+    <div class="card-head"><span class="index">06</span><h2>Row-Aligned Grid vs. Masonry</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §1.8 and §1.10</a></p>
+    <p class="explain">Both layouts use the same six cards of varying heights. In a row-aligned grid, the tallest card sets the row height, leaving gaps below shorter cards. Masonry stacks cards continuously in each column. This example approximates masonry with CSS columns: read down each column rather than expecting each card to fill the shortest one.</p>
+    <fieldset><legend>Arrangement</legend><label><input type="radio" name="masonry" checked> Row-aligned grid</label><label><input type="radio" name="masonry" id="masonry-flow"> Masonry</label></fieldset>
+    <div class="frame"><div class="viewport"><div class="board" data-example>
+      <ol class="gallery-items">
+        <li class="block"><div class="gallery-swatch" style="--swatch:48px" aria-hidden="true"></div><b>01 Pine Trail</b></li>
+        <li class="block"><div class="gallery-swatch" style="--swatch:102px" aria-hidden="true"></div><b>02 Creek Trail</b></li>
+        <li class="block"><div class="gallery-swatch" style="--swatch:68px" aria-hidden="true"></div><b>03 Scenic Loop</b></li>
+        <li class="block"><div class="gallery-swatch" style="--swatch:95px" aria-hidden="true"></div><b>04 Wetlands</b></li>
+        <li class="block"><div class="gallery-swatch" style="--swatch:52px" aria-hidden="true"></div><b>05 Forest Station</b></li>
+        <li class="block"><div class="gallery-swatch" style="--swatch:77px" aria-hidden="true"></div><b>06 Valley Entrance</b></li>
+      </ol>
+    </div></div></div>
+    <details class="source" data-style="masonry-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+
+  <section class="card" id="nav-position">
+    <div class="card-head"><span class="index">07</span><h2>Top Navigation vs. Bottom Tab Bar</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §3.1 and §3.2</a></p>
+    <p class="explain">The three primary destinations stay the same; only the navigation moves. Top navigation fits a top-to-bottom scan, while a bottom tab bar is easier to reach with your thumb on a phone. This demo shows placement only, not fixed positioning or page changes.</p>
+    <fieldset><legend>Navigation placement</legend><label><input type="radio" name="nav-position" checked> Top navigation</label><label><input type="radio" name="nav-position" id="nav-bottom"> Bottom tab bar</label></fieldset>
+    <div class="frame"><div class="viewport"><div class="board nav-board" data-example>
+      <div class="placement-nav" role="group" aria-label="Navigation placement example"><span class="current" aria-current="page">Trails</span><span>Saved</span><span>Profile</span></div>
+      <div class="block is-paper"><h3>Trails</h3><p>Pine Trail, Creek Trail, and Scenic Loop。</p></div>
+    </div></div></div>
+    <details class="source" data-style="nav-position-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+
+  <section class="card" id="twelve">
+    <div class="card-head"><span class="index">08</span><h2>12-Column Grid: Equal vs. Weighted Spans</h2></div>
+    <p class="ref"><a href="页面布局设计全景分类参考.md">Layout reference §7.1 and §7.3</a></p>
+    <p class="explain">The numbers mark alignment tracks, not 12 pieces of content. In the wide preview, compare 4 + 4 + 4 with 8 + 4: the primary block spans eight columns, and two secondary blocks stack in the remaining four. In a narrow container, each block spans the full row.</p>
+    <fieldset><legend>Column spans</legend><label><input type="radio" name="twelve" checked> Equal · 4 + 4 + 4</label><label><input type="radio" name="twelve" id="twelve-focus"> Weighted · 8 + 4</label></fieldset>
+    <div class="frame"><div class="viewport"><div class="board twelve-grid" data-example>
+      <div class="track-count" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span></div>
+      <div class="block is-main overview"><b>Trail Overview</b><small>3 trails</small></div>
+      <div class="block"><b>Trail Tips</b><small>Slippery after rain</small></div>
+      <div class="block"><b>Supply Stops</b><small>Water and rest stops</small></div>
+    </div></div></div>
+    <details class="source" data-style="twelve-css"><summary>View demo HTML / CSS</summary><pre><code></code></pre></details>
+  </section>
+</main>
+<section class="guide" id="techniques" data-guide="layout" aria-labelledby="techniques-title">
+  <h2 id="techniques-title">Full Technique Catalog</h2>
+  <p>Entries follow the original reference numbering. Expand an entry to run its demo; collapse it to reset. A comparison link jumps to the matching card above.</p>
+  <div class="guide-tools"><label for="technique-search">Find a layout</label><input type="search" id="technique-search" placeholder="Section number or term (English or Chinese)"><label><input type="checkbox" id="guide-narrow"> Narrow preview</label><span class="guide-count" role="status">Loading catalog…</span></div>
+  <nav class="guide-chapters" aria-label="Layout chapters"></nav><div class="guide-list"></div>
+</section>
+<footer class="note"><strong>For agents: </strong>Find a card by term, compare the wide and narrow previews, then open the source. Reuse the layout rules, not necessarily the wireframe colors. Choose breakpoints based on your actual content.<br><a href="页面布局设计全景分类参考.md">Original layout reference</a> (opens as text; search for the section number shown above) · <a href="工作台样板.html">View the service desk example</a></footer>
+<script id="split-js">
+const split = document.querySelector('.split-layout');
+const buttons = split.querySelectorAll('button');
+buttons.forEach(button => button.addEventListener('click', () => {
+  buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+  split.querySelector('h3').textContent = button.textContent;
+  split.querySelector('p').textContent = button.dataset.description;
+}));
+</script>
+<script>
+for (const source of document.querySelectorAll('.source')) {
+  const card = source.closest('section');
+  const example = card.querySelector('.viewport');
+  const viewport = example.outerHTML.replace(/^ {4}/gm, '');
+  const control = card.querySelector('fieldset');
+  const html = control
+    ? `<section id="${card.id}">\n${control.outerHTML}\n${viewport}\n</section>` : viewport;
+  const css = document.getElementById(source.dataset.style).textContent.trim();
+  const js = source.dataset.script ? '\n\n/* JavaScript */\n' + document.getElementById(source.dataset.script).textContent.trim() : '';
+  source.querySelector('code').textContent = html + '\n\n/* CSS */\n.viewport { container-type: inline-size; }\n' + css + js;
+}
+</script>
+<script src="图鉴目录数据.js"></script>
+<script src="布局技法数据.js"></script>
+<script src="图鉴目录.js"></script>
+</body>
+</html>
