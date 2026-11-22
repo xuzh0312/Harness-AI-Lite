@@ -1,6 +1,6 @@
 # Harness-AI-Lite · Codex
 
-[Codex 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.codex.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.dsh.en.md) · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.dsh.zh-CN.md)
+[Codex 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.codex.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md) · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md)
 
 Harness-AI-Lite is a reusable project template for Codex. It keeps project management, product code, and development evidence in three independently located directories. The template works with your project's existing language and stack, and its conventions apply even when the three directories are on different disks.
 
@@ -10,10 +10,10 @@ Harness-AI-Lite is a reusable project template for Codex. It keeps project manag
 
 | Language | Template directory | ZIP |
 | --- | --- | --- |
-| English | [en-codex](en-codex/) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-en-codex-2.1.0.zip) |
-| 简体中文 | [zh-CN-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/ui/zh-CN-codex) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-zh-CN-codex-2.1.0.zip) |
+| English | [en-codex](en-codex/) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-codex-2.1.0.zip) |
+| 简体中文 | [zh-CN-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-codex) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-codex-2.1.0.zip) |
 
-Each ZIP contains the selected template, a guide in the same language, and the MIT license. For the DeepSeek Harness workflow and its downloads, see the [DeepSeek Harness guide](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.dsh.en.md).
+Each ZIP contains the selected template, a guide in the same language, and the MIT license. For the DeepSeek Harness workflow and its downloads, see the [DeepSeek Harness guide](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md).
 
 ## Why this project exists
 
@@ -190,6 +190,6 @@ The project uses the [MIT License](LICENSE). Keep the copyright and license noti
 
 | Version | Date | Description | Downloads |
 | --- | --- | --- | --- |
-| 2.1.0 | 2026/11/22 | Enhances the UIUX-design skill with concrete reference materials to choose from. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-zh-CN-codex-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-en-codex-2.1.0.zip) |
+| 2.1.0 | 2026/11/22 | Enhances the UIUX-design skill with concrete reference materials to choose from. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-codex-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-codex-2.1.0.zip) |
 | 2.0.0 | 2026/11/21 | Revises subagent responsibilities and skills, and adds the UIdesign role and a UI design workflow. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-zh-CN-codex.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-en-codex.zip) |
 | 1.0.0 | 2026/11/17 | The first release introduces a lightweight Harness Engineering template with separate management, software, and test workspaces, plus a workflow for requirements approval, delegated implementation, dual review, and evidence-based acceptance. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/aa9a421813c33437ebfbf031015c695cd63a077c/downloads/Harness-AI-Lite-zh-CN-codex.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/aa9a421813c33437ebfbf031015c695cd63a077c/downloads/Harness-AI-Lite-en-codex.zip) |

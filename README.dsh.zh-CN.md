@@ -1,6 +1,6 @@
 # Harness-AI-Lite · DeepSeek Harness
 
-[DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.dsh.en.md) · [Codex 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.codex.zh-CN.md) · [Codex English](https://github.com/xuzh0312/Harness-AI-Lite/blob/ui/README.md)
+[DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md) · [Codex 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.codex.zh-CN.md) · [Codex English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.md)
 
 Harness-AI-Lite 是一套可复用的 DeepSeek Harness（DSH）项目模板，将项目管理、软件本体和开发验证材料放在三个独立区域，支持跨目录、跨盘放置。DSH 版与 Codex 版共享核心工作流程，但分派、提问和恢复任务使用 DSH 自身的工具。
 
@@ -10,8 +10,8 @@ Harness-AI-Lite 是一套可复用的 DeepSeek Harness（DSH）项目模板，�
 
 | 语言 | 模板目录 | ZIP |
 | --- | --- | --- |
-| 简体中文 | [zh-CN-deepseekharness](zh-CN-deepseekharness/) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.1.0.zip) |
-| English | [en-deepseekharness](https://github.com/xuzh0312/Harness-AI-Lite/tree/ui/en-deepseekharness) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-en-deepseekharness-2.1.0.zip) |
+| 简体中文 | [zh-CN-deepseekharness](zh-CN-deepseekharness/) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.1.0.zip) |
+| English | [en-deepseekharness](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-deepseekharness) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-deepseekharness-2.1.0.zip) |
 
 每个 ZIP 包含对应模板、同语言指南和 MIT 许可证。旧版安装包见底部[版本记录](#版本记录)。
 
@@ -205,6 +205,6 @@ flowchart TD
 
 | 版本 | 日期 | 说明 | 下载 |
 | --- | --- | --- | --- |
-| 2.1.0 | 2026/11/22 | 强化 UIUX-design 技能，提供具体素材选择。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/ui/downloads/Harness-AI-Lite-en-deepseekharness-2.1.0.zip) |
+| 2.1.0 | 2026/11/22 | 强化 UIUX-design 技能，提供具体素材选择。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-en-deepseekharness-2.1.0.zip) |
 | 2.0.0 | 2026/11/22 | 调整子 Agent 的角色分工与技能（Skill），新增 UIdesign 角色和 UI 设计流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/c32c9370973a3f2558ca46f9e45fe23e93360f84/downloads/Harness-AI-Lite-zh-CN-deepseekharness-2.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/c32c9370973a3f2558ca46f9e45fe23e93360f84/downloads/Harness-AI-Lite-en-deepseekharness-2.0.0.zip) |
 | 1.0.0 | 2026/11/17 | 初版采用轻量化 Harness 工程模板，将管理、软件与测试分置于三个独立工作区，提供需求确认、分工实现、双重审查和基于证据的验收流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-zh-CN-deepseekharness.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/8e42dd79b925b111b79769bdff954d39a778729d/downloads/Harness-AI-Lite-en-deepseekharness.zip) |
