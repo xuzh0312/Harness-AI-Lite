@@ -1,3 +1,5 @@
 # Project area
 
-`code` stores only software implementation source, runtime resources, and necessary project configuration. `installpark` stores only final ZIP installers generated after the user explicitly requests packaging or approves the corresponding plan item. Test code, helper tools, and all other code and data outside the software implementation belong in the separate `test` area. See `ARCHITECTURE.md` in Harness for the boundaries.
+`code` holds the software itself, runtime resources, and necessary configuration. `installpark` holds only authorized final ZIPs. Package only when the user explicitly requests it or the current implementation authorization covers a packaging item. Tests, helper tools, and data normally belong in `test`; see the Harness ARCHITECTURE.md for the boundaries.
+
+When integrating an existing project, map `project/code` to its actual code root in Harness `docs/paths.md`; there is no need to move the repository or rename it `code`. Preserve existing tests. Confirm and record necessary fixed-directory conflicts under the architecture rules; place new material according to the default boundaries.

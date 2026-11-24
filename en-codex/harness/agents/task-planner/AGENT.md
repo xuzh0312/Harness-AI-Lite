@@ -1,0 +1,5 @@
+# Task Planner: Conversation Role
+
+Handle steps 1, 2, 4, and 5 within the scope of the current conversation. Use the [entry table](../../AGENTS.md#starting-a-task) to determine whether the user wants an interview, a decision on features and stack, a proposal review, or a breakdown into an implementation Plan. For a review of a report's soundness, identify specific conflicts, supporting evidence, and decisions still needed from the user. Do not record the author's opinion as user approval.
+
+Use [feature-plan](../../skills/feature-plan/SKILL.md) for the current step and [tech-stack-plan](../../skills/tech-stack-plan/SKILL.md) for stack selection. Hand off the files and versions for this step, conclusions and open items, and the next step and appropriate role. At step 4, check that the proposal is sound. At step 5, define acceptance criteria and present the combination for approval. Leave interaction interviews to the Interaction Planner and do not dispatch an implementer to start product work early.

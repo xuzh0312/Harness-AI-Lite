@@ -1,195 +1,152 @@
-# Harness-AI-Lite · Codex
+# Harness-AI-Lite · Codex 3.0.0
 
-[Codex English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.md) · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md)
+[English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.md) · **简体中文** · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md)
 
-Harness-AI-Lite 是一套可复用的 Codex 项目模板，把项目管理、软件本体和开发验证材料放在三个独立区域。模板适用于不同语言和技术栈，三个目录可以放在不同磁盘。
+**版本备注：Harness框架完整重构。** Harness-AI-Lite 是一套用 Markdown 文件组织软件开发的 Codex 模板。它把一个功能从需求访谈带到可验证的交付：用户和三位对话角色逐步定方案，执行者在授权范围内动手，审查者从两个独立视角核对同一版本。换一个会话，接手人仍能查到：**已经决定了什么、谁还能写、下一步可以做什么。**
 
-**当前版本：2.1.0。** UIUX-design 新增可离线查看的技法图鉴。需要 UI 但尚无具体设计时，先确认强、普通或弱动效，再从素材中挑选方向供用户比较。
+![五位龙娘角色立绘与交接动画：任务规划家负责第 1、2、4、5 步，交互规划家负责第 3 步，统筹执行家在第 6 步按授权分派执行者和独立审查者。](docs/assets/codex-v3/roles-zh-CN.gif)
 
-## 下载
+[查看静态角色立绘与分工图](docs/assets/codex-v3/roles-zh-CN.png) · [快速开始](#快速开始) · [六步工作流](#六步工作流) · [实例演练](#实例演练) · [执行与双审](#执行与双审) · [版本记录](#版本记录)
 
-| 语言 | 模板目录 | ZIP |
+## 获取模板
+
+| 想使用什么 | 简体中文 | English |
 | --- | --- | --- |
-| 简体中文 | [zh-CN-codex](zh-CN-codex/) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip) |
-| English | [en-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-codex) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip) |
+| **Codex 3.0.0 模板 ZIP** | [下载中文 3.0.0 ZIP][zip-zh-30] | [下载英文 3.0.0 ZIP][zip-en-30] |
+| **Codex 3.0.0 模板目录** | [打开 zh-CN-codex](zh-CN-codex/) | [打开 en-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-codex) |
+| **上一版 2.1.0 独立 ZIP** | [下载中文包][zip-zh-21] | [下载英文包][zip-en-21] |
 
-每个 ZIP 包含对应模板、同语言使用指南和 MIT 许可证。DeepSeek Harness 的流程和下载入口见 [DeepSeek Harness 指南](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md)。
+解压对应语言的 3.0.0 ZIP，先读包根的 `README.md`，再进入语言目录，只复制其中的 `harness/`、`project/` 和 `test/`。包根 `docs/assets/` 是本指南的离线图文素材，不是第四个工作区域。也可以直接从仓库复制同一套模板。历史包保留当时的协议；仓库根目录的维护规则不用复制。DeepSeek Harness 是另一种运行器，请使用其独立指南。
 
-## 为什么做这个项目
+## 3.0.0 改了什么
 
-用 agent 开发软件时，除了实现代码，还需要约定怎么理解需求、分派任务、审查改动、处理返工，以及把验证证据存在哪里。本模板把这些约定保存在项目文件里，方便用户审阅范围，给执行者明确的任务边界，也让新会话能根据当前计划和文件恢复工作。
-
-三个区域可以按存储空间、备份方式和访问权限独立安排。例如，规则文档和产品仓库可以各自版本控制，大体积的测试数据放到另一个盘。用路径表将实际位置关联起来。仓库中用来区分语言和运行器的目录用于分发模板。
-
-## 核心设计
-
-| 约定 | 如何工作 |
+| 在 2.x 中 | 在 3.0.0 中 |
 | --- | --- |
-| 三个独立工作区域 | 分开项目管理、软件本体和开发验证材料，在 `harness/docs/paths.md` 记录实际位置。 |
-| 功能有两条处理路径 | 用户选择由主 agent 直接修改，或先做功能设计规划。规划路径使用带版本的规格书和编号实现计划。 |
-| 分别确认设计与实施 | 已批准的规格书和计划用于记录范围，开始实施还须获得用户授权。界面细化按用户委托进行。 |
-| 三类子 agent | UIdesign 与用户协作设计界面，implementer 负责实现和基础设施，reviewer 独立检查规格符合性与实现质量。 |
-| 两个独立审查实例 | 对同一版本分别给出结论，主 agent 核对两份报告和实际证据后验收。 |
-| 每个跟踪任务一份记录 | 在活动计划中集中保存批准版本、派工、选定的设计、验证、返工和下一步。 |
-| 可复用的错误记录 | reviewer 提出按根因整理的条目，主 agent 统一更新知识库。 |
-| 集中的模型配置 | 每次创建子 agent 读取所选副本的 `agents/MODELS.md` 中对应角色的配置。 |
+| 主 agent 在“直接修改”和“先规划”之间分流。 | 首版和新增功能按同一套六步交接。已有产品只规划这次增量；按既有契约修缺陷另走维护路径。 |
+| `UIdesign` 是子角色。 | 用户直接与**交互规划家**定 UI/UX；只有获准制作预览时，才委托执行者写入 `test`。设计选择不等于授权写产品代码。 |
+| 从 `.agents/skills/` 和主 agent 手册找入口。 | `harness/agents/` 放角色，`harness/skills/` 放技能；[运行入口](zh-CN-codex/harness/AGENTS.md)按本步指路，[执行手册](zh-CN-codex/harness/docs/runbooks/execution.md)专管第 6 步。 |
+| 主要从活动计划了解任务进度。 | 在 Plan 形成前，访谈、参考、选型和交互方案已可分别交接。热路径指向当前文件，冷路径保存历史位置；批准与授权仍以原文为准。 |
 
-## 仓库目录结构
-
-```text
-.
-├── README.md                   # Codex 英文指南
-├── README.codex.zh-CN.md        # Codex 中文指南
-├── README.dsh.en.md             # DeepSeek Harness 英文指南
-├── README.dsh.zh-CN.md          # DeepSeek Harness 中文指南
-├── en-codex/
-├── zh-CN-codex/
-├── en-deepseekharness/
-├── zh-CN-deepseekharness/
-└── downloads/
-```
-
-每套模板均包含 `harness/`、`project/` 和 `test/`。Codex 中英文模板使用相同的目录结构、角色标识和模型配置。一个项目副本选择一套作为规则来源。
+这是一套**工作协议，不是后台调度服务**。打开仓库不会自动创建五个 agent，多个窗口也不会自动共享聊天、权限或进度。角色由用户和当前会话显式选择，文件负责交接。
 
 ## 快速开始
 
-1. 下载并解压 ZIP，或打开本仓库对应模板目录。只复制其中的 `harness`、`project` 和 `test` 到实际项目位置，三个目录可以使用不同的父目录。
-2. 在项目副本中填写以下文件，真实项目资料留在副本内。
+1. **选一套语言，部署一个副本。** 三个目录可分盘。已有项目不必迁移：让路径表里的 `project/code` 指向现有代码根，保留原仓库、既有测试和跟踪状态。确有工具要求固定目录，再与用户确认例外。
+2. **登记项目和位置。** 在副本的 [项目简介](zh-CN-codex/harness/README.md)填写用途、用户、范围和模板来源；在[热路径](zh-CN-codex/harness/docs/paths.md)填写 `harness`、`project`、`project/code`、`test` 的实际绝对路径。`project/code` 只是代码根的映射，不是第四个区域。
+3. **核对实际能力。** 读取[架构与边界](zh-CN-codex/harness/ARCHITECTURE.md)及目标目录规则，分别确认可读、可写和允许运行的检查。技术栈未定可留待第 2 步讨论，不要预填猜测。需要首次派出子 agent 时再核对[模型约定](zh-CN-codex/harness/agents/MODELS.md)。
+4. **从当前需要的那一步开始。** 新项目可使用下面的提示；接手已有功能时给出功能编号、当前材料及本次委托。只读就是只读，不占正式编号、不创建记录；“只复核”不会启动实施。
 
-   | 文件 | 填写内容 |
-   | --- | --- |
-   | `harness/README.md` | 项目用途、目标用户、范围与已确认的项目细节 |
-   | `harness/ARCHITECTURE.md` | 技术栈和架构约束 |
-   | `harness/docs/paths.md` | 三个区域的实际绝对路径与目录结构 |
-
-   技术栈已选定时直接记录。尚未选定且希望在功能规划中共同讨论时，选择由主 agent 协助规划。它会使用 [tech-stack-plan](zh-CN-codex/harness/.agents/skills/tech-stack-plan/SKILL.md) 记录已确认的项目细节和技术选型，再继续功能规划。
-
-3. 确认 Codex 能读取入口、访问所需目录，并可按 [MODELS.md](zh-CN-codex/harness/agents/MODELS.md) 显式传入 `model` 和 `reasoning_effort` 创建独立子 agent。角色和技能由主 agent 显式读取。打开工作区目录后，仍需确认规则已加载且具备相应权限。
-4. 把**项目副本**的 Harness 入口和第一个任务交给 Codex。
-
-   ```text
-   请读取 <我的 harness 实际绝对路径>/AGENTS.md，按其中规则执行。
-   任务：为当前筛选后的列表增加 CSV 导出。
-   已有计划：无（有计划时提供编号或路径）。
-   ```
-
-   新会话重新提供同一个入口及活动计划。主 agent 会核对当前文件与证据后续接。
-
-### 接入现有项目
-
-把 `project` 指向包含现有 `code/` 的位置，为 `test` 选择可存放项目测试数据和工具的位置。管理区与软件本体可以属于不同 Git 仓库，先在项目副本的路径表中记录真实路径和目录树，再开展任务。
-
-以 CSV 导出为例，选择规划时可以先明确导出哪些行和列、空结果如何处理、用户如何打开文件。选择直接修改时，主 agent 根据你授权的范围实现，并验证受影响行为。续接已有任务时，提供计划编号或路径，并说明相关文件的当前状态。
-
-## 选择功能处理方式
-
-遇到新功能或功能增强时，主 agent 会请你在两条路径中选择。
-
-| 路径 | 执行方式 |
-| --- | --- |
-| 由主 agent 直接修改 | 在授权范围内修改并完成适用的审查与验证，无需新建功能规格书和实现计划。 |
-| 功能设计规划 | 主 agent 通过 [feature-plan](zh-CN-codex/harness/.agents/skills/feature-plan/SKILL.md) 逐题明确需求，一起展示各自带版本的规格书和编号实现计划。你确认当前组合并授权后，才开始实施。 |
-
-涉及界面时，先通过 [UIUX-design](zh-CN-codex/harness/.agents/skills/UIUX-design/README.md) 在规划中明确用户任务、必要功能和恢复路径。组合获批后，如你委托界面细化，UIdesign 会与你确认代表页面，并沿选定方向细化关键页面。运行器支持时可直接提问，也可由主 agent 转达。项目设计稿、原型与走查证据放在 `test`。
-
-### 执行与验收
-
-```mermaid
-flowchart TD
-    A[新功能或功能增强] --> B{用户选择处理路径}
-    B -->|直接修改| C[主 agent 按授权修改]
-    C --> D[完成适用审查与验证]
-    D --> Z[主 agent 验收]
-    B -->|功能设计规划| E[澄清需求并编写两份草案]
-    E --> F{当前规格与计划组合获批}
-    F -->|需要修订| E
-    F -->|获批| G[按需细化并交接界面设计]
-    G --> H{获得实施授权}
-    H -->|仅规划或设计| I[交付约定的文档或设计成果]
-    H -->|已授权| J[新的 implementer 完成当前项]
-    J --> K[两个 reviewer 独立审查]
-    K --> L{主 agent 核对审查与证据}
-    L -->|返工| R[优先交回原 implementer 修复]
-    R --> K
-    L -->|继续下一项| J
-    L -->|所有实现项通过| M[两个新的 reviewer 做整体审查]
-    M --> N{整体审查通过}
-    N -->|返工| O[优先恢复原执行者和审查组修复并复验受影响项]
-    O --> P[整体审查组复核修正后的版本]
-    P --> N
-    N -->|通过| Z
+```text
+请先读 <Harness 实际路径>/AGENTS.md 和 docs/paths.md。
+本次目标：给现有列表增加“导出当前筛选结果”。
+这次只做第 1 步。请作为任务规划家和我访谈，再一起决定是否需要开源调研。
+允许在项目副本登记本功能并写访谈和参考记录；不改产品代码，不运行测试。
+结束时告诉我：已确认什么、还缺什么，以及下次应打开哪份文件。
 ```
 
-获批且获准实施的计划按[逐项执行流程](zh-CN-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md)推进。返工优先交回原执行者和原审查组。并发容量不足时，两个 reviewer 保持独立上下文顺序审查，并记录实际执行方式。强制审查的验收必须取得同一最终版本的两份结论和所需验证证据。即使选择直接修改，代码、基础设施和影响后续决策的规则改动也需要两个 reviewer。
+可直接改用[六种接手提示](zh-CN-codex/harness/docs/runbooks/start-task-template.md)。从旧版升级时，先备份已部署的 Harness，按原协议版本、来源提交或包校验值比对，**只合并协议差异**。不要用空模板覆盖已填写的项目介绍、架构、路径、计划、定制规则或历史证据。
 
-### 修订与恢复
+## 五个角色
 
-功能规格书与计划共用一个 `PLAN` 编号，各自保留版本。范围、用户行为、关键技术方案或验收标准发生实质变化时，要修订并重新确认当前组合，受影响的实现暂停。更正文字、记录进度或移动已结束的计划时，仍有效的原批准可以继续使用。
+| 角色 | 谁和它交互 | 负责什么，在哪里停下 |
+| --- | --- | --- |
+| [任务规划家](zh-CN-codex/harness/agents/task-planner/AGENT.md) `task-planner` | 用户直接对话 | 第 1、2、4、5 步：访谈、开源参考、功能与选型、整体方案和实施 Plan。可由另一会话只读复核同一版；不能代用户批准，也不提前派人实现。 |
+| [交互规划家](zh-CN-codex/harness/agents/interaction-planner/AGENT.md) `interaction-planner` | 用户直接对话 | 第 3 步：沿真实任务确定入口、关键状态、反馈与恢复。受托后派执行者在指定的 `test` 位置做预览，收集用户反馈；涉及新功能或换栈则交回任务规划家。 |
+| [统筹执行家](zh-CN-codex/harness/agents/execution-coordinator/AGENT.md) `execution-coordinator` | 用户直接对话 | 第 6 步：核对批准版本、授权项和在途写入者，派工、处理返工、核实证据、逐项及整体验收。不能放宽标准，也不能自行裁决有争议的发现。 |
+| [执行者](zh-CN-codex/harness/agents/implementer/AGENT.md) `implementer` | 由对话角色派出 | 有两类委托：在 `test` 制作模拟预览，或按统筹执行家的授权项实现并自验。回报完整改动、验证与缺口；不自批、不派审查者、不自行开始下一项。 |
+| [审查者](zh-CN-codex/harness/agents/reviewer/AGENT.md) `reviewer` | 由负责送审的对话角色派出 | 默认只读。`reviewer-spec` 对照要求找遗漏，`reviewer-quality` 从差异检查错误路径与回归。它们是**同一角色的两个独立实例**，各自报告，不改实现或审批记录。 |
 
-需要跟踪的任务在 `harness/docs/plans/active/` 保留一份活动计划。完成或取消后将计划归档到 `completed/`，规格书保留在 `docs/specs/` 并更新链接。计划记录受审版本、验证结果和下一步，原始验证材料留在 `test`，计划中保留引用。
+前三个角色可以在同一会话切换，也可由不同会话接手；角色相同不代表委托自动延续。项目模型约定只管后两类子实例：首次派工前若没有适用答复，先问用户对模型和推理深度的限制；之后在适用范围内沿用。若不能按约定取得独立实例，应报告阻塞，而不是把作者自审写成双审。
 
-## 内置角色与技能
+## 六步工作流
 
-| 角色 | 职责 |
+下表路径均相对于部署后的 `harness/`。`<ID>` 形如 `PLAN-0001`：首份正式材料获准写入时即可占号，**第 5 步才创建实施 Plan**。各阶段复用同一编号，不按会话另开一套。
+
+| 步骤与负责人 | 当场解决的问题 | 交给下一步的材料 |
+| --- | --- | --- |
+| **1 · 需求与参考** · 任务规划家 | 谁在什么场景遇到什么问题？一次追问一个影响取舍的问题，边谈边记。与用户决定是否调研；若调研，固定来源版本、许可证依据和拟借鉴部分。 | `docs/specs/<ID>/interview.md` 与 `references.md`（同目录）。跳过调研也写明理由，不把“没查”写成“没有候选”。 |
+| **2 · 功能与技术栈** · 任务规划家 | 用前两份记录和现有实现确认入口、输入输出、异常、成功条件；比较沿用或更换技术栈的代价。 | `docs/specs/<ID>/features-stack.md`。报告写清用户确认和未决项；候选栈已确认，不代表已安装或已生效。 |
+| **3 · UI/UX** · 交互规划家 | 读取前三份材料，沿一次任务讨论反馈、失败和恢复。有必要再做预览；没有界面影响则请用户确认范围和理由。 | `docs/specs/<ID>/uiux.md`。登记选定方向、稿件版本、反馈和待实测场景；不为无界面功能造稿。 |
+| **4 · 项目方案** · 任务规划家 | 把功能、栈、交互或不适用结论收成一份执行用规格。逐项核对模块、数据、接口、兼容与验收能否互相支持。 | `docs/specs/<ID>.md`。用稳定的 `AC-01` 等编号描述可观察结果；关键冲突未解，不拆实施清单。 |
+| **5 · 实施 Plan** · 任务规划家 | 把 AC 映射到 `PLAN-0001.01` 等编号项，列明依赖、可写范围、逐项检查和整体验收。向用户一起展示方案和 Plan 的具体版本。 | `docs/plans/active/<ID>.md`。在一处记录用户批准的版本组合、依据，以及另行授权实施的项。只要求规划，就在此停下。 |
+| **6 · 执行与验收** · 统筹执行家 | 核对批准组合及实施授权，一次派一个获准实现项。实现、自验、独立双审和验收后再派下一项；最后检查跨项集成。 | 沿用同一份 Plan，记录受审版本、证据位置、返工与下一步；未授权的待办项仍留在 `active/`。 |
+
+每份阶段材料开头都有**交接卡**：本步和版本、输入版本、用户已确认的内容及依据、未决项、当前写入者和下一步。用户改了上游决定时，标出受影响的下游项并暂停相关工作，不重做无关部分，也不借旧批准执行新范围。详见[阶段产物约定](zh-CN-codex/harness/docs/specs/README.md)、[方案模板](zh-CN-codex/harness/docs/specs/TEMPLATE.md)和 [Plan 模板](zh-CN-codex/harness/docs/plans/TEMPLATE.md)。
+
+## 实例演练
+
+**示例：给已有列表增加 CSV 导出。** 以下编号、版本和发现都只是教学示例，不是模板已完成的项目或测试结果。
+
+| 一句容易误解的话 | 在框架里如何落地 |
 | --- | --- |
-| [UIdesign](zh-CN-codex/harness/agents/UIdesign/AGENT.md) | 与用户讨论界面取舍，交接设计成果和待验证状态。 |
-| [implementer](zh-CN-codex/harness/agents/implementer/AGENT.md) | 实现并验证改动，执行基础设施、构建和已授权的打包任务。 |
-| [reviewer](zh-CN-codex/harness/agents/reviewer/AGENT.md) | 以 `reviewer-spec` 和 `reviewer-quality` 两个只读实例审查同一个最终版本。 |
+| “给我加个导出。” | 任务规划家问：上次筛完列表后，你要拿走哪些行？用户要的是**当前筛选的所有结果**，不是当前页，也不是整库。第 2 步明确列顺序、空结果策略，沿用已有栈。 |
+| “我想先看看。” | 交互规划家与用户约定导出入口、空列表提示、写入失败后重试。获准才在 `test` 做预览；看稿能确认文案与方向，不能证明真的写出了正确文件。 |
+| “方案没问题，先做导出逻辑。” | 假设批准的是方案 v2 + Plan v1，且只授权 `.01` 导出逻辑。`AC-01` 可用“结果跨两页、另有一条被筛除”验证：文件包含两页匹配行，排除那一条，列顺序正确。`.02` 界面接线仍待授权。 |
+| “测试过了，为什么还没验收？” | 在下面的双审示例中，规格实例建议通过；质量实例找到写入失败后的资源清理缺陷。执行者修复后，两个实例都要看修订版，统筹执行家还要核对失败后重试的证据。 |
+| “那就把安装包也做了吧。” | 这是额外的打包授权；先明确对应版本与范围。构建成功不是制品验收，生成安装包也不等于用户同意发布。 |
 
-| 技能 | 适用场景 |
+## 执行与双审
+
+![双审动画：同版送审，质量审查发现问题，返工后两个实例复核修订版，统筹执行家有证据才验收本项。](docs/assets/codex-v3/review-zh-CN.gif)
+
+[查看四格静态分镜](docs/assets/codex-v3/review-zh-CN.png) · [执行协议](zh-CN-codex/harness/skills/subagent-driven-execution/SKILL.md) · [审查结论与争议处理](zh-CN-codex/harness/agents/reviewer/AGENT.md)
+
+1. **冻结送审版本。** 每个实现项由新的执行者处理；统筹执行家把同一份需求、基线至当前版本的完整差异、执行报告和原始证据交给两个只读实例。两者不读对方结论。并发不足可顺序审，但必须保留两个独立上下文并如实记录。
+2. **分别回答两个问题。** 规格审查问“是不是用户批准的行为，有没有漏项或额外范围？”质量审查问“在哪里会失败，会不会破坏原有行为，检查是否真能发现错误？”分别保留“建议通过／需返工／证据不足”和覆盖版本。
+3. **修复后不能拼报告。** 优先交原执行者与原审查组；对受影响行为重验，两者都确认同一最终版本。意见仍冲突时，先回传证据复核，再交用户裁决具体发现。裁决不能替代缺少的报告、未运行的必需检查或未满足的 AC。
+4. **逐项通过不等于全功能通过。** 当前批准范围内的实现项全部通过后，新建两位审查者检查完整规格覆盖、跨项接口、回归和最终证据。未获实施授权的项保留待办；整份 Plan 满足最终验收才归档。验收不会自动提交、推送、合并、打包或发布。
+
+**独立修复不是新增功能的捷径。** 例如，按已有导出契约修复文件句柄泄漏，可用 `TASK-0001` 记录原症状、复现条件、基线、两份独立报告和复验；无需补造功能方案。若用户改为要求另一种导出行为，则是功能变更，回到相应规划步骤。普通问答不建 TASK。参见[编号与归档](zh-CN-codex/harness/docs/plans/README.md)。
+
+## 三个工作区域
+
+| 区域 | 应该放什么 | 容易放错的东西 |
+| --- | --- | --- |
+| [`harness/`](zh-CN-codex/harness/) | 项目介绍、规则、角色、技能、阶段材料、Plan、决策、错误知识库。 | Plan 记证据的位置和覆盖版本，不塞原始日志、真实数据或项目原型。 |
+| [`project/code/`](zh-CN-codex/project/code/) | 交付软件本体的源码、运行资源、必要依赖与构建配置、属于软件的启动入口。 | 新增测试、复现脚本、打包辅助工具默认去 `test`；保留已有项目中原本的测试位置。 |
+| [`test/`](zh-CN-codex/test/README.md) | 测试与工具源码、模拟稿、数据、原始日志、截图、普通构建与检查结果。 | 可共享源码用 `src/`；获准共享的定稿用 `approved-designs/`。敏感或大文件默认忽略；校验值能辨认版本，不能代替可恢复的备份。 |
+| [`project/installpark/`](zh-CN-codex/project/installpark/)（属于 `project`） | 只存明确获准生成的最终 ZIP。 | 不存普通构建、中间文件或解包目录。在独立的 `test` 位置解包，从包内入口核对启动或安装，不能借源码树通过。 |
+
+部署后的 `harness`、实际代码根和 `test` 分别版本控制；`installpark` 不在这三个仓库里。用同一 PLAN/TASK 编号关联各自版本。初始化或迁移仓库需另有授权；没有提交就记录基线与工作树差异，不编造提交号。
+
+## 跨会话恢复
+
+| 遇到的情况 | 接手动作 |
 | --- | --- |
-| [feature-plan](zh-CN-codex/harness/.agents/skills/feature-plan/SKILL.md) | 访谈、检查需求覆盖，将规格书与实现计划一并交给用户确认。 |
-| [tech-stack-plan](zh-CN-codex/harness/.agents/skills/tech-stack-plan/SKILL.md) | 技术栈尚未选定且用户选择共同规划时，更新项目简介与技术栈文档。 |
-| [UIUX-design](zh-CN-codex/harness/.agents/skills/UIUX-design/README.md) | 梳理用户任务，细化代表页面、关键状态和恢复路径。静态稿无法验证关键操作时，按需制作最小交互原型。 |
-| [subagent-driven-execution](zh-CN-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md) | 执行已授权的计划，逐项派工、双审查、返工复核和整体审查。 |
-| [bug-detect](zh-CN-codex/harness/.agents/skills/bug-detect/SKILL.md) | 确认缺陷或复验修复时查找同类问题。由 reviewer 提议记录，主 agent 按根因去重后写入。 |
+| 新会话只知道功能编号 | 从[热路径](zh-CN-codex/harness/docs/paths.md)打开该功能当前入口，核对交接卡、实际版本、批准、授权和在途写入者。不要扫整个冷档或凭旧聊天判断完成。 |
+| 两个会话想写同一个文件 | 同一文件、Plan 或共享编号同时只有一位写入者。热表、冷表、错误库、模型约定用同副本的原子 `.lock`；锁不按超时强拆。要先确认旧写入者和相关命令已停或已隔离。 |
+| 设计稿将作为验收依据 | 在批准、首次派工及恢复实施前，取回固定版本和必要资源并核对校验值。稿件无法恢复则暂停依赖项，或由用户确认能独立验收的文字依据。 |
+| 任务完成、取消，或旧任务要重开 | 完成或确认停写后的取消记录转入 `completed/`。仍被活跃任务引用的证据留热；无活跃依赖才把**索引**归入[冷路径](zh-CN-codex/harness/docs/paths-cold.md)，不是移动或删除原件。重开时核对现状，不自动恢复已撤回授权。 |
+| 同类缺陷再次出现 | 审查者用 [bug-detect](zh-CN-codex/harness/skills/bug-detect/SKILL.md)按触发机制与根因查旧项，提议复用或重开 BUG 编号；送审的对话角色串行写[项目错误库](zh-CN-codex/harness/docs/bugs.md)。建议修法和已验证方案分开。 |
 
-主 agent 从 `harness/.agents/skills/` 读取技能，按任务需要创建对应角色。设计访谈默认只读，需要制作稿件或原型时，由主 agent 在 `test` 下指定可写位置，再把选定的设计与适用验收项关联起来。
+## 技能与参考
 
-## 文件放在哪里
+技能由角色按路径显式读取，不要求运行器自动发现。可从[技能索引](zh-CN-codex/harness/skills/README.md)或[角色与派工简报](zh-CN-codex/harness/agents/TASK_TEMPLATE.md)进入。
 
-| 区域 | 存放内容 |
+| 技能 | 什么时候用 |
 | --- | --- |
-| `harness` | 项目规则、文档、技能、规格、计划、决策与错误知识库。可复用的 UIUX-design 参考资料随技能分发。 |
-| `project/code` | 软件本体源码、必要运行与构建文件、属于交付软件的启动文件。 |
-| `project/installpark` | 用户明确要求或批准计划中打包项后生成的最终 ZIP 安装包。 |
-| `test` | 测试、辅助工具、数据、原始日志、缓存、普通构建输出、项目稿件、原型与验证证据。 |
+| [feature-plan](zh-CN-codex/harness/skills/feature-plan/SKILL.md) | 第 1、2、4、5 步，用真实经历访谈、记录参考取舍、核对可行性，并把规格映射到编号清单。 |
+| [tech-stack-plan](zh-CN-codex/harness/skills/tech-stack-plan/SKILL.md) | 第 2 步比较候选栈。首次启用或换栈时，由统筹执行家在授权下送审完整架构差异；同一候选通过双审并原样落盘核对后，依赖新栈的实现才能开始。 |
+| [UIUX-design](zh-CN-codex/harness/skills/UIUX-design/README.md) | 第 3 步从任务路径走到关键状态和失败恢复。需要选择动效时，与用户比较强、普通或弱动效；用[离线 UI 技法图鉴](zh-CN-codex/harness/skills/UIUX-design/assets/index.md)比较布局、动效与材质，不把样板当产品实测。 |
+| [subagent-driven-execution](zh-CN-codex/harness/skills/subagent-driven-execution/SKILL.md) | 第 6 步从获准项派工，到逐项双审、返工、整体验收与交付。 |
+| [bug-detect](zh-CN-codex/harness/skills/bug-detect/SKILL.md) | 审查者确认缺陷或复验时，查询同根因记录，区分新发现、复发和仍待定位的问题。 |
 
-软件源码可以编译后进入交付物。构建与打包辅助脚本、中间产物及用于核对安装包的解压文件放在 `test`。工具要求固定目录且与边界冲突时，由主 agent 报告具体路径并请用户决定。
-
-## 模板文档
-
-| 文档 | 用途 |
-| --- | --- |
-| [AGENTS.md](zh-CN-codex/harness/AGENTS.md) | 项目运行入口与工作规则 |
-| [ARCHITECTURE.md](zh-CN-codex/harness/ARCHITECTURE.md)、[路径表](zh-CN-codex/harness/docs/paths.md) | 技术栈、文件边界和实际目录索引 |
-| [主 agent 手册](zh-CN-codex/harness/docs/runbooks/main-agent.md)、[启动模板](zh-CN-codex/harness/docs/runbooks/start-task-template.md) | 分派、验收证据和新会话入口 |
-| [角色协议](zh-CN-codex/harness/agents/README.md)、[交接模板](zh-CN-codex/harness/agents/TASK_TEMPLATE.md) | 角色职责、可写范围和分派输入 |
-| [模型配置](zh-CN-codex/harness/agents/MODELS.md)、[技能索引](zh-CN-codex/harness/.agents/skills/README.md) | 模型参数与技能入口 |
-| [规格模板](zh-CN-codex/harness/docs/specs/TEMPLATE.md)、[计划模板](zh-CN-codex/harness/docs/plans/TEMPLATE.md) | 版本化需求和可跟踪的实现清单 |
-| [错误知识库](zh-CN-codex/harness/docs/bugs.md)、[设计决策](zh-CN-codex/harness/docs/decisions/README.md)、[技术债](zh-CN-codex/harness/docs/tech-debt.md) | 可供后续任务查询的记录 |
-
-## Git 与交付约定
-
-- 部署后的 `harness` 和 `project/code` 使用独立 Git 仓库，通过任务编号与版本关联。没有 Git 的区域可记录前置快照并比对内容。
-- 初始化、提交、推送、合并和发布按任务授权执行。交付时记录真正执行的验证，注明尚未运行的检查。
-- `project/installpark` 仅保存明确授权生成的最终 ZIP 安装包。普通构建和测试通过不会触发打包。核对归档格式和内容，同版本有效的功能验证可复用。
-- 使用前核对目标环境的工具能力与目录权限。模板和 ZIP 的静态检查覆盖分发文件，项目运行情况取决于实际项目、运行器和模型。
-
-## 设计参考与参与改进
-
-需求访谈参考 GrillMe，逐项执行与独立审查参考 Superpowers。模板自带使用协议，这两个插件均可选装。
-
-欢迎通过 Issue 反馈规则冲突、部署问题或遗漏。改进模板规则时，同步同一运行器的中英文版，保持角色配置、编号和工作区域边界一致。真实项目资料、任务历史及运行产物留在项目副本中。
-
-## 许可证
-
-本项目采用 [MIT License](LICENSE)。复制或分发模板及其重要部分时，请保留版权和许可证声明。
+访谈方式参考 GrillMe，逐项执行和独立审查参考 Superpowers；两者都是可选工具。规则冲突或接入问题可通过 Issue 反馈，请勿附带真实项目的敏感资料。本项目采用 [MIT 许可证](LICENSE)。
 
 ## 版本记录
 
-| 版本 | 日期 | 说明 | 下载 |
+| Codex 版本 | 日期 | 备注 | 获取 |
 | --- | --- | --- | --- |
-| 2.1.0 | 2026/11/22 | 强化 UIUX-design 技能，提供具体素材选择。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip) |
-| 2.0.0 | 2026/11/21 | 调整子 Agent 的角色分工与技能（Skill），新增 UIdesign 角色和 UI 设计流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.0.0.zip) |
-| 1.0.0 | 2026/11/17 | 初版采用轻量化 Harness 工程模板，将管理、软件与测试分置于三个独立工作区，提供需求确认、分工实现、双重审查和基于证据的验收流程。 | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-1.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-1.0.0.zip) |
+| **3.0.0** | 2026-11-24 | **Harness框架完整重构** | [中文 ZIP][zip-zh-30] · [English ZIP][zip-en-30] |
+| 2.1.0 | 2026-11-22 | 强化 UIUX-design 技能，提供可离线使用的 UI 技法图鉴。 | [中文 ZIP][zip-zh-21] · [English ZIP][zip-en-21] |
+| 2.0.0 | 2026-11-21 | 调整子 agent 分工与技能，引入 UIdesign 角色和 UI 设计流程。 | [中文 ZIP][zip-zh-20] · [English ZIP][zip-en-20] |
+| 1.0.0 | 2026-11-17 | 初版：三个工作区域、需求确认、分工实现、双重审查与证据验收。 | [中文 ZIP][zip-zh-10] · [English ZIP][zip-en-10] |
+
+[zip-zh-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-3.0.0.zip
+[zip-en-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-3.0.0.zip
+[zip-zh-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip
+[zip-en-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip
+[zip-zh-20]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip
+[zip-en-20]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.0.0.zip
+[zip-zh-10]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-1.0.0.zip
+[zip-en-10]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-1.0.0.zip

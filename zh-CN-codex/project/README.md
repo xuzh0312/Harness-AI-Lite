@@ -1,3 +1,5 @@
 # Project 区
 
-code 仅存放软件本体源码、运行资源及必要项目配置；installpark 仅存放用户明确要求打包或批准相应计划项后生成的最终 ZIP 安装包。测试代码、辅助工具及其他非本体代码和数据均放独立 test 区。边界详见 Harness 的 ARCHITECTURE.md。
+code 保存软件本体、运行资源及必要配置；installpark 只存获准生成的最终 ZIP。只有用户明确要求打包，或当前实施授权覆盖打包项时才执行。测试、辅助工具和数据默认放 test；边界见 Harness 的 ARCHITECTURE.md。
+
+接入已有项目时，在 Harness 的 `docs/paths.md` 将 `project/code` 映射到实际代码根，无需移动仓库或改名为 `code`。保留既有测试；确需维持的固定目录冲突按架构规则确认和登记，新增材料仍按默认边界存放。

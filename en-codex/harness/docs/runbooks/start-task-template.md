@@ -1,30 +1,25 @@
-# Cross-directory task startup template
+# Taking over from any session
 
-For a new session, fill in the following and give it to the main agent. This explicitly loads the entry point; it is not automatically discovered configuration. Adding a directory to the workspace does not grant write permission. The three paths may span disks and need not share a parent directory.
+After filling in the project overview and hot paths, use the following prompt in a new session with the actual Harness path. The user selects the conversation tool. The six steps may run in different sessions; do not assume that tools share chat history or load these rules automatically.
 
 ```text
-Execute this task under the following Harness protocol:
-
-Harness absolute path: <actual location>
-Project absolute path: <actual location; state if unused>
-Code directory: <actual project/code location; state if unused>
-Test absolute path: <actual location; state if unused>
-
-First read AGENTS.md, agents/MODELS.md, agents/README.md, and docs/runbooks/main-agent.md in Harness,
-then read the rules applicable to the target directory and confirm actual access permissions and current changes.
-Use Harness as the management basis and choose working directories by role.
-
-Task: <goal, scope, constraints, and acceptance requirements>
-Existing task record: <absolute path; state if a new task>
-Requirements or designs to read: <existing specification, selected draft, or none. When design is needed, read harness/.agents/skills/UIUX-design/README.md>
-Allowed modifications: <scope>
-Existing verification and data: <versions, results, evidence, or none>
-Additional delivery authorization: <act only on explicit authorization here; for example, whether commits or release are authorized>
-
-The main agent chooses roles under the fixed process and performs final acceptance.
-Before creating each sub-agent, the main agent reads agents/MODELS.md in Harness,
-explicitly sets the model and reasoning settings for that role, and follows the prohibition policy and actual configuration recording rules.
-If creation capability or mandatory independent review is unavailable, explicitly report the blocker rather than silently substituting.
+First read AGENTS.md and docs/paths.md (hot paths) under <actual Harness path>.
+Current goal: <initial project release or an increment to an existing feature; include the ID if known>.
+Do only this step: <interview / features and stack / UI/UX / project proposal / implementation Plan / authorized implementation items>.
+Existing material or corrections: <files or conclusions are enough; no need to repeat earlier conversations>.
+Permitted writes and checks: <list separately; specify read-only work, no tests, mockups only, or other limits here>.
+Use this goal and the existing files to determine the current step. Ask me first if they conflict. Tell me which file to open next.
 ```
 
-After moving any area, update the [path register](../paths.md) and the runner's workspace or permission settings. Later sessions must be given the entry point again or use a verified runner integration method; this template does not guarantee automatic global application.
+| Where to resume | Prompt to use under "Do only this step" |
+| --- | --- |
+| 1 Start a project or add a feature | As the task planner, interview me about requirements and record them as we talk. Then decide with me whether to research open-source projects. |
+| 2 Confirm the stack in a new session | Use the interview and reference records for this feature to decide its specific functionality and technology stack with me. Record major stack choices as final only after I confirm them. |
+| 3 Discuss the interface | As the interaction planner, use the previous three records to agree on the UI/UX with me. Assign an implementer when I need a preview. |
+| 4 Consolidate or review the proposal | Combine the confirmed features, stack, and UI/UX into the project proposal and check feasibility. If I ask only for a review, leave the draft unchanged. |
+| 5 Break down the work | Break this version of the project proposal into an implementation Plan and define how each item will be reviewed. Do not start implementation. |
+| 6 Start execution | As the execution coordinator, verify the proposal and Plan versions I approved. I authorize implementation of <checklist items>. Use the original Plan for dispatch, independent review by both reviewers, and acceptance. |
+
+To fix a defect under an existing contract, say: "As the execution coordinator, resume this fix under the existing contract and prior TASK. Keep the feature and acceptance scope unchanged."
+
+For work across directories, check the [path register](../paths.md) for the locations, permissions, and applicable rules of harness, project, the actual code root, and test. Do not assume that the directories are adjacent. When needed, include existing evidence of the subagent agreement, active writers, evidence versions, and any delivery authorization. Example text does not grant authorization. If the runner cannot create subagents under the agreement or complete required independent review, report the specific blocker.

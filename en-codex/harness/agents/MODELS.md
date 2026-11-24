@@ -1,28 +1,15 @@
-# Central Subagent Model Configuration
+# Subagent Agreement
 
-This file is the sole configuration source for model selection, reasoning effort, and prohibited-model policy for the three subagent roles. Other instructions and templates reference this file instead of storing duplicate fixed values. Changes require project authorization; this file does not change the main agent's own model.
+Current writer: None (see [AGENTS.md](../AGENTS.md#writing-authorization-and-acceptance) for write rules)
 
-## Role Configuration
+Project subagent agreement: Pending confirmation. Record the agreement only in an actual project copy. Do not preset models or reasoning effort for any role.
 
-| Role | model | reasoning_effort |
-| --- | --- | --- |
-| UIdesign | gpt-6.2-sol | high |
-| implementer | gpt-6.2-sol | medium |
-| reviewer | gpt-6.2-sol | high |
+This agreement configures only implementer and reviewer subagent instances.
 
-reviewer-spec and reviewer-quality are two review instances of reviewer. Both read the reviewer row above, with no separate model configuration; record the actual creation parameters for each instance separately.
+## First Confirmation
 
-## Creation and Recording Rules
+This applies only when an implementer or reviewer must be created. Pure Q&A and interviews and planning that do not use subagents do not require this question. Before dispatching the first subagent, check the applicable agreement and the user's requirements. If there is no valid answer, ask: "What restrictions apply to subagent models or reasoning effort in this project? You can specify particular roles or settings, and I will choose the rest according to the task." Wait for the answer before dispatching work. Reuse an existing applicable answer.
 
-- Before every creation, the main agent rereads the relevant role in this file and explicitly passes model and reasoning_effort. Do not rely on inheritance or old values in other files.
-- gpt-6.2-astra, including its aliases and variants, is prohibited for all subagents. If configuration conflicts with this restriction, do not create the agent; report the conflict.
-- If the tool cannot explicitly select the configuration, the configuration is missing, or target parameters are unsupported, do not create that subagent. Report the specific limitation; do not silently switch models, downgrade, or ignore reasoning settings.
-- Current effort values are high and medium. When changing platforms, check its actual supported parameters and values, then update this file with user authorization; do not infer mappings from other role instructions.
-- End the subtask prompt with the actual creation parameters and require the subagent to repeat that exact line at the end of its final reply, including blocked or failed replies. Use `模型选择：<actual model ID>；推理深度：<actual reasoning_effort>`.
-- Without a report of runtime differences, record the creation parameters actually passed, and do not claim to have verified hidden runtime parameters. If the runtime explicitly reports different settings, record the reported values and explain the difference. If the prohibited-model policy is violated, stop the affected subtask and report it.
+Record the source and scope of the user's answer. With authorization, record project-wide answers in the agreement above. Otherwise, keep the answer in an existing handoff or in the read-only response. Limits for the current task or a single instance apply only within the specified scope.
 
-## Changing Configuration
-
-For future changes, modify only the role table above and necessary policy, without changing role responsibilities, task templates, or historical reports. Each new subagent uses the configuration read at creation time; existing sessions do not automatically switch models when this file changes. When a switch is needed, the main agent explicitly recreates the agent and hands over the work.
-
-Model fields in historical tasks record the settings actually used at the time and are not rewritten to match current configuration. The main agent provides this file's absolute path and the parameters used in each assignment so subagents do not guess from old chats.
+When switching tasks or sessions, check this file and the handoff. Prioritize the source identified in this feature's hot paths, and do not search the archive by default. Reuse answers that remain valid within their scope. Partial settings are sufficient to proceed. Ask about unresolved matters only if no applicable answer can be found, the limits are ambiguous or conflict, or they cannot be satisfied.

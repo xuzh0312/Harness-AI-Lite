@@ -1,195 +1,152 @@
-# Harness-AI-Lite · Codex
+# Harness-AI-Lite · Codex 3.0.0
 
-[Codex 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.codex.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md) · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md)
+**English** · [简体中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.codex.zh-CN.md) · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md)
 
-Harness-AI-Lite is a reusable project template for Codex. It keeps project management, product code, and development evidence in three independently located directories. The template works with your project's existing language and stack, and its conventions apply even when the three directories are on different disks.
+**Version note: Complete refactor of the Harness framework.** Harness-AI-Lite is a Codex template that organizes software development through Markdown files. It takes a feature from a requirements interview to a verifiable delivery: the user works out the design with three conversation roles, an implementer works within the authorized scope, and reviewers check the same version from two independent perspectives. When a new session takes over, it can find **what was decided, who still has write access to the task, and what may happen next.**
 
-**Current version: 2.1.0.** UIUX-design includes an offline technique atlas. When a UI has no concrete design yet, first ask whether the user prefers strong, standard, or light motion, then shortlist directions from the atlas.
+![Five dragon character portraits and animated handoff: the Task Planner owns steps 1, 2, 4 and 5, the Interaction Planner owns step 3, and the Execution Coordinator dispatches authorized work to implementers and independent reviewers in step 6.](docs/assets/codex-v3/roles-en.gif)
 
-## Download
+[Static role portraits and handoff map](docs/assets/codex-v3/roles-en.png) · [Quick start](#quick-start) · [Six-step workflow](#six-step-workflow) · [Worked example](#worked-example) · [Execution and dual review](#execution-and-dual-review) · [Version history](#version-history)
 
-| Language | Template directory | ZIP |
+## Get the template
+
+| What to use | 简体中文 | English |
 | --- | --- | --- |
-| English | [en-codex](en-codex/) | [Download English 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip) |
-| 简体中文 | [zh-CN-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-codex) | [下载中文版 2.1.0 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip) |
+| **Codex 3.0.0 template ZIP** | [Download Chinese 3.0.0 ZIP][zip-zh-30] | [Download English 3.0.0 ZIP][zip-en-30] |
+| **Codex 3.0.0 template directory** | [Open zh-CN-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-codex) | [Open en-codex](en-codex/) |
+| **Previous 2.1.0 standalone ZIP** | [Download Chinese package][zip-zh-21] | [Download English package][zip-en-21] |
 
-Each ZIP contains the selected template, a guide in the same language, and the MIT license. For the DeepSeek Harness workflow and its downloads, see the [DeepSeek Harness guide](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md).
+Extract the 3.0.0 ZIP for your language. Read `README.md` at the archive root, then open the language directory and copy only `harness/`, `project/`, and `test/`. The root `docs/assets/` contains offline illustrations for this guide; it is not a fourth work area. You can also copy the same template directly from the repository. Historical ZIPs retain their original protocols. Do not copy the repository root's maintenance rules. DeepSeek Harness is a different runner with its own guide.
 
-## Why this project exists
+## What changed in 3.0.0
 
-Agent-assisted development includes decisions about requirements, delegation, review, recovery, and where to retain verification evidence. Keeping those decisions in project files lets users review the proposed scope, gives implementers a record of their assignment, and lets a new session resume from the current plan and files.
-
-The three areas can be arranged separately for storage, backups, and permissions. A project can keep the Harness rules in one location, the product repository in another, and large test data on a separate disk. The path table links those locations. The directories that group the templates in this repository serve as distribution containers.
-
-## Core design
-
-| Convention | How it works |
+| In 2.x | In 3.0.0 |
 | --- | --- |
-| Three independent work areas | Separate project management, the delivered software, and development evidence. Record their actual locations in `harness/docs/paths.md`. |
-| Two routes for new features | Choose a direct change by the main agent or feature design and planning. The planning route uses a versioned specification and a numbered implementation plan. |
-| Separate design and implementation authorization | The approved specification and plan record the agreed scope. Starting implementation also requires user authorization. Interface work follows the user's design instructions. |
-| Three subagent roles | UIdesign works with the user on interface design, implementer handles code and infrastructure, and reviewer checks conformance and implementation quality. |
-| Two independent review instances | Reviewers report separately on the same version. The main agent checks both conclusions and the verification evidence before accepting the work. |
-| One record per tracked task | The active plan keeps the approved document versions, assignments, selected designs, checks, rework, and next step together. |
-| Reusable defect records | Reviewers propose entries keyed by root cause, and the main agent keeps the centralized record current. |
-| Central model configuration | Every subagent uses the matching role in the selected copy's `agents/MODELS.md`. |
+| A main agent chose between a direct change and planning first. | First releases and new features follow the same six handoffs. For an existing product, plan only the increment. A defect under an existing contract follows the maintenance route. |
+| `UIdesign` was a subagent role. | The user works directly with the **Interaction Planner** on UI/UX. Only an authorized preview is delegated to an implementer in `test`. Choosing a design does not authorize writing product code. |
+| Instructions lived under `.agents/skills/` and in a main-agent handbook. | `harness/agents/` holds roles; `harness/skills/` holds skills. The [entry point](en-codex/harness/AGENTS.md) directs each step, and the [execution handbook](en-codex/harness/docs/runbooks/execution.md) covers step 6. |
+| The active plan was the main place to find progress. | The interview, references, stack decision, and interaction design can each be handed over before a Plan exists. Hot paths point to current files; cold paths index historical locations. Original records remain authoritative for approval and authorization. |
 
-## Repository structure
-
-```text
-.
-├── README.md                   # Codex English
-├── README.codex.zh-CN.md        # Codex Chinese
-├── README.dsh.en.md             # DeepSeek Harness English
-├── README.dsh.zh-CN.md          # DeepSeek Harness Chinese
-├── en-codex/
-├── zh-CN-codex/
-├── en-deepseekharness/
-├── zh-CN-deepseekharness/
-└── downloads/
-```
-
-Each template edition contains `harness/`, `project/`, and `test/`. The two Codex languages share the same structure, role identifiers, and model settings. Use one edition as the rule source for a deployed project.
+This is a **working protocol, not a background scheduler**. Opening the repository does not start five agents, and different windows do not automatically share chat, permissions, or progress. The user and the current session explicitly select a role; files carry the handoff.
 
 ## Quick start
 
-1. Download and extract a ZIP or use the matching directory in this repository. Copy only `harness`, `project`, and `test` to the locations you want to use. They can have different parent directories.
-2. Fill in the following files in your project copy. Keep the distribution template clean.
+1. **Choose one language and deploy one copy.** The three directories can live on different drives. For an existing project, map `project/code` in the path register to the current code root. Preserve its repository, existing tests, and tracking state. Confirm an exception with the user only if tooling requires a fixed directory.
+2. **Register the project and its locations.** In the copy's [project overview](en-codex/harness/README.md), record purpose, users, scope, and template source. In [hot paths](en-codex/harness/docs/paths.md), enter the actual absolute paths for `harness`, `project`, `project/code`, and `test`. `project/code` is a mapping to the code root, not a fourth area.
+3. **Check what the environment allows.** Read [architecture and boundaries](en-codex/harness/ARCHITECTURE.md) and the target directory's rules. Check read access, write access, and permitted checks separately. An undecided stack can wait until step 2. Consult the [model agreement](en-codex/harness/agents/MODELS.md) when the first subagent is needed.
+4. **Start at the step you actually need.** For a new project, adapt the prompt below. To resume a feature, identify it and give its current materials and the scope of this session. A read-only request creates neither a formal ID nor a record; a request to review does not start implementation.
 
-   | File | What to record |
-   | --- | --- |
-   | `harness/README.md` | Project purpose, intended users, scope, and confirmed project details |
-   | `harness/ARCHITECTURE.md` | Technology stack and architecture constraints |
-   | `harness/docs/paths.md` | Actual absolute paths and directory layout for all three areas |
-
-   If the stack is already selected, record it. If you want to select it during feature planning, choose to discuss it with the main agent. It uses [tech-stack-plan](en-codex/harness/.agents/skills/tech-stack-plan/SKILL.md) to record confirmed project details and stack choices, then resumes feature planning.
-
-3. Verify that Codex can read the entry file, access the required directories, and create independent subagents with explicit `model` and `reasoning_effort` values from [MODELS.md](en-codex/harness/agents/MODELS.md). The main agent explicitly reads the bundled roles and skills. Opening directories in a workspace does not load those rules or grant additional permissions.
-4. Give Codex the path to the **copied** Harness entry and your first task.
-
-   ```text
-   Read <absolute path to my harness>/AGENTS.md and follow it for this task.
-   Task: Add CSV export for the currently filtered list.
-   Existing plan: none (or provide the plan ID or path).
-   ```
-
-   In a new session, provide the same entry and any active plan. The main agent checks the current files and evidence before resuming.
-
-### Starting from an existing project
-
-Point `project` at the location that contains your existing `code/` directory and set `test` to a location that can hold the project's test data and tooling. The Harness and product repositories can have different roots. Record the real paths and tree in the project copy before making changes.
-
-For the CSV example, the planning route can clarify which rows and columns to export, how to handle an empty result, and how the user opens the output. In the direct-change route, the main agent uses the scope you authorize and verifies the affected behavior. For a task that is already in progress, give the plan ID or path and the current state of the relevant files.
-
-## Choose how to handle a feature
-
-For a new feature or enhancement, the main agent asks you to choose one of these paths.
-
-| Path | What happens |
-| --- | --- |
-| Direct change | The main agent makes the authorized change and completes the applicable reviews and checks. This path skips a new feature specification and implementation plan. |
-| Feature design and planning | The main agent uses [feature-plan](en-codex/harness/.agents/skills/feature-plan/SKILL.md) to clarify requirements one question at a time, then presents the versioned specification and numbered implementation plan together for approval. Implementation starts once the document pair is approved and you authorize implementation. |
-
-For interface work, [UIUX-design](en-codex/harness/.agents/skills/UIUX-design/README.md) helps clarify user tasks, essential features, and recovery paths during planning. After approval, if you ask for interface design, UIdesign works with you on a representative screen and refines the key pages in the chosen direction. It can ask you directly where Codex supports it or relay questions through the main agent. Project mockups, prototypes, and design-review evidence belong in `test`.
-
-### Execution and acceptance
-
-```mermaid
-flowchart TD
-    A[New feature or enhancement] --> B{User chooses a route}
-    B -->|Direct change| C[Main agent makes the authorized change]
-    C --> D[Applicable review and verification]
-    D --> Z[Main agent accepts the result]
-    B -->|Feature design and planning| E[Clarify requirements and draft the documents]
-    E --> F{Current specification and plan approved}
-    F -->|Revision requested| E
-    F -->|Approved| G[Refine and hand off interface design if requested]
-    G --> H{Implementation authorized}
-    H -->|Planning or design only| I[Deliver the agreed documents or designs]
-    H -->|Authorized| J[Fresh implementer completes the current item]
-    J --> K[Two independent reviewers check the item]
-    K --> L{Main agent checks reviews and evidence}
-    L -->|Rework| R[Return fixes to the original implementer when possible]
-    R --> K
-    L -->|Next item| J
-    L -->|All items accepted| M[Two fresh reviewers check the whole feature]
-    M --> N{Overall review passes}
-    N -->|Rework| O[Fix and revalidate affected items using the original teams when possible]
-    O --> P[Overall reviewers recheck the corrected version]
-    P --> N
-    N -->|Pass| Z
+```text
+First read AGENTS.md and docs/paths.md under <actual Harness path>.
+Goal: add “export the current filtered results” to an existing list.
+Do only step 1. As Task Planner, interview me, then decide with me whether to research open-source references.
+You may register the feature and write the interview and references in the project copy. Do not modify product code or run tests.
+At handoff, tell me what is confirmed, what is missing, and which file to open next.
 ```
 
-An approved and authorized plan proceeds [one item at a time](en-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md). Prefer returning rework to the original implementer and review instances. When the runner has limited concurrency, run both reviewers sequentially in independent contexts and record that they were sequential. Mandatory acceptance needs both conclusions covering the same final version and the required evidence. Code, infrastructure, and rule changes that affect later decisions also require two independent reviews when using the direct route.
+The [six takeover prompts](en-codex/harness/docs/runbooks/start-task-template.md) cover other starting points. To upgrade a deployed copy, back up its Harness and compare it against the original protocol version, source commit, or package checksum. **Merge only the protocol differences.** Do not replace the user's project overview, architecture, paths, plans, customized rules, or historical evidence with a clean template.
 
-### Changes and resumption
+## Five roles
 
-The specification and plan share a `PLAN` ID and have independent versions. Material changes to scope, user behavior, key technical decisions, or acceptance criteria require revising and approving the current pair. During execution, pause affected implementation until that approval is in place. An unchanged approval remains valid when correcting wording, recording progress, or moving a finished plan.
+| Role | Who interacts with it | Responsibility and stopping point |
+| --- | --- | --- |
+| [Task Planner](en-codex/harness/agents/task-planner/AGENT.md) `task-planner` | User, in conversation | Steps 1, 2, 4, and 5: interview, open-source references, features and stack, project proposal, and implementation Plan. Another session may review the same version read-only. The planner cannot approve on the user's behalf or dispatch early implementation. |
+| [Interaction Planner](en-codex/harness/agents/interaction-planner/AGENT.md) `interaction-planner` | User, in conversation | Step 3: use a real task to decide entry points, states, feedback, and recovery. When asked, dispatch an implementer to an authorized `test` location for a preview and collect user feedback. Return new features or stack changes to the Task Planner. |
+| [Execution Coordinator](en-codex/harness/agents/execution-coordinator/AGENT.md) `execution-coordinator` | User, in conversation | Step 6: verify approved versions, authorized items, and active writers; dispatch work, manage rework, check evidence, and accept items and the overall feature. Cannot relax criteria or settle disputed findings unilaterally. |
+| [Implementer](en-codex/harness/agents/implementer/AGENT.md) `implementer` | Dispatched by a conversation role | Two assignments: produce a simulated preview in `test`, or implement and self-check an item authorized through the coordinator. Return the full change, checks, and gaps. Do not approve your own work, dispatch reviewers, or start the next item. |
+| [Reviewer](en-codex/harness/agents/reviewer/AGENT.md) `reviewer` | Dispatched by the conversation role requesting review | Read-only by default. `reviewer-spec` checks the requirements for omissions; `reviewer-quality` follows the diff through failure paths and regressions. They are **two independent instances of one role**. Each reports separately; neither edits the implementation or approval record. |
 
-Work tracked in a plan stays in `harness/docs/plans/active/` while open. After finishing or cancelling, archive the plan in `completed/` and keep the specification in `docs/specs/` with current links. Record the relevant versions, results, and next step. Keep raw evidence in `test` and references in the plan.
+The first three roles may be taken in one session or handed to separate sessions. Reusing a role does not extend the assignment. The project model agreement governs only the two subagent roles. Before first dispatch, ask about model and reasoning-effort restrictions if there is no applicable answer; reuse it within its scope. If independent instances cannot be obtained under that agreement, report the blocker instead of calling the author's self-check a dual review.
 
-## Bundled roles and skills
+## Six-step workflow
 
-| Role | Responsibility |
+Paths below are relative to the deployed `harness/`. An `<ID>` looks like `PLAN-0001`. It may be reserved when the first formal record is authorized for writing, but **the implementation Plan is not created until step 5**. All stages reuse the same ID across sessions.
+
+| Step and owner | Question to resolve | Handoff |
+| --- | --- | --- |
+| **1 · Requirements and references** · Task Planner | Who encounters what problem, and when? Ask one question that affects a decision at a time; record answers as you go. Decide with the user whether to research. For each reference, pin its version, license evidence, and the part worth borrowing. | `docs/specs/<ID>/interview.md` and `references.md` in the same directory. Record why research was skipped; “not investigated” does not mean “no candidates.” |
+| **2 · Features and stack** · Task Planner | Use the two records and the existing implementation to agree on entry points, inputs, outputs, exceptions, and success conditions. Compare retaining the current stack with replacing it. | `docs/specs/<ID>/features-stack.md`. Distinguish confirmed choices from open questions. A confirmed candidate stack is not yet installed or in force. |
+| **3 · UI/UX** · Interaction Planner | Read the preceding three documents and follow a user task through feedback, failure, and recovery. Create a preview only when needed and authorized. If the UI is unaffected, confirm the scope and reason with the user. | `docs/specs/<ID>/uiux.md`. Record the selected direction, design version, feedback, and scenarios still needing tests. Do not invent a mockup for a feature with no interface impact. |
+| **4 · Project proposal** · Task Planner | Combine features, stack, and interaction decisions (or why UI/UX is not applicable) into an execution specification. Check that modules, data, interfaces, compatibility, and acceptance criteria fit together. | `docs/specs/<ID>.md`. Give observable outcomes stable IDs such as `AC-01`. Resolve major contradictions before splitting implementation items. |
+| **5 · Implementation Plan** · Task Planner | Map criteria to items such as `PLAN-0001.01`. Specify dependencies, writable scope, per-item checks, and overall acceptance. Present the exact proposal and Plan versions together. | `docs/plans/active/<ID>.md`. Record the user's approval of that version pair and its basis, separately from the items authorized for implementation. Stop here if only planning was requested. |
+| **6 · Execution and acceptance** · Execution Coordinator | Check the approved pair and implementation authorization. Dispatch one authorized implementation item at a time. Implementation, self-checks, independent dual review, and acceptance precede the next item. Finally check integration across items. | Continue in the same Plan. Record the reviewed version, evidence locations, rework, and next action. Outstanding unauthorized items keep the Plan in `active/`. |
+
+Each stage document opens with a **handoff record**: step and version, input versions, what the user confirmed and on what basis, unresolved issues, current writer, and next action. When an upstream decision changes, mark the affected downstream items and pause their work. Do not redo unaffected work or apply an old approval to a new scope. See the [stage deliverables](en-codex/harness/docs/specs/README.md), [proposal template](en-codex/harness/docs/specs/TEMPLATE.md), and [Plan template](en-codex/harness/docs/plans/TEMPLATE.md).
+
+## Worked example
+
+**Example: add CSV export to an existing list.** The IDs, versions, and findings below illustrate the protocol. They are not a shipped project or actual test results.
+
+| What the user says | What it means in practice |
 | --- | --- |
-| [UIdesign](en-codex/harness/agents/UIdesign/AGENT.md) | Discusses interface decisions with the user and hands off designs and open states. |
-| [implementer](en-codex/harness/agents/implementer/AGENT.md) | Implements and verifies changes, including infrastructure, builds, and authorized packaging. |
-| [reviewer](en-codex/harness/agents/reviewer/AGENT.md) | Runs as two read-only instances, `reviewer-spec` and `reviewer-quality`, covering the same final version. |
+| “Add an export.” | The Task Planner asks which rows the user needed after filtering the list last time. They want **all matching results**, not just the current page or the whole database. Step 2 defines column order, empty-result behavior, and reuse of the existing stack. |
+| “I'd like to see it first.” | The Interaction Planner and user agree on the export control, empty-list feedback, and retry after a failed write. Only an authorized preview goes into `test`. A mockup can confirm copy and direction; it cannot prove that a correct file was written. |
+| “The plan looks right. Do the export logic first.” | Suppose the user approves proposal v2 + Plan v1 and authorizes only `.01`, the export logic. For `AC-01`, supply two pages of matches and one filtered-out row. The file must contain both pages' matches, exclude that row, and preserve column order. `.02`, wiring up the UI, still needs authorization. |
+| “The tests passed. Why isn't it accepted?” | In the example below, the spec reviewer advises a pass, but the quality reviewer finds a cleanup defect after a failed write. Both must confirm the revised version, and the coordinator still needs evidence that the user can retry successfully. |
+| “Make an installer as well.” | This adds packaging authorization; establish the version and scope first. A successful build is not artifact acceptance, and producing a package does not authorize publication. |
+
+## Execution and dual review
+
+![Dual review animation: two reviewers receive one version, quality finds a defect, both recheck the revision after repair, and the coordinator accepts the item only with evidence.](docs/assets/codex-v3/review-en.gif)
+
+[Static four-panel sequence](docs/assets/codex-v3/review-en.png) · [Execution protocol](en-codex/harness/skills/subagent-driven-execution/SKILL.md) · [Review conclusions and disputes](en-codex/harness/agents/reviewer/AGENT.md)
+
+1. **Freeze the version under review.** A fresh implementer handles each implementation item. The coordinator supplies two read-only instances with the same requirements, complete baseline-to-candidate diff, execution report, and original evidence. Neither reads the other's conclusion. If concurrency is limited, use two independent contexts sequentially and record that fact.
+2. **Answer two separate questions.** Spec review asks whether the behavior matches what the user approved, including omissions and scope creep. Quality review asks how it can fail, which existing behavior might regress, and whether the checks could detect the error. Preserve each conclusion (recommend pass, rework required, or insufficient evidence) and its reviewed version.
+3. **Do not combine reports from different revisions.** Prefer the original implementer and review pair for rework. Recheck affected behavior; both reviewers must confirm the same final version. If they still disagree, return the evidence for recheck before asking the user to adjudicate the specific finding. No ruling substitutes for a missing report, an unrun required check, or an unmet acceptance criterion.
+4. **Passing every item is not the same as passing the feature.** Once all implementation items in the approved scope pass, dispatch a fresh pair to review the full specification, cross-item interfaces, regressions, and final evidence. Unauthorized items stay pending. Archive the Plan only after overall acceptance. Acceptance does not automatically commit, push, merge, package, or publish anything.
+
+**An independent fix is not a shortcut for new features.** For example, fixing a leaked file handle under the existing export contract can use `TASK-0001` to record the symptom, reproduction, baseline, both independent reviews, and recheck. No invented feature proposal is needed. If the user instead asks for different export behavior, return to the appropriate planning step. Routine Q&A does not create a TASK. See [IDs and archiving](en-codex/harness/docs/plans/README.md).
+
+## Three work areas
+
+| Area | What belongs here | Common mistakes |
+| --- | --- | --- |
+| [`harness/`](en-codex/harness/) | Project overview, rules, roles, skills, stage materials, Plans, decisions, and the defect knowledge base. | A Plan names the location and version of evidence; do not fill it with raw logs, real data, or project prototypes. |
+| [`project/code/`](en-codex/project/code/) | Delivered product source, runtime resources, necessary dependency and build configuration, and entry points that ship with the software. | New tests, reproduction scripts, and packaging helpers default to `test`; preserve existing tests in their original locations. |
+| [`test/`](en-codex/test/README.md) | Test and tool source, mockups, data, raw logs, screenshots, ordinary builds, and check results. | Shareable source goes in `src/`; approved shareable designs go in `approved-designs/`. Sensitive or large files are ignored by default. A checksum identifies a version but is not a restorable backup. |
+| [`project/installpark/`](en-codex/project/installpark/) (part of `project`) | Only the final ZIP whose creation was explicitly authorized. | Do not store ordinary builds, intermediate files, or extracted contents here. Extract in a separate `test` location and verify launch or installation from the packaged entry point without relying on the source tree. |
+
+In a deployed project, `harness`, the actual code root, and `test` are versioned separately; `installpark` is outside all three repositories. Link their versions through the same PLAN/TASK ID. Repository initialization or migration requires authorization. Without a commit, record the baseline and working-tree diff rather than inventing a SHA.
+
+## Resuming across sessions
+
+| Situation | How to resume |
+| --- | --- |
+| A new session knows only the feature ID | Open that feature's entry in [hot paths](en-codex/harness/docs/paths.md). Verify its handoff record, actual version, approval, authorization, and active writers. Do not scan the cold archive or infer completion from an old chat. |
+| Two sessions want to write the same file | A file, Plan, or shared ID has one writer at a time. Hot paths, cold paths, the defect register, and the model agreement use an atomic `.lock` on the same actual copy. Do not break a lock on timeout. Confirm the previous writer and its commands have stopped or their writes have been isolated. |
+| A selected design will be an acceptance reference | Before approval, first dispatch, and resuming implementation, retrieve the fixed version and required resources and verify the checksum. If it cannot be recovered, pause dependent items or ask the user to confirm independently testable written criteria. |
+| A task finishes, is canceled, or needs reopening | Completed records and canceled records whose writers have stopped go to `completed/`. Keep evidence hot while active work depends on it. Move only the **index entry** to [cold paths](en-codex/harness/docs/paths-cold.md) when no active dependency remains; the original is not moved or deleted. Reopening does not restore revoked authorization. |
+| A familiar defect returns | Reviewers use [bug-detect](en-codex/harness/skills/bug-detect/SKILL.md) to search by trigger and root cause, then propose reusing or reopening the BUG ID. The conversation role requesting review serializes updates to the [project defect register](en-codex/harness/docs/bugs.md). Keep suggested fixes separate from verified solutions. |
+
+## Skills and references
+
+Roles explicitly load skills by path; runner auto-discovery is not required. Start from the [skill index](en-codex/harness/skills/README.md) or the [role handoff brief](en-codex/harness/agents/TASK_TEMPLATE.md).
 
 | Skill | When to use it |
 | --- | --- |
-| [feature-plan](en-codex/harness/.agents/skills/feature-plan/SKILL.md) | Run the feature interview, check requirements coverage, and present a specification and implementation plan together. |
-| [tech-stack-plan](en-codex/harness/.agents/skills/tech-stack-plan/SKILL.md) | Work through an undecided stack if the user chooses joint planning, then update the project overview and architecture. |
-| [UIUX-design](en-codex/harness/.agents/skills/UIUX-design/README.md) | Clarify user tasks and shape representative pages, key states, and recovery paths. Add a minimal interactive prototype when a static design cannot answer the interaction question. |
-| [subagent-driven-execution](en-codex/harness/.agents/skills/subagent-driven-execution/SKILL.md) | Execute authorized plans item by item, including dual review, rework, and overall review. |
-| [bug-detect](en-codex/harness/.agents/skills/bug-detect/SKILL.md) | Look up related defects when confirming an issue or checking a fix. Reviewers propose an entry or update and the main agent writes the deduplicated record. |
+| [feature-plan](en-codex/harness/skills/feature-plan/SKILL.md) | Steps 1, 2, 4, and 5: interview from real experience, record reference choices, check feasibility, and map the specification to numbered items. |
+| [tech-stack-plan](en-codex/harness/skills/tech-stack-plan/SKILL.md) | Compare candidate stacks in step 2. For initial activation or a change, the coordinator submits the complete authorized architecture diff for dual review. Only after the same reviewed candidate is applied unchanged and verified may dependent implementation begin. |
+| [UIUX-design](en-codex/harness/skills/UIUX-design/README.md) | Step 3: follow the user task through key states and recovery. When choosing motion, discuss strong, standard, or light motion. Use the [offline UI technique atlas](en-codex/harness/skills/UIUX-design/assets/index.md) to compare layout, motion, and materials, not as evidence of a real product test. |
+| [subagent-driven-execution](en-codex/harness/skills/subagent-driven-execution/SKILL.md) | Step 6: dispatch an authorized item, run per-item dual review, manage rework, and complete overall acceptance and delivery. |
+| [bug-detect](en-codex/harness/skills/bug-detect/SKILL.md) | When verifying a defect or rechecking a fix, search for matching root causes and distinguish new findings, recurrences, and issues still under investigation. |
 
-The main agent loads skills from `harness/.agents/skills/` and creates roles as the task requires. A design interview is read-only by default. The main agent assigns a writable location under `test` for drafts or prototypes and links the selected design to applicable acceptance criteria.
-
-## Where files go
-
-| Area | Contents |
-| --- | --- |
-| `harness` | Project rules, documentation, skills, specifications, plans, decisions, and the defect knowledge base. Reusable UIUX-design references ship here. |
-| `project/code` | Product source, required runtime and build files, and launch files that are part of the delivered software. |
-| `project/installpark` | Final ZIP installers when explicitly requested or included in a user-approved packaging task. |
-| `test` | Tests, helper tools, data, logs, cache, ordinary build output, project design files, prototypes, and verification evidence. |
-
-Source files can be compiled into the deliverable. Keep build and packaging helper scripts in `test`, along with intermediate artifacts and archive extraction used for verification. If a tool requires a fixed directory that conflicts with these boundaries, report the conflict and ask the user to decide.
-
-## Template reference
-
-| Document | Use |
-| --- | --- |
-| [AGENTS.md](en-codex/harness/AGENTS.md) | Entry point and project working rules |
-| [ARCHITECTURE.md](en-codex/harness/ARCHITECTURE.md) and [paths.md](en-codex/harness/docs/paths.md) | Stack, file placement, and directory index |
-| [Main agent handbook](en-codex/harness/docs/runbooks/main-agent.md) and [task starter](en-codex/harness/docs/runbooks/start-task-template.md) | Dispatch, evidence, and session setup |
-| [Role protocol](en-codex/harness/agents/README.md) and [handoff template](en-codex/harness/agents/TASK_TEMPLATE.md) | Work boundaries and inputs for delegation |
-| [MODELS.md](en-codex/harness/agents/MODELS.md) and [skill index](en-codex/harness/.agents/skills/README.md) | Model parameters and reading order |
-| [Specification template](en-codex/harness/docs/specs/TEMPLATE.md) and [plan template](en-codex/harness/docs/plans/TEMPLATE.md) | Versioned requirements and trackable implementation |
-| [Defect knowledge base](en-codex/harness/docs/bugs.md), [decisions](en-codex/harness/docs/decisions/README.md), and [technical debt](en-codex/harness/docs/tech-debt.md) | Persistent records for later tasks |
-
-## Git and delivery
-
-- In deployed projects, `harness` and `project/code` use independent Git repositories. Relate their changes by task ID and version. For areas without Git, record a baseline snapshot and compare content.
-- Repository initialization, commits, pushes, merges, and publishing require authorization. Keep evidence of the work actually performed and identify unrun checks during delivery.
-- Store only explicitly authorized final ZIP installers in `project/installpark`. Ordinary builds and passing tests do not trigger packaging. Verify the archive layout and contents and reuse valid functional checks for the same version.
-- Verify runtime capabilities and permissions for your environment. The template checks and package inspection cover the distribution files, while deployed behavior depends on the actual project, runner, and model.
-
-## Design references and contributions
-
-The interview approach draws on GrillMe. Item-by-item execution and independent review draw on Superpowers. The template includes its own protocols. Both plugins are optional.
-
-Use Issues for rule conflicts, deployment problems, or gaps. When proposing a template change, synchronize rule meaning across both language variants for the affected runner and preserve role settings, identifiers, and boundaries. Keep real project data, task history, and runtime artifacts out of changes to the distribution template.
-
-## License
-
-The project uses the [MIT License](LICENSE). Keep the copyright and license notices when distributing the template or substantial portions of it.
+The interview approach draws on GrillMe; item-by-item execution and independent review draw on Superpowers. Both are optional. Report rule conflicts or adoption problems in Issues without including sensitive project material. This project uses the [MIT license](LICENSE).
 
 ## Version history
 
-| Version | Date | Description | Downloads |
+| Codex version | Date | Note | Get it |
 | --- | --- | --- | --- |
-| 2.1.0 | 2026/11/22 | Enhances the UIUX-design skill with concrete reference materials to choose from. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip) |
-| 2.0.0 | 2026/11/21 | Revises subagent responsibilities and skills, and adds the UIdesign role and a UI design workflow. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.0.0.zip) |
-| 1.0.0 | 2026/11/17 | The first release introduces a lightweight Harness Engineering template with separate management, software, and test workspaces, plus a workflow for requirements approval, delegated implementation, dual review, and evidence-based acceptance. | [中文 ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-1.0.0.zip) · [English ZIP](https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-1.0.0.zip) |
+| **3.0.0** | 2026-11-24 | **Complete refactor of the Harness framework** | [Chinese ZIP][zip-zh-30] · [English ZIP][zip-en-30] |
+| 2.1.0 | 2026-11-22 | Expanded UIUX-design with an offline UI technique atlas. | [Chinese ZIP][zip-zh-21] · [English ZIP][zip-en-21] |
+| 2.0.0 | 2026-11-21 | Revised subagent roles and skills, introducing UIdesign and the UI design workflow. | [Chinese ZIP][zip-zh-20] · [English ZIP][zip-en-20] |
+| 1.0.0 | 2026-11-17 | First version: three work areas, requirements confirmation, delegated implementation, dual review, and evidence-based acceptance. | [Chinese ZIP][zip-zh-10] · [English ZIP][zip-en-10] |
+
+[zip-zh-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-3.0.0.zip
+[zip-en-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-3.0.0.zip
+[zip-zh-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip
+[zip-en-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip
+[zip-zh-20]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip
+[zip-en-20]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.0.0.zip
+[zip-zh-10]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-1.0.0.zip
+[zip-en-10]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-1.0.0.zip
