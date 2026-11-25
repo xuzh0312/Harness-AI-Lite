@@ -1,9 +1,0 @@
-# Copy, States, and Accessibility
-
-**Name the result in the action.** Give the primary button a label that makes its outcome clear, such as “Save draft” or “Send invitation.” Choose the shortest wording that still conveys the action. In the success message, use the same action and object. Give the heading and supporting text distinct information. Read the copy in the actual product and remove repeated directions and unsupported praise.
-
-**Use different messages for different empty states.** On first use, offer a way to create something. When a search has no results, retain the filters and let users adjust them. When all work is done, confirm completion. While loading, say what the system is doing. After a failure, explain what happened, which inputs are still available, and what the user can do next. Design the states that can occur in the current task.
-
-**Order form fields the way people do the task.** Ask whether each field is needed to complete the task now. Keep field names and required formats visible. If an error can be detected once input is complete, show it at an appropriate time. Preserve still-valid data after a failed submission. Associate each error with its field and make each error easy to locate when several occur. If saving takes time, show that it is in progress and prevent duplicate submissions.
-
-**Walk through the interaction yourself.** Use only the keyboard to reach, operate, and leave the primary controls. Check the initial focus when a dialog opens, and return focus to its trigger or a logical successor when it closes. Provide a sensible focus destination after deleting the current item. Check that assistive technology can identify errors and that touch users can complete actions without hover. On the web, use semantic controls, labels, and error associations. In native apps, use the platform's accessibility APIs. Include untested input methods in the developer handoff.

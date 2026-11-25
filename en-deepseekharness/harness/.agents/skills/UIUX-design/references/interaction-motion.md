@@ -1,9 +1,0 @@
-# Interaction and Motion
-
-**Define the states before adding motion.** Write one line for the action using “trigger → visible feedback → result or recovery.” Add a transition only when motion clarifies where something came from, what changed, or where to go next. Keep frequent keyboard actions immediately available. A one-off spatial transition can give users a moment to register the change. Entry and exit durations may differ. Tune them for the platform and frequency of use.
-
-**Maintain continuity.** Show an overlay near its trigger and close it with the same spatial relationship. During direct dragging, make the object follow the gesture. On release, use velocity and boundaries to decide where it settles. If the user reverses the drag, clicks again, or repeatedly undoes actions, continue from the current visual state. Try a light tap, a slow drag, and a quick reversal. Let users carry on while the animation is in progress.
-
-**Use precise terms for observed behavior.** A list that appears item by item can use a stagger. Elastic resistance and recovery when dragging past a boundary is rubber-banding. After naming the behavior, ask whether it helps. If staggering delays the last actionable item, shorten the delay, remove it, or show the items simultaneously. A button should give feedback as soon as it receives input.
-
-**Check how it feels and how it adapts.** Check feedback latency, rapid repeated inputs, motion start and end positions, dropped frames, and interruption behavior. With system reduced motion enabled, shorten or remove large movements and retain cues through position, text, or state changes. Prototype interactions that depend on timing and test them on the target device. Use static mockups to show starting and ending states. Hand off triggers, start and end states, interruption behavior, and reduced-motion behavior. Set final parameters once measurements support them.

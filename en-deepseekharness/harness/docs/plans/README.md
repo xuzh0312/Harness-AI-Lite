@@ -1,7 +1,0 @@
-# Execution plans
-
-Store plans awaiting confirmation and plans in progress in `active`. Archive completed or cancelled plans in `completed`. Use the template for complex tasks. Feature tasks on the direct-edit path do not require a new plan.
-
-When the user chooses feature planning, invoke [feature-plan](../../.agents/skills/feature-plan/SKILL.md). The main agent interviews the user one question at a time while maintaining the specification in `specs`, automatically assigns a shared ID in the form `PLAN-0001`, and then generates a detailed feature checklist. Version the specification and plan separately and present them together for confirmation. Partial answers leave approval of the combination pending. Keep the plan in `active` while it awaits confirmation. Once confirmed, track execution in the same file and move it to `completed` when the work is complete. Mark cancelled plans as cancelled before archiving so the record reflects the implementation status accurately. Keep specifications in `specs` and update the links in both documents when archiving.
-
-Number plans independently within each project. Revisions and resumed work retain the original plan; increment the versions of substantively changed documents and reconfirm the combination. Implementation checklist items use stable IDs in the form PLAN-0001.01 and reference specification acceptance IDs. Approval evidence, per-item briefs, report summaries, reviews, and resume entries are maintained centrally in the original plan; do not create duplicate progress records.
