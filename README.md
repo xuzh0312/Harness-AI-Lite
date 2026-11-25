@@ -137,7 +137,7 @@ The interview approach draws on GrillMe; item-by-item execution and independent 
 
 | Codex version | Date | Note | Get it |
 | --- | --- | --- | --- |
-| **3.0.1** | 2026-11-25 | **Fix some bugs** | [中文 ZIP][zip-zh-301] · [English ZIP][zip-en-301] |
+| **3.0.1** | 2026-11-25 | **Fix some bugs** | [Chinese ZIP][zip-zh-301] · [English ZIP][zip-en-301] |
 | **3.0.0** | 2026-11-24 | **Complete refactor of the Harness framework** | [Chinese ZIP][zip-zh-30] · [English ZIP][zip-en-30] |
 | 2.1.0 | 2026-11-22 | Expanded UIUX-design with an offline UI technique atlas. | [Chinese ZIP][zip-zh-21] · [English ZIP][zip-en-21] |
 | 2.0.0 | 2026-11-21 | Revised subagent roles and skills, introducing UIdesign and the UI design workflow. | [Chinese ZIP][zip-zh-20] · [English ZIP][zip-en-20] |
