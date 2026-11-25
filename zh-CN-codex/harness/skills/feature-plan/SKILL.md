@@ -1,6 +1,6 @@
 ---
 name: feature-plan
-description: 用于任务规划家开展需求与参考访谈、确认功能与技术栈、整合项目方案或拆解和修订实施 Plan。
+description: Used by the task planner to conduct requirements and reference interviews, confirm the feature set and tech stack, integrate project proposals, or break down and revise the implementation plan.
 ---
 
 # 功能规划：从访谈到可执行 Plan

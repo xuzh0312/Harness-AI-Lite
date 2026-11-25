@@ -1,6 +1,6 @@
 ---
 name: feature-plan
-description: Use as the Task Planner to interview for requirements and references, confirm features and the technology stack, assemble the project proposal, or break down and revise the implementation plan.
+description: Used by the task planner to conduct requirements and reference interviews, confirm the feature set and tech stack, integrate project proposals, or break down and revise the implementation plan.
 ---
 
 # Feature Plan: From Interview to Implementation Plan

@@ -1,4 +1,4 @@
-# Harness-AI-Lite · Codex 3.0.0
+# Harness-AI-Lite · Codex 3.0.1
 
 **English** · [简体中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.codex.zh-CN.md) · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md)
 
@@ -12,11 +12,11 @@
 
 | What to use | 简体中文 | English |
 | --- | --- | --- |
-| **Codex 3.0.0 template ZIP** | [Download Chinese 3.0.0 ZIP][zip-zh-30] | [Download English 3.0.0 ZIP][zip-en-30] |
-| **Codex 3.0.0 template directory** | [Open zh-CN-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-codex) | [Open en-codex](en-codex/) |
+| **Codex 3.0.1 template ZIP** | [Download Chinese 3.0.1 ZIP][zip-zh-301] | [Download English 3.0.1 ZIP][zip-en-301] |
+| **Codex 3.0.1 template directory** | [Open zh-CN-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/zh-CN-codex) | [Open en-codex](en-codex/) |
 | **Previous 2.1.0 standalone ZIP** | [Download Chinese package][zip-zh-21] | [Download English package][zip-en-21] |
 
-Extract the 3.0.0 ZIP for your language. Read `README.md` at the archive root, then open the language directory and copy only `harness/`, `project/`, and `test/`. The root `docs/assets/` contains offline illustrations for this guide; it is not a fourth work area. You can also copy the same template directly from the repository. Historical ZIPs retain their original protocols. Do not copy the repository root's maintenance rules. DeepSeek Harness is a different runner with its own guide.
+Extract the 3.0.1 ZIP for your language. Read `README.md` at the archive root, then open the language directory and copy only `harness/`, `project/`, and `test/`. The root `docs/assets/` contains offline illustrations for this guide; it is not a fourth work area. You can also copy the same template directly from the repository. Historical ZIPs retain their original protocols. Do not copy the repository root's maintenance rules. DeepSeek Harness is a different runner with its own guide.
 
 ## What changed in 3.0.0
 
@@ -127,7 +127,7 @@ Roles explicitly load skills by path; runner auto-discovery is not required. Sta
 | --- | --- |
 | [feature-plan](en-codex/harness/skills/feature-plan/SKILL.md) | Steps 1, 2, 4, and 5: interview from real experience, record reference choices, check feasibility, and map the specification to numbered items. |
 | [tech-stack-plan](en-codex/harness/skills/tech-stack-plan/SKILL.md) | Compare candidate stacks in step 2. For initial activation or a change, the coordinator submits the complete authorized architecture diff for dual review. Only after the same reviewed candidate is applied unchanged and verified may dependent implementation begin. |
-| [UIUX-design](en-codex/harness/skills/UIUX-design/README.md) | Step 3: follow the user task through key states and recovery. When choosing motion, discuss strong, standard, or light motion. Use the [offline UI technique atlas](en-codex/harness/skills/UIUX-design/assets/index.md) to compare layout, motion, and materials, not as evidence of a real product test. |
+| [UIUX-design](en-codex/harness/skills/UIUX-design/SKILL.md) | Step 3: follow the user task through key states and recovery. When choosing motion, discuss strong, standard, or light motion. Use the [offline UI technique atlas](en-codex/harness/skills/UIUX-design/assets/index.md) to compare layout, motion, and materials, not as evidence of a real product test. |
 | [subagent-driven-execution](en-codex/harness/skills/subagent-driven-execution/SKILL.md) | Step 6: dispatch an authorized item, run per-item dual review, manage rework, and complete overall acceptance and delivery. |
 | [bug-detect](en-codex/harness/skills/bug-detect/SKILL.md) | When verifying a defect or rechecking a fix, search for matching root causes and distinguish new findings, recurrences, and issues still under investigation. |
 
@@ -137,13 +137,16 @@ The interview approach draws on GrillMe; item-by-item execution and independent 
 
 | Codex version | Date | Note | Get it |
 | --- | --- | --- | --- |
+| **3.0.1** | 2026-11-25 | **Fix some bugs** | [中文 ZIP][zip-zh-301] · [English ZIP][zip-en-301] |
 | **3.0.0** | 2026-11-24 | **Complete refactor of the Harness framework** | [Chinese ZIP][zip-zh-30] · [English ZIP][zip-en-30] |
 | 2.1.0 | 2026-11-22 | Expanded UIUX-design with an offline UI technique atlas. | [Chinese ZIP][zip-zh-21] · [English ZIP][zip-en-21] |
 | 2.0.0 | 2026-11-21 | Revised subagent roles and skills, introducing UIdesign and the UI design workflow. | [Chinese ZIP][zip-zh-20] · [English ZIP][zip-en-20] |
 | 1.0.0 | 2026-11-17 | First version: three work areas, requirements confirmation, delegated implementation, dual review, and evidence-based acceptance. | [Chinese ZIP][zip-zh-10] · [English ZIP][zip-en-10] |
 
 [zip-zh-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-3.0.0.zip
+[zip-zh-301]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-3.0.1.zip
 [zip-en-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-3.0.0.zip
+[zip-en-301]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-3.0.1.zip
 [zip-zh-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip
 [zip-en-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip
 [zip-zh-20]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip

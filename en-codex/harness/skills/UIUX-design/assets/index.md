@@ -2,7 +2,7 @@
 
 ## UI Technique Atlas
 
-State the task and design problem first, then use the [skill entry](../README.md) to shortlist examples based on the platform and motion preferences. Do not ask again about confirmed or delegated choices. Read the atlas as needed; it is not a default style.
+State the task and design problem first, then use the [skill entry](../SKILL.md) to shortlist examples based on the platform and motion preferences. Do not ask again about confirmed or delegated choices. Read the atlas as needed; it is not a default style.
 
 | Material | What to compare | How to adapt it |
 | --- | --- | --- |

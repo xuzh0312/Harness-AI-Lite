@@ -1,4 +1,4 @@
-# Harness-AI-Lite · Codex 3.0.0
+# Harness-AI-Lite · Codex 3.0.1
 
 [English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.md) · **简体中文** · [DeepSeek Harness 中文](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.zh-CN.md) · [DeepSeek Harness English](https://github.com/xuzh0312/Harness-AI-Lite/blob/main/README.dsh.en.md)
 
@@ -12,11 +12,11 @@
 
 | 想使用什么 | 简体中文 | English |
 | --- | --- | --- |
-| **Codex 3.0.0 模板 ZIP** | [下载中文 3.0.0 ZIP][zip-zh-30] | [下载英文 3.0.0 ZIP][zip-en-30] |
-| **Codex 3.0.0 模板目录** | [打开 zh-CN-codex](zh-CN-codex/) | [打开 en-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-codex) |
+| **Codex 3.0.1 模板 ZIP** | [下载中文 3.0.1 ZIP][zip-zh-301] | [下载英文 3.0.1 ZIP][zip-en-301] |
+| **Codex 3.0.1 模板目录** | [打开 zh-CN-codex](zh-CN-codex/) | [打开 en-codex](https://github.com/xuzh0312/Harness-AI-Lite/tree/main/en-codex) |
 | **上一版 2.1.0 独立 ZIP** | [下载中文包][zip-zh-21] | [下载英文包][zip-en-21] |
 
-解压对应语言的 3.0.0 ZIP，先读包根的 `README.md`，再进入语言目录，只复制其中的 `harness/`、`project/` 和 `test/`。包根 `docs/assets/` 是本指南的离线图文素材，不是第四个工作区域。也可以直接从仓库复制同一套模板。历史包保留当时的协议；仓库根目录的维护规则不用复制。DeepSeek Harness 是另一种运行器，请使用其独立指南。
+解压对应语言的 3.0.1 ZIP，先读包根的 `README.md`，再进入语言目录，只复制其中的 `harness/`、`project/` 和 `test/`。包根 `docs/assets/` 是本指南的离线图文素材，不是第四个工作区域。也可以直接从仓库复制同一套模板。历史包保留当时的协议；仓库根目录的维护规则不用复制。DeepSeek Harness 是另一种运行器，请使用其独立指南。
 
 ## 3.0.0 改了什么
 
@@ -127,7 +127,7 @@
 | --- | --- |
 | [feature-plan](zh-CN-codex/harness/skills/feature-plan/SKILL.md) | 第 1、2、4、5 步，用真实经历访谈、记录参考取舍、核对可行性，并把规格映射到编号清单。 |
 | [tech-stack-plan](zh-CN-codex/harness/skills/tech-stack-plan/SKILL.md) | 第 2 步比较候选栈。首次启用或换栈时，由统筹执行家在授权下送审完整架构差异；同一候选通过双审并原样落盘核对后，依赖新栈的实现才能开始。 |
-| [UIUX-design](zh-CN-codex/harness/skills/UIUX-design/README.md) | 第 3 步从任务路径走到关键状态和失败恢复。需要选择动效时，与用户比较强、普通或弱动效；用[离线 UI 技法图鉴](zh-CN-codex/harness/skills/UIUX-design/assets/index.md)比较布局、动效与材质，不把样板当产品实测。 |
+| [UIUX-design](zh-CN-codex/harness/skills/UIUX-design/SKILL.md) | 第 3 步从任务路径走到关键状态和失败恢复。需要选择动效时，与用户比较强、普通或弱动效；用[离线 UI 技法图鉴](zh-CN-codex/harness/skills/UIUX-design/assets/index.md)比较布局、动效与材质，不把样板当产品实测。 |
 | [subagent-driven-execution](zh-CN-codex/harness/skills/subagent-driven-execution/SKILL.md) | 第 6 步从获准项派工，到逐项双审、返工、整体验收与交付。 |
 | [bug-detect](zh-CN-codex/harness/skills/bug-detect/SKILL.md) | 审查者确认缺陷或复验时，查询同根因记录，区分新发现、复发和仍待定位的问题。 |
 
@@ -137,13 +137,16 @@
 
 | Codex 版本 | 日期 | 备注 | 获取 |
 | --- | --- | --- | --- |
+| **3.0.1** | 2026-11-25 | **修复部分bug** | [中文 ZIP][zip-zh-301] · [English ZIP][zip-en-301] |
 | **3.0.0** | 2026-11-24 | **Harness框架完整重构** | [中文 ZIP][zip-zh-30] · [English ZIP][zip-en-30] |
 | 2.1.0 | 2026-11-22 | 强化 UIUX-design 技能，提供可离线使用的 UI 技法图鉴。 | [中文 ZIP][zip-zh-21] · [English ZIP][zip-en-21] |
 | 2.0.0 | 2026-11-21 | 调整子 agent 分工与技能，引入 UIdesign 角色和 UI 设计流程。 | [中文 ZIP][zip-zh-20] · [English ZIP][zip-en-20] |
 | 1.0.0 | 2026-11-17 | 初版：三个工作区域、需求确认、分工实现、双重审查与证据验收。 | [中文 ZIP][zip-zh-10] · [English ZIP][zip-en-10] |
 
 [zip-zh-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-3.0.0.zip
+[zip-zh-301]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-3.0.1.zip
 [zip-en-30]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-3.0.0.zip
+[zip-en-301]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-3.0.1.zip
 [zip-zh-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.1.0.zip
 [zip-en-21]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-en-2.1.0.zip
 [zip-zh-20]: https://raw.githubusercontent.com/xuzh0312/Harness-AI-Lite/main/downloads/Harness-AI-Lite-codex-zh-CN-2.0.0.zip
